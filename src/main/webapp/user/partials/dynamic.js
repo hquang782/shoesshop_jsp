@@ -1,3 +1,4 @@
+
 window.onscroll = () => {
     if (window.pageYOffset >= sticky) {
         nav.classList.add('sticky');
@@ -6,5 +7,5 @@ window.onscroll = () => {
     }
 }
 
-var nav = document.getElementsByClassName('nav')[0];
+var nav = document.getElementsByClassName('header')[0];
 var sticky = nav.offsetTop;
