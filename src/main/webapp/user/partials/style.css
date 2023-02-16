@@ -12,12 +12,14 @@ body {
 
 /* Header */
 header {
-    color: #252a2b;
+    position: relative;
+    top: 0;
+    left: 0;
+    right: 0;
     font-size: 16px;
     text-align: center;
-    box-shadow: 0 8px 12px 1px #252a2b30;
     margin-bottom: 24px;
-    background-color: #fff;
+    background-color: #00aeef;
 }
 
 ul,
@@ -26,7 +28,7 @@ li {
 }
 
 a {
-    color: black;
+    color: white;
     text-decoration: none;
 }
 
@@ -115,9 +117,6 @@ a {
 
 .sticky {
     position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
 }
 
 /* Footer */

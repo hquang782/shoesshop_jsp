@@ -1,0 +1,46 @@
+body {
+    background-color: black;
+}
+
+a {
+    text-decoration: none;
+    color: blue;
+}
+
+p {
+    color: white;
+}
+
+h1 {
+    color: white;
+}
+
+.heading-title>p {
+    opacity: 0.6;
+}
+
+.paragraph>p,
+.heading-title {
+    width: 800px;
+    margin: 0 auto;
+    text-align: initial;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.info>a {
+    float: left;
+}
+
+.info>p {
+    float: right;
+    margin: 0;
+}
+
+.info {
+    overflow: hidden;
+}

@@ -155,10 +155,44 @@ header {
     color: black;
     width: 100%;
 }
+
 .dropdown-account-link>li>a:hover {
     background: #F1F2F7
 }
 
 .open-dropdown {
     display: block;
+}
+
+/* side bar */
+
+.sidebar {
+    width: 20%;
+    height: 100%;
+    background: #615048;
+}
+
+.open-sidebar {
+    display: none;
+}
+
+.wrap-link-sidebar {
+    width: 100%;
+    height: 100%;
+    padding: 4px;
+}
+
+.link-page {
+    overflow: hidden;
+}
+
+.link-page>li {
+    float: left;
+    width: 100%;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    color: white;
+}
+
+.link-page>li>a {
+    text-align: initial;
 }
