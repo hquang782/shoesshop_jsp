@@ -8,7 +8,17 @@ btnAcountItem.addEventListener('click', () => {
 
 var sidebar = document.getElementsByClassName('sidebar')[0];
 var btnSidebar = document.getElementsByClassName('btn-sidebar')[0];
+var leftSide = document.getElementsByClassName('wrap-left')[0];
+var rightSide = document.getElementsByClassName('wrap-right')[0];
 
 btnSidebar.addEventListener('click', () => {
-    sidebar.classList.contains('open-sidebar') ? sidebar.classList.remove('open-sidebar') : sidebar.classList.add('open-sidebar');
+    if (sidebar.classList.contains('close') && leftSide.classList.contains('close')) {
+        sidebar.classList.remove('close');
+        leftSide.classList.remove('close');
+        rightSide.classList.remove('max-width');
+    } else {
+        sidebar.classList.add('close');
+        leftSide.classList.add('close');
+        rightSide.classList.add('max-width');
+    }
 });
