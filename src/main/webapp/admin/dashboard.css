@@ -6,7 +6,7 @@
 }
 
 body {
-    background-color: #fafafb;
+    background-color: #f3f3f3;
     line-height: 1.57;
     font-family: 'Public Sans', sans-serif;
     color: #262626;
@@ -72,6 +72,12 @@ a {
     display: flex;
 }
 
+.wrapper-main-container {
+    width: 100%;
+    padding: 6px;
+    background: white;
+}
+
 .left-side,
 .right-side {
     display: flex;
@@ -86,7 +92,7 @@ a {
 .box-info {
     flex: 50%;
     width: 100%;
-    padding: 0 12px;
+    padding-right: 12px;
     margin-bottom: 24px;
     padding-left: 0;
 }
@@ -131,6 +137,7 @@ a {
     font-weight: 500 !important;
 }
 
+/* table data */
 .table-info--block {
     display: block;
 }
@@ -169,91 +176,34 @@ a {
     white-space: nowrap;
 }
 
-.link-page-bill {
+.link-page {
     width: 100%;
     text-align: center;
     padding: 12px 0;
 }
 
-.link-page-bill>a {
+.link-page>a {
     padding: 4px 12px;
     border: 1px solid #cfcfcf;
     border-radius: 6px;
     color: black;
 }
 
-.link-page-bill>a:hover {
+.link-page>a:hover {
     background-color: #cfcfcf;
 }
 
-.link-page-bill>a:active {
+.link-page>a:active {
     background-color: white;
 }
 
+
+/* chart */
+
+.right-side .chart {
+    padding: 0;
+}
+
 .wrap-chart {
-    height: 300px;
+    height: 500px;
 }
-
-.wrap-chart table,
-.wrap-chart thead,
-.wrap-chart tr,
-.wrap-chart th,
-.wrap-chart tbody,
-.wrap-chart tr,
-.wrap-chart th,
-.wrap-chart td {
-    display: flex;
-    width: 100%;
-}
-
-.wrap-chart table {
-    height: 100%;
-}
-
-.wrap-chart tbody {
-    border-left: 1px solid black;
-    border-bottom: 1px solid black;
-}
-
-.wrap-chart tr {
-    flex-direction: column;
-    flex-shrink: 1;
-    flex-grow: 1;
-    padding: 0 24px;
-}
-
-.wrap-chart th {
-    justify-content: center;
-    height: 10%;
-}
-
-.wrap-chart td {
-    justify-content: center;
-    height: 90%;
-    background-color: rgba(9, 109, 239, 0.651);
-    border: 2px solid rgba(9, 109, 239);
-}
-
-/* .m-1 td {
-    background: #3300ff;
-}
-
-.m-2 td {
-    background: rgba(9, 109, 239, 0.651);
-}
-
-.m-3 td {
-    background: rgba(9, 109, 239, 0.651);
-}
-
-.m-4 td {
-    background: rgba(9, 109, 239, 0.651);
-}
-
-.m-5 td {
-    background: rgba(9, 109, 239, 0.651);
-}
-
-.m-6 td {
-    background: rgba(9, 109, 239, 0.651);
-} */
