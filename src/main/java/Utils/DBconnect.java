@@ -10,9 +10,9 @@ public class DBconnect {
         try {
             System.out.println("Connecting database ...");
             Class.forName("com.mysql.cj.jdbc.Driver");
-            connection = DriverManager.getConnection("jdbc:mysql://localhost/shoes", "root", "");
+            connection = DriverManager.getConnection("jdbc:mysql://localhost/shoes", "root", "lms123lms");
         } catch (ClassNotFoundException | SQLException ex) {
-            System.err.println("Connection error");
+            System.out.println("Connection error");
         }
         return connection;
     }

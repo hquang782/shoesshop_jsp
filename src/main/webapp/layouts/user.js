@@ -35,7 +35,7 @@ function handleTogglePassword() {
     input && input.setAttribute("type", inputType);
 }
 // prevent form submit
-const form = document.querySelector("form");
-form.addEventListener('submit', function (e) {
-    e.preventDefault();
-});
+//const form = document.querySelector("form");
+//form.addEventListener('submit', function (e) {
+//    e.preventDefault();
+//});
