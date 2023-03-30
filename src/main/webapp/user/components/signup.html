@@ -7,6 +7,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up</title>
     <link rel="stylesheet" href="signup.css">
+<<<<<<< HEAD
+=======
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+>>>>>>> 28c0e6dcb2176d66d32ff20d050dcf9524df3fc7
 </head>
 
 <body>
@@ -38,18 +43,26 @@
                     <input type="text" class="signup-input-area" placeholder="nhập tên đăng nhập">
                 </div>
                 <!-- password -->
-                <div class="signup-form-input">
+                <div class="signup-form-input pw">
                     <span class="signup-input-tittle">
                         Mật khẩu
                     </span>
-                    <input type="text" class="signup-input-area" placeholder="nhập mật khẩu">
+                    <input type="password" class="signup-input-area x" placeholder="nhập mật khẩu">
+                    <div class="toggle-password">
+                        <ion-icon name="eye-outline" class="eye eye-open" id="togglePassword"></ion-icon>
+                        <ion-icon name="eye-off-outline" class="eye eye-close"></ion-icon>
+                    </div>
                 </div>
                 <!-- verify pw -->
-                <div class="signup-form-input">
+                <div class="signup-form-input pw">
                     <span class="signup-input-tittle">
                         Nhập lại mật khẩu
                     </span>
-                    <input type="text" class="signup-input-area" placeholder="nhập lại mật khẩu">
+                    <input type="password" class="signup-input-area x" placeholder="nhập lại mật khẩu">
+                    <div class="toggle-password">
+                        <ion-icon name="eye-outline" class="eye eye-open" id="togglePassword"></ion-icon>
+                        <ion-icon name="eye-off-outline" class="eye eye-close"></ion-icon>
+                    </div>
                 </div>
                 <!-- sex -->
                 <div class="signup-form-input">
@@ -86,5 +99,6 @@
     </div>
 
 </body>
+<script src="/layouts/user.js"></script>
 
 </html>
