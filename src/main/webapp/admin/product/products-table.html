@@ -1,88 +1,78 @@
-<link rel="stylesheet" href="products.css">
-<link rel="stylesheet" href="dashboard.css">
+<link rel="stylesheet" href="../style.css">
 
 <main>
     <div class="content">
-        <!-- TODO DELETE -->
         <div class="box title-decorator--left">
             <div class="wrap-title">
                 <div class="item-title">
-                    <h3>Products</h3>
+                    <h3>Sản phẩm</h3>
                 </div>
                 <div class="timer">
-                    <p>Chủ Nhật, 19/02/2023 - 15 giờ 39 phút 37 giây</p>
+                    <p id="timer"></p>
                 </div>
             </div>
         </div>
-        <!--TODO delete top -->
 
-        <div class="main-container container-flex--column">
+        <div class="main-container">
+
             <div class="wrapper-main-container">
-                <div class="action-link-table">
-                    <ul>
-                        <li><button class="add">Add New Product</button></li>
-                        <li><button class="export-excel">Export File by Excel</button></li>
-                        <li><button class="export-pdf">Export File by PDF</button></li>
-                        <li><button class="delete">Delete Product</button></li>
-                    </ul>
+                <div class="action-table">
+                    <button id="btnAddProduct" class="btn-add">Thêm sản phẩm mới</button>
+                    <button class="btn-export">Xuất file Excel</button>
                 </div>
 
-                <!-- TODO Delete -->
-                <div class="table-product">
-                    <div class="search-table-product">
-                        <div class="name">
-                            <p>Search:</p>
-                        </div>
+                <div class="table-content">
+                    <div class="search-table-content">
                         <div class="wrapper-search">
                             <div class="search-option">
                                 <select name="option_search_table" id="optionSearchTable">
-                                    <option value="" selected disabled hidden>Type search</option>
-                                    <option value="name">Name</option>
-                                    <option value="status">Status</option>
-                                    <option value="category">Category</option>
+                                    <option value="" selected disabled hidden>Tìm kiếm theo</option>
+                                    <option value="name">Tên sản phẩm</option>
+                                    <option value="status">Trạng thái</option>
+                                    <option value="category">Danh mục</option>
                                 </select>
                             </div>
                             <div class="search-value">
-                                <input type="text" placeholder="Typing here...">
+                                <input type="text" placeholder="Gõ ở đây...">
                             </div>
 
                             <div class="btn-search">
-                                <button>Search</button>
+                                <button>Tìm kiếm</button>
                             </div>
                         </div>
 
                     </div>
-                    <div class="wrapper-table-product">
+                    <div class="wrapper-table-content">
                         <table>
                             <thead>
                                 <tr>
-                                    <th>[]</th>
                                     <th>ID</th>
-                                    <th>Name</th>
-                                    <th>Image</th>
-                                    <th>Quantity</th>
-                                    <th>Status</th>
-                                    <th>Price</th>
-                                    <th>Category</th>
-                                    <th>Action</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh</th>
+                                    <th>Số lượng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Giá bán</th>
+                                    <th>Danh mục</th>
+                                    <th class="action">Action</th>
                                 </tr>
                             </thead>
 
                             <tbody>
                                 <tr>
-                                    <td>[]</td>
                                     <td>1</td>
-                                    <td>Name 1</td>
+                                    <td>name 2</td>
                                     <td>Image 1</td>
                                     <td>100</td>
                                     <td>Remaining</td>
                                     <td>100.000$</td>
                                     <td>Converse</td>
-                                    <td>Edit, Delete</td>
+                                    <td>
+                                        <button class="btn-edit">Sửa</button>
+                                        <button class="btn-delete">Xóa</button>
+                                    </td>
                                 </tr>
 
                                 <tr>
-                                    <td>[]</td>
                                     <td>2</td>
                                     <td>Name 3</td>
                                     <td>Image 3</td>
@@ -90,17 +80,20 @@
                                     <td>Remaining</td>
                                     <td>100.000$</td>
                                     <td>Converse</td>
-                                    <td>Edit, Delete</td>
+                                    <td>
+                                        <button class="btn-edit">Sửa</button>
+                                        <button class="btn-delete">Xóa</button>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <div class="pagination-table-product">
+                    <div class="pagination-table-content">
                         <div class="wrapper-pagination">
                             <div class="wrapper-qty-row">
                                 <div>
-                                    <p>Rows per table</p>
+                                    <p>Cột mỗi bảng</p>
                                 </div>
                                 <div>
                                     <select name="qty_row" id="qtyRow">
@@ -114,7 +107,7 @@
 
                             <div class="wrapper-action-table">
                                 <div class="index">
-                                    <p>1-2 of 2</p>
+                                    <p>trang 1</p>
                                 </div>
                                 <div class="previous">
                                     <p>&#8592;</p>
@@ -126,8 +119,10 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
+    </div>
 </main>
+
+<script src="../index.js"></script>

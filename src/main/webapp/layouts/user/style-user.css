@@ -98,6 +98,7 @@ a {
     border: 1px solid #dfdfdf;
     border-radius: 30px;
     padding: 10px;
+    outline: none;
 }
 
 .wrap-action {
