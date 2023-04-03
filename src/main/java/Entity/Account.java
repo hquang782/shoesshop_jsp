@@ -5,12 +5,11 @@
 package Entity;
 
 /**
- *
  * @author son
  */
 public class Account {
     private int id;
-    private String username,password,fullname,email,dob,phone_num;
+    private String username, password, fullname, email, dob, phone_num;
     private int role;
 
     public Account() {
@@ -25,7 +24,7 @@ public class Account {
         this.dob = dob;
         this.phone_num = phone_num;
     }
-    
+
     public int getId() {
         return id;
     }
@@ -37,9 +36,11 @@ public class Account {
     public void setFullname(String fullname) {
         this.fullname = fullname;
     }
+
     public String getEmail() {
         return email;
     }
+
     public String getPhone_num() {
         return phone_num;
     }
@@ -55,9 +56,8 @@ public class Account {
     public void setRole(int role) {
         this.role = role;
     }
-    
 
-    
+
     public String getUsername() {
         return username;
     }
@@ -66,5 +66,5 @@ public class Account {
     public String toString() {
         return "Account{" + "id=" + id + ", username=" + username + ", password=" + password + ", fullname=" + fullname + ", email=" + email + ", dob=" + dob + ", phone_num=" + phone_num + ", role=" + role + '}';
     }
-    
+
 }

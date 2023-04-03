@@ -17,8 +17,8 @@ public class DBconnect {
         return connection;
     }
 
-    public static void main(String[] args) {
-        System.out.println(new DBconnect().connectDB());
-    }
+//    public static void main(String[] args) {
+//        System.out.println(new DBconnect().connectDB());
+//    }
 }
 

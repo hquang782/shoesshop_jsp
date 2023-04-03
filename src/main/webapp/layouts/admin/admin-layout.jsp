@@ -1,10 +1,10 @@
-<link rel="stylesheet" href="style-admin.css">
+<link rel="stylesheet" href="./layouts/admin/style-admin.css">
 
 <header>
     <div class="header">
         <div class="wrap-left">
             <div class="logo-item">
-                <a href="#"><img width="100%" src="../../img/demo.png" alt=""></a>
+                <a href="#"><img width="100%" src="./img/demo.png" alt=""></a>
             </div>
         </div>
 
@@ -59,4 +59,4 @@
     </div>
 </aside>
 
-<script src="admin.js"></script>
+<script src="./layouts/admin/admin.js"></script>
