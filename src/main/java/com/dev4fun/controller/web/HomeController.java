@@ -1,6 +1,7 @@
-package com.haquang.controller.admin;
+package com.dev4fun.controller.web;
 
 
+import com.dev4fun.model.UserModel;
 
 import java.io.IOException;
 
@@ -11,11 +12,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebServlet (urlPatterns = {"/admin-home"})
+
+
+@WebServlet(urlPatterns = {"/trang-chu"})
 public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
+        UserModel userModel = new UserModel();
+        userModel.setFullName("Hạ Đăng Quang");
+        req.setAttribute("model",userModel);
+        //        để trả về view
+
+        RequestDispatcher rd = req.getRequestDispatcher("/views/web/home.jsp");
         rd.forward(req,resp);
     }
 
@@ -24,3 +32,4 @@ public class HomeController extends HttpServlet {
         super.doPost(req, resp);
     }
 }
+

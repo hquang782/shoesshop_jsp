@@ -1,4 +1,4 @@
-package com.haquang.model;
+package com.dev4fun.model;
 //nơi trung chuyển
 public class UserModel {
     private String userName;
