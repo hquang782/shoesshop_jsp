@@ -1,5 +1,5 @@
 # Link tải Tomcat 9. Dùng chung nhé!
-- <a>https://drive.google.com/drive/folders/1HrnliP6YiZ0gQjVuX3uO2NSKcuT0xD2i?usp=sharing</a>
+- https://drive.google.com/drive/folders/1HrnliP6YiZ0gQjVuX3uO2NSKcuT0xD2i?usp=sharing
 
 # Cấu trúc webapp
 - common: chứa các file layouts của admin và user
