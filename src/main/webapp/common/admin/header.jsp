@@ -1,3 +1,4 @@
+<%--@elvariable id="ACCOUNT_ADMIN" type="com.dev4fun.model.Account"--%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <header>
@@ -16,9 +17,9 @@
             </div>
 
             <div class="wrap-account">
-                <p class="username">Hi, Quan nguyen</p>
+                <p class="username">Hi, ${ACCOUNT_ADMIN.fullName}</p>
                 <a href="#" class="account-item">
-                    <img src="https://scontent.fhan3-1.fna.fbcdn.net/v/t39.30808-6/335067008_1018958796157181_4597449354978273406_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=09cbfe&_nc_ohc=Tu2sRcHXlwEAX_34yyw&_nc_ht=scontent.fhan3-1.fna&oh=00_AfCd5OhpE-5A4lltmEKkrgaVzs_uMi1oyn7PkraWa8gkwg&oe=6435889D"
+                    <img src="${ACCOUNT_ADMIN.imageLink}"
                          alt="logo">
                 </a>
                 <ul class="dropdown-account-link">

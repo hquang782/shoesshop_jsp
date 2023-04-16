@@ -23,7 +23,7 @@
                             <div class="wrapper-form-line">
                                 <label for="username">Tên đăng nhập</label>
                                 <div>
-                                    <input type="text" placeholder="Tên đăng nhập" name="username" id="username">
+                                    <input type="text" placeholder="Tên đăng nhập" name="username" id="username" value="minhquantt2002">
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="wrapper-form-line">
                                 <label for="password">Mật khẩu</label>
                                 <div>
-                                    <input type="password" placeholder="Mật khẩu" name="password" id="password">
+                                    <input type="password" placeholder="Mật khẩu" name="password" id="password" value="minhquan223">
                                     <!-- <div class="toggle-password">
                                         <ion-icon name="eye-outline" class="eye eye-open"
                                             id="togglePassword"></ion-icon>

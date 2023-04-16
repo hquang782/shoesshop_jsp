@@ -9,6 +9,7 @@ public class Account {
     private String password;
     private String role;
     private String fullName;
+    private String imageLink;
     private Date dob;
     private String phoneNumber;
 
@@ -39,6 +40,10 @@ public class Account {
 
     public String getFullName() {
         return fullName;
+    }
+
+    public String getImageLink() {
+        return imageLink;
     }
 
     public Date getDob() {
@@ -73,11 +78,31 @@ public class Account {
         this.fullName = fullName;
     }
 
+    public void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
+    }
+
+
     public void setDob(Date dob) {
         this.dob = dob;
     }
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role='" + role + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", imageLink='" + imageLink + '\'' +
+                ", dob=" + dob +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                '}';
     }
 }

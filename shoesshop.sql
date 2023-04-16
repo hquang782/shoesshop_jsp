@@ -7,7 +7,8 @@ CREATE TABLE `account` (
     `email` VARCHAR(128) UNIQUE,
     `password` VARCHAR(128),
     `role` VARCHAR(128),
-    `fullName` VARCHAR(128),
+    `full_name` VARCHAR(128),
+    `image_link` TEXT,
     `dob` VARCHAR(128),
     `phone_number` VARCHAR(128)
 );
@@ -43,7 +44,7 @@ CREATE TABLE `bill` (
     `id` INT(11) PRIMARY KEY AUTO_INCREMENT,
     `status` VARCHAR(128) NOT NULL,
     `user_id` INT(11),
-    `fullName` VARCHAR(128),
+    `full_name` VARCHAR(128),
     `email` VARCHAR(128),
     `phone_number` VARCHAR(128),
     `total_amount` INT(11),

@@ -9,6 +9,6 @@
         <pattern>/admin/login*</pattern>
     </decorator>
     <decorator name="user" page="user.jsp">
-        <pattern>/trang-chu*</pattern>
+        <pattern>/home*</pattern>
     </decorator>
 </decorators>
