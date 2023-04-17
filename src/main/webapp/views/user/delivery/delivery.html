@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cart</title>
+    <link rel="stylesheet" href="deliver.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <title>Header</title>
+    <header class="header ">
+        <div class="container-header">
+            <div class="container-header--flex">
+                <div class="wrap-logo">
+                    <a href="#"><img src="img/demo.png" alt=""></a>
+                </div>
+                <div class="wrap-link">
+                    <ul class="main-link">
+                        <li><a href="#">Home</a></li>
+                        <div class="dropdown-home"></div>
+                        <li><a href="#">Products</a></li>
+                        <div class="dropdown-product"></div>
+                        <li><a href="#">Store</a></li>
+                        <li><a href="#">Blogs</a></li>
+                        <div class="dropdown-blog"></div>
+                    </ul>
+                </div>
+                <div class="wrap-search">
+                    <form action="#" method="get">
+                        <input type="text" name="" id="" placeholder="Search here">
+                    </form>
+                </div>
+                <div class="wrap-action">
+                    <div class="account">
+                        <a href="#">Accounts</a>
+                    </div>
+                    <div class="cart">
+                        <a href="#">Cart</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    
+    <section class="delivery">
+        <div class="container">
+            <div class="delivery-top-wrap">
+                <div class="delivery-top">
+                    <div class="delivery-top-delivery delivery-top-item">
+                        <i class="fa-solid fa-cart-shopping "></i>
+                    </div>
+                    <div class="delivery-top-adress delivery-top-item">
+                        <i class="fa-sharp fa-solid fa-location-dot "></i>
+                    </div>
+                    <div class="delivery-top-payment delivery-top-item">
+                        <i class="fa-solid fa-money-check-dollar"></i>
+                    </div>
+                </div>
+            </div>  
+        </div>
+        <div class="container">
+            <div class="delivery-content" >
+                <div class="delivery-content-left">
+                    <h2>Thông tin giao hàng</h2>
+                    <div class="delivery-content-left-dangnhap">
+                        <span>Đăng nhập</span>
+                        <span style="margin-left: 35px;">Đăng ký</span> 
+                    </div>
+                    <div class="infor">
+                        <p>Đăng nhập/ Đăng ký tài khoản để được tích điểm và nhận thêm nhiều ưu đãi từ IVY moda.</p>
+                    </div>
+                    <div class="delivery-content-left-input-top">
+                        <div class="hang1">
+                            <div class="delivery-content-left-input-top-item">
+                                <label for=""></label>
+                                <input type="text" id="name" name="name" required placeholder="Họ tên">
+                            </div>
+                        </div>
+                        <div class="hang2">
+                            <div class="delivery-content-left-input-top-item"  id="email" >
+                                <label for=""></label>
+                                <input type="email" id="name" name="name" required placeholder="Email">
+                            </div>  
+                        
+                            <div class="delivery-content-left-input-top-item" id="sdt">
+                                <label for=""></label>
+                                <input type="number" id="name" name="name" required placeholder="Số điện thoại">
+                            </div>
+                        </div>
+                        <div class="hang3">
+                            <div class="delivery-content-left-input-top-item">
+                                <label for=""></label>
+                                <input type="text" id="name" name="name" required placeholder="Địa Chỉ">
+                            </div>
+                        </div>
+                        <div class="hang4 row">
+                            <div class="delivery-content-left-input-top-item" id="tinh">
+                                <label for=""></label>
+                                <input type="text" id="name" name="name" required placeholder="Tỉnh/Thành phố">
+                            </div>
+                            <div class="delivery-content-left-input-top-item" id="quan">
+                                <label for=""></label>
+                                <input type="text" id="name" name="name" required placeholder="Quận/Huyện">
+                            </div>
+                            <div class="delivery-content-left-input-top-item" id="phuong">
+                                <label for=""></label>
+                                <input type="text" id="name" name="name" required placeholder="Phường/Xã">
+                            </div>
+                        </div>
+                    </div>
+                    <p style="font-weight: bold; padding: 30px 0; font-size: 25px;">Phương thức giao hàng</p>
+                    
+                    <div class="delivery-content-left-input-top-phuongthucgiaohang">
+                        <i class="fa-solid fa-circle-check"></i>
+                        <span>Chuyển phát nhanh</span>
+                    </div>
+                    <p style="font-weight: bold; padding: 30px 0; font-size: 25px;">Phương thức thanh toán</p>
+                    <div class="delivery-content-left-input-top-pttt">
+                        <p>Mọi giao dịch đều được bảo mật và mã hóa. Thông tin thẻ tín dụng sẽ không bao giờ được lưu lại.</p>
+                        <div class="delivery-content-left-input-top-pttt-item">
+                            <input name="theloaithanhtoan" type="radio">
+                            <span>Thanh toán bằng thẻ tín dụng</span>
+                            <img src="img/thẻtt.png" alt=""></span>
+                        </div>
+                        <div class="delivery-content-left-input-top-pttt-item">
+                            <input name="theloaithanhtoan" type="radio">
+                            <span>Thanh toán bằng thẻ ATM</span>
+                        </div>
+                        <div class="delivery-content-left-input-top-pttt-item">
+                            <input name="theloaithanhtoan" type="radio">
+                            <span>Thanh toán bằng Momo</span>
+                        </div>
+                        <div class="delivery-content-left-input-top-pttt-item">
+                            <input name="theloaithanhtoan" type="radio">
+                            <span>Thanh toán khi giao hàng</span>
+                        </div>
+                    </div>
+    
+                        <div class="nut">
+                            <a href="" class="delivery-content-left-input-top-button">HOÀN TẤT ĐƠN HÀNG</a>
+                        </div>
+                        
+                    
+                </div>
+                <div class="delivery-content-right">
+                    <table>
+                        <h2>Tóm tắt đơn hàng</h2>
+                        <tr>
+                            <th>Tên sản phẩm</th>
+                            <th>Giảm giá</th>
+                            <th>Số lượng</th>
+                            <th>Thành tiền</th>
+                        </tr>
+                        <tr>
+                            <td>Giày adidas</td>
+                            <td>-30%</td>
+                            <td>1</td>
+                            <td><span>599.000</span><sup>đ</sup></td>
+                        </tr>
+                        <tr>
+                            <td>Giày NIKE</td>
+                            <td>-50%</td>
+                            <td>1</td>
+                            <td><span>899.000</span><sup>đ</sup></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: left; padding-left: 10px; font-weight: bold;" colspan="3">Tổng tiền hàng</td>
+                            <td ><span>1.499.000</span><sup>đ</sup></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; text-align: left; padding-left: 10px;" colspan="3">Thuế VAT</td>
+                            <td ><span>149.000</span><sup>đ</sup></td>
+                        </tr>
+                        <tr>
+                            <td style="font-weight: bold; text-align: left; padding-left: 10px;" colspan="3">Tiền thanh toán</td>
+                            <td style="font-weight: bold;"><span>1.648.000</span><sup>đ</sup></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <footer>
+        <div class="footer-container">
+            <div class="wrap-info-footer">
+                <div>
+                    <h2>Store system</h2>
+                    <p>hn1</p>
+                    <p>hn2</p>
+                    <p>hn3</p>
+                    <p>hn4</p>
+                    <p>hn5</p>
+                </div>
+                <div>
+                    <h2>Rule & policy</h2>
+                    <p>guide1</p>
+                    <p>guide2</p>
+                    <p>guide3</p>
+                    <p>guide4</p>
+                    <p>guide5</p>
+                </div>
+                <div>
+                    <h2>Address</h2>
+                    <p>add1</p>
+                    <p>add2</p>
+                    <p>add3</p>
+                    <p>add4</p>
+                    <p>add5</p>
+                </div>
+                <div>
+                    <h2>Fanpage</h2>
+                    <p>Fb1</p>
+                    <p>Fb2</p>
+                    <p>Fb3</p>
+                    <p>Fb4</p>
+                    <p>Fb5</p>
+                </div>
+            </div>
+        </div>
+        <div class="wrap-copyright">
+            <p>Copyright by Hoyoverse</p>
+        </div>
+    </footer>
+    <!-- Script -->
+    <script src=""></script>
+</body>
+</html>
