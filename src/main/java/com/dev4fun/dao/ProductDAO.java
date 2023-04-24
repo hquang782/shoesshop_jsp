@@ -19,17 +19,92 @@ public class ProductDAO extends DAO {
                 product.setName(rs.getString("name"));
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("imageLink"));
-                product.setImageList(rs.getString("imageList"));
+                product.setImageLink(rs.getString("image_Link"));
+                product.setImageList(rs.getString("image_List"));
                 product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("createdAt"));
+                product.setCreatedAt(rs.getDate("created_At"));
             }
             return product;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
+    public List<Product> getProductbyCategoryName(int index,String name)
+    {
+        try (Connection conn = getConnection()) {
+            String statement = "SELECT * FROM shoes.product inner join category on product.category_id=category.id where category.name='"+name+"'"
+                    +"limit ?,10";
+            List<Product> products = new ArrayList<>();
+            PreparedStatement ppStmt = conn.prepareStatement(statement);
+            ppStmt.setInt(1, (index-1)*10);
+            ResultSet rs = ppStmt.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setCategoryId(rs.getInt("category_id"));
+                product.setDescription(rs.getString("description"));
+                product.setImageLink(rs.getString("image_Link"));
+                product.setImageList(rs.getString("image_List"));
+                product.setPrice(rs.getFloat("price"));
+                product.setCreatedAt(rs.getDate("created_At"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }public int getTotalProductbyCategoryName(String name)
+    {
+        try (Connection conn = getConnection()) {
+            String statement = "SELECT count(*) FROM shoes.product inner join category on product.category_id=category.id where category.name='"+name+"'";
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public List<Product> getProductbyCategory(int id_cate)
+    {
+        try (Connection conn = getConnection()) {
+            String statement = "select * from product where category_id =?";
+            List<Product> products = new ArrayList<>();
+            PreparedStatement ppStmt = conn.prepareStatement(statement);
+            ppStmt.setInt(1, id_cate);
+            ResultSet rs = ppStmt.executeQuery();
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setCategoryId(rs.getInt("category_id"));
+                product.setDescription(rs.getString("description"));
+                product.setImageLink(rs.getString("image_Link"));
+                product.setImageList(rs.getString("image_List"));
+                product.setPrice(rs.getFloat("price"));
+                product.setCreatedAt(rs.getDate("created_At"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int getTotalProduct(){
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from product";
+            
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public List<Product> getAllProduct() {
         try (Connection conn = getConnection()) {
             String statement = "select * from product";
@@ -41,10 +116,10 @@ public class ProductDAO extends DAO {
                 product.setName(rs.getString("name"));
                 product.setCategoryId(rs.getInt("category_id"));
                 product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("imageLink"));
-                product.setImageList(rs.getString("imageList"));
+                product.setImageLink(rs.getString("image_Link"));
+                product.setImageList(rs.getString("image_List"));
                 product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("createdAt"));
+                product.setCreatedAt(rs.getDate("created_At"));
                 products.add(product);
             }
             return products;
@@ -70,7 +145,7 @@ public class ProductDAO extends DAO {
             throw new RuntimeException();
         }
     }
-
+    
     public boolean updateProduct(Product product) {
         try (Connection conn = getConnection()) {
             String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, created_at = ?)";

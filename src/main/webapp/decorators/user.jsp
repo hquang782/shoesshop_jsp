@@ -6,6 +6,7 @@
     <title><dec:title default="Trang chủ"/></title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
     <link href="<c:url value="/assets/style/user-style.layout.css"/>" rel="stylesheet" type="text/css" media="all"/>
 </head>
 <body>
@@ -19,4 +20,5 @@
 <%@include file="/common/user/footer.jsp" %>
 
 </body>
+
 </html>
