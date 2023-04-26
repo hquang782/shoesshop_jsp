@@ -29,14 +29,14 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public List<Product> getProductbyCategoryName(int index,String name)
-    {
+
+    public List<Product> getProductByCategoryName(int index, String name) {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT * FROM shoes.product inner join category on product.category_id=category.id where category.name='"+name+"'"
-                    +"limit ?,10";
+            String statement = "SELECT * FROM product inner join category on product.category_id = category.id where category.name = ? limit ?";
             List<Product> products = new ArrayList<>();
             PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ppStmt.setInt(1, (index-1)*10);
+            ppStmt.setString(1, name);
+            ppStmt.setInt(2, (index - 1) * 10);
             ResultSet rs = ppStmt.executeQuery();
             while (rs.next()) {
                 Product product = new Product();
@@ -54,11 +54,14 @@ public class ProductDAO extends DAO {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-    }public int getTotalProductbyCategoryName(String name)
-    {
+    }
+
+    public int getTotalProductByCategoryName(String name) {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT count(*) FROM shoes.product inner join category on product.category_id=category.id where category.name='"+name+"'";
-            ResultSet rs = conn.createStatement().executeQuery(statement);
+            String statement = "SELECT count(*) FROM product inner join category on product.category_id = category.id where category.name = ?";
+            PreparedStatement ppStmt = conn.prepareStatement(statement);
+            ppStmt.setString(1, name);
+            ResultSet rs = ppStmt.executeQuery(statement);
             while (rs.next()) {
                 return rs.getInt(1);
             }
@@ -67,8 +70,8 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public List<Product> getProductbyCategory(int id_cate)
-    {
+
+    public List<Product> getProductByCategory(int id_cate) {
         try (Connection conn = getConnection()) {
             String statement = "select * from product where category_id =?";
             List<Product> products = new ArrayList<>();
@@ -92,10 +95,10 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public int getTotalProduct(){
+
+    public int getTotalProducts() {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from product";
-            
             ResultSet rs = conn.createStatement().executeQuery(statement);
             while (rs.next()) {
                 return rs.getInt(1);
@@ -105,6 +108,20 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
+    public int getTotalProductExpired() {
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from product where (select sum(quantity) from product_detail) = 0";
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public List<Product> getAllProduct() {
         try (Connection conn = getConnection()) {
             String statement = "select * from product";
@@ -145,7 +162,7 @@ public class ProductDAO extends DAO {
             throw new RuntimeException();
         }
     }
-    
+
     public boolean updateProduct(Product product) {
         try (Connection conn = getConnection()) {
             String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, created_at = ?)";

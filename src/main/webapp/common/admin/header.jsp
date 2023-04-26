@@ -17,7 +17,7 @@
             </div>
 
             <div class="wrap-account">
-                <p class="username">Hi, ${ACCOUNT_ADMIN.fullName}</p>
+                <p class="username">Welcome, ${ACCOUNT_ADMIN.fullName}</p>
                 <a href="#" class="account-item">
                     <img src="${ACCOUNT_ADMIN.imageLink}"
                          alt="logo">
@@ -25,7 +25,11 @@
                 <ul class="dropdown-account-link">
                     <li><a href="#">Profile</a></li>
                     <li><a href="#">Settings</a></li>
-                    <li><a href="#">Logout</a></li>
+                    <li>
+                        <form method="post" action="<c:url value="/admin/logout"/>">
+                            <button type="submit">Logout</button>
+                        </form>
+                    </li>
                 </ul>
             </div>
         </div>

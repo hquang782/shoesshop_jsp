@@ -8,11 +8,11 @@
         </a>
     </div>
     <div class="content">
-        <div class="container-signin">
+        <div class="container-login">
             <div class="wrapper">
                 <form action="<c:url value="/login"/>" method="post" class="form">
                     <div class="form-title">
-                        <div class="wraper-form-title">
+                        <div class="wrapper-form-title">
                             <h3>Đăng nhập</h3>
                             <a href="<c:url value="/register"/>">Bạn chưa có tài khoản?</a>
                         </div>
@@ -43,13 +43,13 @@
                         </div>
 
                         <div class="form-body-line">
-                            <div class="wraper-form-title">
-                                <label for="remember" class="wraper-form-title">
-                                    <div class="wrapper-checkbox">
-                                        <input type="checkbox" name="remember" id="remember">
-                                    </div>
-                                    <h6>Nhớ mật khẩu</h6>
-                                </label>
+                            <div class="wrapper-form-title">
+<%--                                <label for="remember" class="wrapper-form-title">--%>
+<%--                                    <div class="wrapper-checkbox">--%>
+<%--                                        <input type="checkbox" name="remember" id="remember">--%>
+<%--                                    </div>--%>
+<%--                                    <h6>Nhớ mật khẩu</h6>--%>
+<%--                                </label>--%>
                                 <div>
                                     <a href="#">Quên mật khẩu</a>
                                 </div>

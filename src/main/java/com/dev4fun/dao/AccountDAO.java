@@ -60,6 +60,20 @@ public class AccountDAO extends DAO {
         }
     }
 
+    public int getTotalAccounts() {
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from account";
+            int n = 0;
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                n = rs.getInt(1);
+            }
+            return n;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean createAccount(Account account) {
         try (Connection conn = getConnection()) {
 //            if (getAccountByUsernamePasswordRole(account.getUsername(), account.getRole()) == null) {

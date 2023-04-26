@@ -197,14 +197,17 @@ input:-webkit-autofill {
     overflow: hidden;
 }
 
-.dropdown-account-link > li > a {
+.dropdown-account-link > li > a,
+.dropdown-account-link > li button{
     padding: 10px;
     float: left;
     color: black;
     width: 100%;
+    text-align: center;
 }
 
-.dropdown-account-link > li > a:hover {
+.dropdown-account-link > li > a:hover,
+.dropdown-account-link > li button:hover{
     background: #F1F2F7
 }
 

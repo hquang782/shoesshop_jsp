@@ -34,7 +34,6 @@ label {
 }
 
 .content {
-
     height: 100vh;
     width: 100%;
     display: flex;
@@ -43,11 +42,11 @@ label {
     background-color: rgb(250, 250, 250);
 }
 
-.container-signin {
+.container-login {
     min-width: 560px;
 }
 
-.container-signup {
+.container-register {
     min-width: 1180px;
 }
 
@@ -58,7 +57,7 @@ label {
     position: relative;
     border: none rgb(230, 235, 241);
     border-radius: 4px;
-    box-shadow: rgba(0, 0, 0, 0.08) 0px 1px 4px;
+    box-shadow: rgba(0, 0, 0, 0.08) 0 1px 4px;
     margin: 24px;
 }
 
@@ -72,26 +71,26 @@ label {
     padding-top: 24px;
 }
 
-.wraper-form-title {
+.wrapper-form-title {
     margin-bottom: 8px;
     display: flex;
     justify-content: space-between;
     align-items: baseline;
 }
 
-.wraper-form-title h3 {
+.wrapper-form-title h3 {
     font-weight: 600;
     font-size: 28px;
     line-height: 1.33;
 }
 
-.wraper-form-title h6 {
+.wrapper-form-title h6 {
     font-weight: 400;
     font-size: 16px;
     line-height: 1.57;
 }
 
-.wraper-form-title a {
+.wrapper-form-title a {
     color: rgb(24, 144, 255);
 }
 
@@ -144,7 +143,7 @@ label {
 
 .wrapper-form-line input {
     font: inherit;
-    margin: 0px;
+    margin: 0;
     width: 100%;
     padding: 12px;
     border-radius: 4px;
@@ -169,7 +168,7 @@ label {
     transform: scale(1.01) translateZ(0);
 }
 
-.wrapper-form-line>.wraper-form-title {
+.wrapper-form-line>.wrapper-form-title {
     width: 100%;
 }
 

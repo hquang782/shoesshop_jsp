@@ -23,7 +23,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
-                            <p><b>56 khách hàng</b></p>
+                            <p><b><%=request.getAttribute("ttAcc")%> khách hàng</b></p>
                             <p class="total-info">This is list khách hàng.</p>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
-                            <p><b>56 sản phẩm</b></p>
+                            <p><b><%=request.getAttribute("ttProd")%> sản phẩm</b></p>
                             <p class="total-info">Tổng số sản phẩm được quản lý.</p>
                         </div>
                     </div>
@@ -47,8 +47,8 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
-                            <p><b>56 đơn hàng</b></p>
-                            <p class="total-info">Tổng số hóa đơn bán hàng trong tháng.</p>
+                            <p><b><%=request.getAttribute("ttBill")%> đơn hàng</b></p>
+                            <p class="total-info">Tổng số hóa đơn bán hàng.</p>
                         </div>
                     </div>
                 </div>
@@ -58,9 +58,9 @@
                             ICON
                         </p>
                         <div class="info-recap">
-                            <h4>Sắp hết hàng</h4>
-                            <p><b>56 sản phẩm</b></p>
-                            <p class="total-info">Số sản phẩm hiện có dưới 10 sản phẩm.</p>
+                            <h4>Hết hàng</h4>
+                            <p><b><%=request.getAttribute("ttExpired")%> sản phẩm</b></p>
+                            <p class="total-info">Số sản phẩm đã hết hàng.</p>
                         </div>
                     </div>
                 </div>

@@ -55,6 +55,20 @@ public class BillDAO extends DAO {
         }
     }
 
+    public int getTotalBills() {
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from bill";
+            int n = -1;
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                n = rs.getInt(1);
+            }
+            return n;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public boolean createBill(Bill bill) {
         try (Connection conn = getConnection()) {
             String stmt = "insert into bill (status, user_id, full_name, email, phone_number, total_amount, pay_method, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
