@@ -4,7 +4,7 @@
         <div class="box title-decorator--left">
             <div class="wrap-title">
                 <div class="item-title">
-                    <h3>Báo cáo doanh thu</h3>
+                    <h3>Thống kê</h3>
                 </div>
                 <div class="timer">
                     <p id="timer"></p>
@@ -19,7 +19,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/account.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng nhân viên</h4>
@@ -30,7 +30,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/total-product.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
@@ -41,7 +41,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/bill.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
@@ -52,7 +52,7 @@
                 <div class="box-info end-right">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/total-customer.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
@@ -66,7 +66,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/total-amount.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng doanh thu</h4>
@@ -77,7 +77,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/product-warning.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Sắp hết hàng</h4>
@@ -88,7 +88,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/none-product.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Hết hàng</h4>
@@ -99,7 +99,7 @@
                 <div class="box-info end-right">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/oder-cancelled.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Đơn hàng hủy</h4>

@@ -191,4 +191,31 @@ public class ProductDAO extends DAO {
             throw new RuntimeException();
         }
     }
+    public ArrayList<Product> getTopSaleProducts(){// TO DO
+        try (Connection conn = getConnection()) {
+            String statement = "SELECT product.id,product.name,category.name as category, SUM(bill_detail.quantity) AS total_income\n" +
+                    "FROM product\n" +
+                    "join category on product.category_id = category.id \n" +
+                    "join bill_detail on product.id = product_id\n" +
+                    "LIMIT 5;";
+            ArrayList<Product> products = new ArrayList<>();
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                Product product = new Product();
+                product.setId(rs.getInt("id"));
+                product.setName(rs.getString("name"));
+                product.setCategoryId(rs.getInt("category_id"));
+                product.setDescription(rs.getString("description"));
+                product.setImageLink(rs.getString("image_Link"));
+                product.setImageList(rs.getString("image_List"));
+                product.setPrice(rs.getFloat("price"));
+                product.setCreatedAt(rs.getDate("created_At"));
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }
