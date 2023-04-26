@@ -16,8 +16,8 @@ public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         
-        List<Category> category = new CategoryDAO().getAllCategory();
-        req.setAttribute("category",category );
+//        List<Category> category = new CategoryDAO().getAllCategory();
+//        req.setAttribute("category",category );
         RequestDispatcher rd = req.getRequestDispatcher("/views/user/home.jsp");
         rd.forward(req,resp);
     }

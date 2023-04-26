@@ -18,7 +18,7 @@
 
                 <div class="action-table">
                     <button class="btn-add"><a href="<c:url value="/admin/account/add"/>">Thêm tài khoản</a></button>
-<%--                    <button class="btn-export">Export File by Excel</button>--%>
+                    <%--                    <button class="btn-export">Export File by Excel</button>--%>
                 </div>
 
                 <div class="table-content">
@@ -59,20 +59,6 @@
                             </thead>
 
                             <tbody>
-                            <tr>
-                                <td>name</td>
-                                <td>1</td>
-                                <td>Image 1</td>
-                                <td>100</td>
-                                <td>Remaining</td>
-                                <td>100.000$</td>
-                                <td>Converse</td>
-                                <td>
-                                    <button class="btn-edit">Edit</button>
-                                    <button class="btn-delete">Delete</button>
-                                </td>
-                            </tr>
-
                             <tr>
                                 <td>Name 3</td>
                                 <td>2</td>

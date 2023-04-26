@@ -1,3 +1,6 @@
+<%@ page import="com.dev4fun.model.Bill" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dev4fun.model.Account" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -81,30 +84,17 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    for (Bill bill : (ArrayList<Bill>) request.getAttribute("newBill")) { %>
                                 <tr>
-                                    <td title="1">1</td>
-                                    <td title="Nguyen Van B">Nguyen Van B</td>
-                                    <td title="19.770.000đ">19.770.000đ</td>
-                                    <td title="Done"><span>Done</span></td>
+                                    <td title="<%=bill.getId()%>"><%=bill.getId()%>
+                                    </td>
+                                    <td title="<%=bill.getFullName()%>"><%=bill.getFullName()%>
+                                    </td>
+                                    <td title="<%=bill.getTotalAmount()%>"><%=bill.getTotalAmount()%>đ</td>
+                                    <td title="<%=bill.getStatus()%>"><span><%=bill.getStatus()%></span></td>
                                 </tr>
-                                <tr>
-                                    <td title="1">2</td>
-                                    <td title="Nguyen Thi A">Nguyen Thi A</td>
-                                    <td title="16.770.000đ">16.770.000đ</td>
-                                    <td title="Done"><span>Done</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="1">3</td>
-                                    <td title="Nguyen Van C">Nguyen Van C</td>
-                                    <td title="9.400.000đ">9.400.000đ</td>
-                                    <td title="Done"><span>Done</span></td>
-                                </tr>
-                                <tr>
-                                    <td title="1">4</td>
-                                    <td title="Nguyen Thi B">Nguyen Thi B</td>
-                                    <td title="40.650.000đ">40.650.000 đ</td>
-                                    <td title="Done"><span>Done</span></td>
-                                </tr>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>
@@ -130,30 +120,15 @@
                                 </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    for (Account account : (ArrayList<Account>) request.getAttribute("newAcc")) { %>
                                 <tr>
-                                    <td title="12/03/2002">Username</td>
-                                    <td title="Nguyen Van B">Nguyen Van B</td>
-                                    <td title="email123@gmail.com">email123@gmail.com</td>
-                                    <td title="0987654321">0987654321</td>
+                                    <td title="<%=account.getUsername()%>"><%=account.getUsername()%></td>
+                                    <td title="<%=account.getFullName()%>"><%=account.getFullName()%></td>
+                                    <td title="<%=account.getEmail()%>"><%=account.getEmail()%></td>
+                                    <td title="<%=account.getPhoneNumber()%>"><%=account.getPhoneNumber()%></td>
                                 </tr>
-                                <tr>
-                                    <td title="12/03/2002">Username</td>
-                                    <td title="Nguyen Thi A">Nguyen Thi A</td>
-                                    <td title="email123@gmail.com">email123@gmail.com</td>
-                                    <td title="0987654321">0987654321</td>
-                                </tr>
-                                <tr>
-                                    <td title="12/03/2002">Username</td>
-                                    <td title="Nguyen Van C">Nguyen Van C</td>
-                                    <td title="email123@gmail.com">email123@gmail.com</td>
-                                    <td title="0987654321">0987654321</td>
-                                </tr>
-                                <tr>
-                                    <td title="12/03/2002">Username</td>
-                                    <td title="Nguyen Thi B">Nguyen Thi B</td>
-                                    <td title="email123@gmail.com">email123@gmail.com</td>
-                                    <td title="0987654321">0987654321</td>
-                                </tr>
+                                <%}%>
                                 </tbody>
                             </table>
                         </div>

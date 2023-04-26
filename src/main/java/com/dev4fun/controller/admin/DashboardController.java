@@ -3,8 +3,11 @@ package com.dev4fun.controller.admin;
 import com.dev4fun.dao.AccountDAO;
 import com.dev4fun.dao.BillDAO;
 import com.dev4fun.dao.ProductDAO;
+import com.dev4fun.model.Account;
+import com.dev4fun.model.Bill;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +30,13 @@ public class DashboardController extends HttpServlet {
         req.setAttribute("ttBill", totalBills);
         req.setAttribute("ttProd", totalProducts);
         req.setAttribute("ttExpired", totalProductExpired);
+
+        ArrayList<Bill> listNewBill = billDAO.getAllBill();
+        req.setAttribute("newBill", listNewBill);
+
+        ArrayList<Account> listNewAccount = accountDAO.getAllAccount();
+        req.setAttribute("newAcc", listNewAccount);
+
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
         rd.forward(req,resp);
     }

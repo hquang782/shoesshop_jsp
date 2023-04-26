@@ -31,10 +31,10 @@ public class BillDAO extends DAO {
         }
     }
 
-    public List<Bill> getAllBill() {
+    public ArrayList<Bill> getAllBill() {
         try (Connection conn = getConnection()) {
             String statement = "select * from bill";
-            List<Bill> bills = new ArrayList<>();
+            ArrayList<Bill> bills = new ArrayList<>();
             ResultSet rs = conn.createStatement().executeQuery(statement);
             while (rs.next()) {
                 Bill bill = new Bill();

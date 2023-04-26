@@ -10,7 +10,7 @@ public class Account {
     private String role;
     private String fullName;
     private String imageLink;
-    private Date dob;
+    private String dob;
     private String phoneNumber;
 
 
@@ -46,7 +46,7 @@ public class Account {
         return imageLink;
     }
 
-    public Date getDob() {
+    public String getDob() {
         return dob;
     }
 
@@ -83,7 +83,7 @@ public class Account {
     }
 
 
-    public void setDob(Date dob) {
+    public void setDob(String dob) {
         this.dob = dob;
     }
 

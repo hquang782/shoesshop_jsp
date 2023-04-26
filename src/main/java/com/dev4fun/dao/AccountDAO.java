@@ -24,10 +24,11 @@ public class AccountDAO extends DAO {
                 account.setId(rs.getInt("id"));
                 account.setUsername(rs.getString("username"));
                 account.setEmail(rs.getString("email"));
+                account.setPassword(rs.getString("password"));
                 account.setRole(rs.getString("role"));
                 account.setImageLink(rs.getString("image_link"));
                 account.setFullName(rs.getString("full_name"));
-                account.setDob(formatDate.parse(rs.getString("dob")));
+                account.setDob((rs.getString("dob")));
                 account.setPhoneNumber(rs.getString("phone_number"));
             }
             return account;
@@ -36,10 +37,10 @@ public class AccountDAO extends DAO {
         }
     }
 
-    public List<Account> getAllAccount() {
+    public ArrayList<Account> getAllAccount() {
         try (Connection conn = getConnection()) {
             String statement = "select * from account";
-            List<Account> accounts = new ArrayList<>();
+            ArrayList<Account> accounts = new ArrayList<>();
             ResultSet rs = conn.createStatement().executeQuery(statement);
             while (rs.next()) {
                 Account account = new Account();
@@ -48,10 +49,10 @@ public class AccountDAO extends DAO {
                 account.setEmail(rs.getString("email"));
                 account.setPassword(rs.getString("password"));
                 account.setRole(rs.getString("role"));
-                account.setFullName(rs.getString("fullName"));
+                account.setFullName(rs.getString("full_name"));
                 account.setImageLink(rs.getString("image_link"));
-                account.setDob(rs.getDate("dob"));
-                account.setPhoneNumber(rs.getString("phoneNumber"));
+                account.setDob(rs.getString("dob"));
+                account.setPhoneNumber(rs.getString("phone_number"));
                 accounts.add(account);
             }
             return accounts;
@@ -86,7 +87,7 @@ public class AccountDAO extends DAO {
             ppStmt.setString(3, account.getEmail());
             ppStmt.setString(4, account.getRole());
             ppStmt.setString(5, account.getFullName());
-            ppStmt.setDate(6, (Date) account.getDob());
+            ppStmt.setString(6, account.getDob());
             ppStmt.setString(7, account.getPhoneNumber());
             ppStmt.setString(8, account.getImageLink());
             ppStmt.executeUpdate();
@@ -108,7 +109,7 @@ public class AccountDAO extends DAO {
             ppStmt.setString(2, account.getEmail());
             ppStmt.setString(4, account.getRole());
             ppStmt.setString(5, account.getFullName());
-            ppStmt.setDate(6, (Date) account.getDob());
+            ppStmt.setString(6, account.getDob());
             ppStmt.setString(7, account.getPhoneNumber());
             ppStmt.setString(8, account.getImageLink());
             ppStmt.executeUpdate();
