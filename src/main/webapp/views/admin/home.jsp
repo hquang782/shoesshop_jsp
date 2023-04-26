@@ -22,7 +22,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/total-customer.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
@@ -34,7 +34,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                        <img src="../../assets/img/total-product.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
@@ -46,7 +46,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/total-oder.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
@@ -58,7 +58,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            ICON
+                            <img src="../../assets/img/none-product.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Hết hàng</h4>

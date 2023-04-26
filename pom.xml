@@ -5,9 +5,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.dev4fun</groupId>
-    <artifactId>study</artifactId>
+    <artifactId>shoesshop_jsp</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>study</name>
+    <name>shoesshop_jsp</name>
     <packaging>war</packaging>
 
     <properties>
