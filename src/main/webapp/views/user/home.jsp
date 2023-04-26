@@ -16,7 +16,7 @@
         <nav>
             <%                for (Category c : category) {
             %>
-            <a href="home/allproduct?loai_giay=<%=c.getName()%>" class="nav-item">
+            <a href="home/products?loai_giay=<%=c.getName()%>" class="nav-item">
                 <img src="https://tyhisneaker.com/wp-content/uploads/2022/08/eme-2.png" alt="hình ảnh ">
                 <b class="item-text">
                     <%=c.getName()%>
@@ -38,7 +38,7 @@
                 <a href="home/allproduct?loai_giay=<%=c.getName()%>" class="allProduct">Tất cả sản phẩm ></a>
             </div>
             <%
-                List<Product> products = new ProductDAO().getProductbyCategory(c.getId());
+                List<Product> products = new ProductDAO().getProductByCategory(c.getId());
 
             %>
             <div class="container-product">
@@ -51,7 +51,7 @@
                             <div class="home-product-item">
 
                                 <div class="home-product-item__img home-product-add-cart"
-                                     style="background-image: url()"></div>
+                                     style="background-image: url(<%=p.getImageLink()%>)"></div>
                                 <div class="home-product-item__properties">
                                     <h5 class="home-product-item__name">
                                         <%=p.getName()%>
