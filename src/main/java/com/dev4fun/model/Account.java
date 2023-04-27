@@ -11,6 +11,8 @@ public class Account {
     private String fullName;
     private String imageLink;
     private String dob;
+
+    private String gender;
     private String phoneNumber;
 
 
@@ -53,6 +55,15 @@ public class Account {
     public String getPhoneNumber() {
         return phoneNumber;
     }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
 
     public void setId(int id) {
         this.id = id;

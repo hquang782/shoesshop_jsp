@@ -1,3 +1,6 @@
+<%@ page import="com.dev4fun.model.Product" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dev4fun.model.Category" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -56,35 +59,28 @@
                                 <th class="action">Action</th>
                             </tr>
                             </thead>
-
                             <tbody>
+                            <%for (Product product : (ArrayList<Product>) request.getAttribute("listProducts")) {%>
                             <tr>
-                                <td>1</td>
-                                <td>name 2</td>
-                                <td>Image 1</td>
-                                <td>100</td>
-                                <td>Remaining</td>
-                                <td>100.000$</td>
-                                <td>Converse</td>
+                                <td><%=product.getId()%>
+                                </td>
+                                <td><%=product.getName()%>
+                                </td>
+                                <td><%=product.getImageLink()%>
+                                </td>
+                                <td><%=product.getTotalQuantity()%></td>
+                                <td><%=product.getStatus()%>
+                                </td>
+                                <td><%=product.getPrice()%>
+                                </td>
+                                <td><%=((ArrayList<Category>) request.getAttribute("listCategories")).get(product.getCategoryId()).getName()%>
+                                </td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
                                     <button class="btn-delete">Xóa</button>
                                 </td>
                             </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>Name 3</td>
-                                <td>Image 3</td>
-                                <td>100</td>
-                                <td>Remaining</td>
-                                <td>100.000$</td>
-                                <td>Converse</td>
-                                <td>
-                                    <button class="btn-edit">Sửa</button>
-                                    <button class="btn-delete">Xóa</button>
-                                </td>
-                            </tr>
+                            <%}%>
                             </tbody>
                         </table>
                     </div>

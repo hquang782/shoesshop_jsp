@@ -1,6 +1,7 @@
 package com.dev4fun.dao;
 
 import com.dev4fun.model.Product;
+import com.dev4fun.model.ProductDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,20 +10,36 @@ import java.util.List;
 public class ProductDAO extends DAO {
     public Product getProductById(int id) {
         try (Connection conn = getConnection()) {
-            String statement = "select * from product where id = ?";
-            Product product = null;
-            PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ResultSet rs = ppStmt.executeQuery();
-            while (rs.next()) {
-                product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategoryId(rs.getInt("category_id"));
-                product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("image_Link"));
-                product.setImageList(rs.getString("image_List"));
-                product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("created_At"));
+            String statementProduct = "select * from product where id = ?";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
+
+            PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
+            ppProduct.setInt(1, id);
+            ResultSet rsProduct = ppProduct.executeQuery();
+            Product product = new Product();
+            while (rsProduct.next()) {
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
+
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
             }
             return product;
         } catch (SQLException e) {
@@ -47,7 +64,9 @@ public class ProductDAO extends DAO {
                 product.setImageLink(rs.getString("image_Link"));
                 product.setImageList(rs.getString("image_List"));
                 product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("created_At"));
+                product.setCost(rs.getFloat("cost"));
+                product.setStatus(rs.getString("status"));
+                product.setCreatedAt(rs.getString("created_at"));
                 products.add(product);
             }
             return products;
@@ -87,7 +106,9 @@ public class ProductDAO extends DAO {
                 product.setImageLink(rs.getString("image_Link"));
                 product.setImageList(rs.getString("image_List"));
                 product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("created_At"));
+                product.setCost(rs.getFloat("cost"));
+                product.setStatus(rs.getString("status"));
+                product.setCreatedAt(rs.getString("created_at"));
                 products.add(product);
             }
             return products;
@@ -122,21 +143,36 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public List<Product> getAllProduct() {
+    public ArrayList<Product> getAllProduct() {
         try (Connection conn = getConnection()) {
-            String statement = "select * from product";
-            List<Product> products = new ArrayList<>();
-            ResultSet rs = conn.createStatement().executeQuery(statement);
-            while (rs.next()) {
+            String statementProduct = "select * from product";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
+            ArrayList<Product> products = new ArrayList<>();
+            ResultSet rsProduct = conn.createStatement().executeQuery(statementProduct);
+            while (rsProduct.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategoryId(rs.getInt("category_id"));
-                product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("image_Link"));
-                product.setImageList(rs.getString("image_List"));
-                product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("created_At"));
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
+
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
                 products.add(product);
             }
             return products;
@@ -147,7 +183,7 @@ public class ProductDAO extends DAO {
 
     public boolean createProduct(Product product) {
         try (Connection conn = getConnection()) {
-            String stmt = "insert into product (name, category_id, description, image_link, image_list, price, created_at) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String stmt = "insert into product (name, category_id, description, image_link, image_list, price, cost, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, product.getName());
             ppStmt.setInt(2, product.getCategoryId());
@@ -155,7 +191,9 @@ public class ProductDAO extends DAO {
             ppStmt.setString(4, product.getImageLink());
             ppStmt.setString(5, product.getImageList());
             ppStmt.setFloat(6, product.getPrice());
-            ppStmt.setDate(7, (Date) product.getCreatedAt());
+            ppStmt.setFloat(7, product.getCost());
+            ppStmt.setString(8, product.getStatus());
+            ppStmt.setString(9, product.getCreatedAt());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -165,7 +203,7 @@ public class ProductDAO extends DAO {
 
     public boolean updateProduct(Product product) {
         try (Connection conn = getConnection()) {
-            String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, created_at = ?)";
+            String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, cost = ?, status = ?, created_at = ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, product.getName());
             ppStmt.setInt(2, product.getCategoryId());
@@ -173,7 +211,9 @@ public class ProductDAO extends DAO {
             ppStmt.setString(4, product.getImageLink());
             ppStmt.setString(5, product.getImageList());
             ppStmt.setFloat(6, product.getPrice());
-            ppStmt.setDate(7, (Date) product.getCreatedAt());
+            ppStmt.setFloat(7, product.getCost());
+            ppStmt.setString(8, product.getStatus());
+            ppStmt.setString(9, product.getCreatedAt());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

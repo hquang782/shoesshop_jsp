@@ -1,6 +1,6 @@
 package com.dev4fun.dao;
 
-import com.dev4fun.model.Category;
+import com.dev4fun.model.Role;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -9,35 +9,35 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CategoryDAO extends DAO {
-    public Category getCategoryById(int id) {
+public class RoleDAO extends DAO {
+    public Role getRoleById(int id) {
         try (Connection conn = getConnection()) {
-            String statement = "select * from category where id = ?";
-            Category category = null;
+            String statement = "select * from role where id = ?";
+            Role role = null;
             PreparedStatement ppStmt = conn.prepareStatement(statement);
             ppStmt.setInt(1, id);
             ResultSet rs = ppStmt.executeQuery();
             while (rs.next()) {
-                category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("name"));
+                role = new Role();
+                role.setId(rs.getInt("id"));
+                role.setName(rs.getString("name"));
             }
-            return category;
+            return role;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public ArrayList<Category> getAllCategory() {
+    public ArrayList<Role> getAllRole() {
         try (Connection conn = getConnection()) {
-            String statement = "select * from category";
-            ArrayList<Category> categories = new ArrayList<>();
+            String statement = "select * from role";
+            ArrayList<Role> categories = new ArrayList<>();
             ResultSet rs = conn.createStatement().executeQuery(statement);
             while (rs.next()) {
-                Category category = new Category();
-                category.setId(rs.getInt("id"));
-                category.setName(rs.getString("name"));
-                categories.add(category);
+                Role role = new Role();
+                role.setId(rs.getInt("id"));
+                role.setName(rs.getString("name"));
+                categories.add(role);
             }
             return categories;
         } catch (SQLException e) {
@@ -45,14 +45,14 @@ public class CategoryDAO extends DAO {
         }
     }
 
-    public boolean createCategory(Category category) {
+    public boolean createRole(Role role) {
         try (Connection conn = getConnection()) {
-//            if (getCategoryById(category.getName()) != null) {
+//            if (getRoleById(role.getName()) != null) {
 //                return false;
 //            }
-            String stmt = "insert into category (name) VALUES (?)";
+            String stmt = "insert into role (name) VALUES (?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
-            ppStmt.setString(1, category.getName());
+            ppStmt.setString(1, role.getName());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException e) {
@@ -60,14 +60,14 @@ public class CategoryDAO extends DAO {
         }
     }
 
-    public boolean updateCategory(Category category) {
+    public boolean updateRole(Role role) {
         try (Connection conn = getConnection()) {
-//            if (getCategoryById(category.getName()) != null) {
+//            if (getRoleById(role.getName()) != null) {
 //                return false;
 //            }
-            String stmt = "update category set name = ?)";
+            String stmt = "update role set name = ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
-            ppStmt.setString(1, category.getName());
+            ppStmt.setString(1, role.getName());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {
@@ -75,12 +75,12 @@ public class CategoryDAO extends DAO {
         }
     }
 
-    public boolean deleteCategory(String id) {
+    public boolean deleteRole(String id) {
         try (Connection conn = getConnection()) {
-//            if (getCategoryById(category.getName()) != null) {
+//            if (getRoleById(role.getName()) != null) {
 //                return false;
 //            }
-            String stmt = "DELETE FROM category WHERE id = " + id;
+            String stmt = "DELETE FROM role WHERE id = " + id;
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.executeUpdate();
             return true;

@@ -3,6 +3,12 @@ database shoes;
 use
 shoes;
 
+CREATE TABLE `role`
+(
+    `id`   INT(11) PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(128) unique
+);
+
 CREATE TABLE `account`
 (
     `id`           INT(11) PRIMARY KEY AUTO_INCREMENT,
@@ -10,6 +16,7 @@ CREATE TABLE `account`
     `email`        VARCHAR(128) UNIQUE,
     `password`     VARCHAR(128),
     `role`         VARCHAR(128),
+    `gender`       VARCHAR(128),
     `full_name`    VARCHAR(128),
     `image_link`   TEXT,
     `dob`          VARCHAR(128),
@@ -19,7 +26,7 @@ CREATE TABLE `account`
 CREATE TABLE `category`
 (
     `id`   INT(11) PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(128)
+    `name` VARCHAR(128) unique
 );
 
 CREATE TABLE `product`
@@ -28,9 +35,10 @@ CREATE TABLE `product`
     `category_id` INT(11),
     `name`        VARCHAR(128),
     `created_at`  VARCHAR(128),
-    `price`       INT(11),
+    `price`       float(11),
+    `cost`        float(11),
     `description` VARCHAR(128),
-    `image_link`  VARCHAR(128),
+    `image_link`  TEXT,
     `image_list`  TEXT,
     FOREIGN KEY (`category_id`)
         REFERENCES `category` (`id`)

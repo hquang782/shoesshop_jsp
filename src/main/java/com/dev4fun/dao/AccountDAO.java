@@ -29,6 +29,7 @@ public class AccountDAO extends DAO {
                 account.setImageLink(rs.getString("image_link"));
                 account.setFullName(rs.getString("full_name"));
                 account.setDob((rs.getString("dob")));
+                account.setGender((rs.getString("gender")));
                 account.setPhoneNumber(rs.getString("phone_number"));
             }
             return account;
@@ -52,6 +53,7 @@ public class AccountDAO extends DAO {
                 account.setFullName(rs.getString("full_name"));
                 account.setImageLink(rs.getString("image_link"));
                 account.setDob(rs.getString("dob"));
+                account.setGender((rs.getString("gender")));
                 account.setPhoneNumber(rs.getString("phone_number"));
                 accounts.add(account);
             }
@@ -80,7 +82,7 @@ public class AccountDAO extends DAO {
 //            if (getAccountByUsernamePasswordRole(account.getUsername(), account.getRole()) == null) {
 //                return false;
 //            }
-            String stmt = "insert into account (username, password, email, role, fullName, dob, phoneNumber, image_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String stmt = "insert into account (username, password, email, role, full_name, dob, gender, phone_number, image_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, account.getUsername());
             ppStmt.setString(2, account.getPassword());
@@ -88,12 +90,14 @@ public class AccountDAO extends DAO {
             ppStmt.setString(4, account.getRole());
             ppStmt.setString(5, account.getFullName());
             ppStmt.setString(6, account.getDob());
-            ppStmt.setString(7, account.getPhoneNumber());
-            ppStmt.setString(8, account.getImageLink());
+            ppStmt.setString(7, account.getGender());
+            ppStmt.setString(8, account.getPhoneNumber());
+            ppStmt.setString(9, account.getImageLink());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException e) {
-            throw new RuntimeException();
+            e.printStackTrace();
+            return false;
         }
     }
 
@@ -102,16 +106,17 @@ public class AccountDAO extends DAO {
 //            if (getAccountByUsernamePasswordRole(account.getUsername(), account.getRole()) == null) {
 //                return false;
 //            }
-            String stmt = "update account set username = ?, password = ?, email = ?, role = ?, fullName = ?, dob = ?, phoneNumber = ?, image_link = ?)";
+            String stmt = "update account set username = ?, password = ?, email = ?, role = ?, fullName = ?, dob = ?, gender = ?, phoneNumber = ?, image_link = ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, account.getUsername());
-            ppStmt.setString(3, account.getPassword());
-            ppStmt.setString(2, account.getEmail());
+            ppStmt.setString(2, account.getPassword());
+            ppStmt.setString(3, account.getEmail());
             ppStmt.setString(4, account.getRole());
             ppStmt.setString(5, account.getFullName());
             ppStmt.setString(6, account.getDob());
-            ppStmt.setString(7, account.getPhoneNumber());
-            ppStmt.setString(8, account.getImageLink());
+            ppStmt.setString(7, account.getGender());
+            ppStmt.setString(8, account.getPhoneNumber());
+            ppStmt.setString(9, account.getImageLink());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

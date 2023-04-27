@@ -2,7 +2,7 @@ package com.dev4fun.model;
 
 public class ProductDetail {
     private int id;
-    private String product_id;
+    private int productId;
     private String size;
     private int quantity;
 
@@ -13,8 +13,8 @@ public class ProductDetail {
         return id;
     }
 
-    public String getProduct_id() {
-        return product_id;
+    public int getProduct_id() {
+        return productId;
     }
 
     public String getSize() {
@@ -29,8 +29,8 @@ public class ProductDetail {
         this.id = id;
     }
 
-    public void setProduct_id(String product_id) {
-        this.product_id = product_id;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public void setSize(String size) {
@@ -39,5 +39,15 @@ public class ProductDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    @Override
+    public String toString() {
+        return "ProductDetail{" +
+                "id=" + id +
+                ", productId=" + productId +
+                ", size='" + size + '\'' +
+                ", quantity=" + quantity +
+                '}';
     }
 }

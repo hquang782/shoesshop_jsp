@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<div id="sidebar">
+<div id="sidebar" style="height: 100vh">
     <div class="sidebar">
         <div class="wrap-link-sidebar">
             <ul class="link-page">
@@ -9,26 +9,26 @@
                 </div>
                 <li>
                     <a href="<c:url value="/admin"/>"><span>
-                        <img src="../assets/img/Dashbroad.png" width="8.5%"> </span>Dashboard</a>
+                        <img src="<c:url value="/assets/img/dashboard.png"/>" style="width: 8.5%" alt=""></span>Dashboard</a>
                 </li>
                 <div class="link-title">
                     <h6>Configure</h6>
                 </div>
                 <li>
                     <a href="<c:url value="/admin/account"/>"><span>
-                        <img src="../assets/img/account.png" width="8.5%"> </span>Tài khoản</a>
+                        <img src="<c:url value="/assets/img/account.png"/>" style="width: 8.5%" alt=""> </span>Tài khoản</a>
                 </li>
                 <li>
                     <a href="<c:url value="/admin/product"/>"><span>
-                        <img src="../assets/img/product.png" width="8.5%"> </span>Sản phẩm</a>
+                        <img src="<c:url value="/assets/img/product.png"/>" style="width: 8.5%" alt=""> </span>Sản phẩm</a>
                 </li>
                 <li>
                     <a href="<c:url value="/admin/order"/>"><span>
-                        <img src="../assets/img/bill.png" width="8.5%"> </span>Đơn hàng</a>
+                        <img src="<c:url value="/assets/img/bill.png"/>" style="width: 8.5%" alt=""> </span>Đơn hàng</a>
                 </li>
                 <li>
                     <a href="<c:url value="/admin/sale-stat"/>"><span>
-                        <img src="../assets/img/statistics.png" width="8.5%"> </span>Thống kê</a>
+                        <img src="<c:url value="/assets/img/statistics.png"/>" style="width: 8.5%" alt=""> </span>Thống kê</a>
                 </li>
             </ul>
         </div>

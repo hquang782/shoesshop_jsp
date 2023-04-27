@@ -46,7 +46,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/total-oder.png" width="100%">
+                            <img src="../../assets/img/total-oder.png" width="100%" alt="">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
@@ -58,7 +58,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/none-product.png" width="100%">
+                            <img src="../../assets/img/none-product.png" width="100%" alt="">
                         </p>
                         <div class="info-recap">
                             <h4>Hết hàng</h4>

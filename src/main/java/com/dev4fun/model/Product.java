@@ -1,7 +1,6 @@
 package com.dev4fun.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Product {
     private int id;
@@ -11,12 +10,19 @@ public class Product {
     private String imageLink;
     private String imageList;
     private float price;
-    private Date createdAt;
+    private float cost;
+    private String status;
+    private int totalQuantity;
+    private String createdAt;
 
     private ArrayList<ProductDetail> productDetails;
 
     public Product() {
         this.productDetails = new ArrayList<>();
+    }
+
+    public ArrayList<ProductDetail> getProductDetails() {
+        return productDetails;
     }
 
     public int getId() {
@@ -47,7 +53,36 @@ public class Product {
         return price;
     }
 
-    public Date getCreatedAt() {
+    public int getTotalQuantity() {
+        updateTotalQuantity();
+        return totalQuantity;
+    }
+
+    public void updateTotalQuantity() {
+        int total = 0;
+        for (ProductDetail productDetail: productDetails) {
+            total += productDetail.getQuantity();
+        }
+        totalQuantity = total;
+    }
+
+    public float getCost() {
+        return cost;
+    }
+
+    public void setCost(float cost) {
+        this.cost = cost;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getCreatedAt() {
         return createdAt;
     }
 
@@ -79,11 +114,27 @@ public class Product {
         this.price = price;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
     public void setProductDetails(ArrayList<ProductDetail> productDetails) {
         this.productDetails = productDetails;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", categoryId=" + categoryId +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", imageLink='" + imageLink + '\'' +
+                ", imageList='" + imageList + '\'' +
+                ", price=" + price +
+                ", totalQuantity=" + totalQuantity +
+                ", createdAt='" + createdAt + '\'' +
+                ", productDetails=" + productDetails +
+                '}';
     }
 }

@@ -1,3 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.dev4fun.model.Category" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -32,68 +35,72 @@
                                 <div class="modal-line">
                                     <h3>Thêm danh mục mới</h3>
                                 </div>
-                                <div class="modal-line form-line">
-                                    <label for="newCategory">Tên danh mục:</label>
-                                    <input type="text" name="newCategory" id="newCategory">
-                                </div>
-                                <div class="modal-line form-line">
-                                    <label>Danh mục sản phẩm hiện đang có</label>
-                                    <ul>
-                                        <li>Bàn ăn</li>
-                                        <li>Bàn thông minh</li>
-                                    </ul>
-                                </div>
-                                <div class="modal-line form-line">
-                                    <button class="btn-add">Thêm danh mục</button>
-                                    <button class="btn-cancel" onclick="handleCloseModal(this);" value="modalAddCategory">Hủy bỏ</button>
-                                </div>
+                                <form action="<c:url value="/admin/product/add?act=category"/>" method="post">
+                                    <div class="modal-line form-line">
+                                        <label for="newCategory">Tên danh mục:</label>
+                                        <input type="text" name="newCategory" id="newCategory">
+                                    </div>
+                                    <div class="modal-line form-line">
+                                        <label>Danh mục sản phẩm hiện đang có</label>
+                                        <ul>
+                                            <%for (Category category : (ArrayList<Category>) request.getAttribute("listCategories")) {%>
+                                            <li><%=category.getName()%>
+                                            </li>
+                                            <%}%>
+                                        </ul>
+                                    </div>
+                                    <div class="modal-line form-line">
+                                        <button class="btn-add" type="submit">Thêm danh mục</button>
+                                        <button class="btn-cancel" onclick="handleCloseModal(this);" value="modalAddCategory" type="button">Hủy bỏ</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
 
-                    <form class="form-product">
+                    <form class="form-product" method="post" action="<c:url value="/admin/product/add"/>" enctype="multipart/form-data">
                         <div class="form-group-line">
                             <div class="form-line">
                                 <label for="code">Mã sản phẩm:</label>
-                                <input type="text" id="code" name="code">
+                                <input type="text" id="code" name="code" required>
                             </div>
 
                             <div class="form-line">
-                                <label for="name">Tên sản phẩm:</label>
-                                <input type="text" id="name" name="name">
+                                <label for="name" >Tên sản phẩm:</label>
+                                <input type="text" id="name" name="name" required>
                             </div>
 
                             <div class="form-line">
                                 <label for="status">Trạng thái:</label>
-                                <select name="status" id="status">
+                                <select name="status" id="status" required>
                                     <option value="" selected disabled hidden>-- Chọn trạng thái --</option>
                                     <option value="in">Còn hàng</option>
                                     <option value="out">Hết hàng</option>
                                 </select>
                             </div>
-
                         </div>
 
                         <div class="form-group-line">
                             <div class="form-line">
                                 <label for="category">Danh mục:</label>
-                                <select name="category" id="category">
+                                <select name="category" id="category" required>
                                     <option value="" selected disabled hidden>-- Chọn danh mục --</option>
-                                    <option value="sport">Giày thể thao</option>
-                                    <option value="lazy">Giày lười</option>
+                                    <%for (Category category : (ArrayList<Category>) request.getAttribute("listCategories")) {%>
+                                    <option value="<%=category.getId()%>"><%=category.getName()%>
+                                    </option>
+                                    <%}%>
                                 </select>
                             </div>
 
                             <div class="form-line">
                                 <label for="price">Giá bán:</label>
-                                <input type="text" id="price" name="price">
+                                <input type="text" id="price" name="price" required>
                             </div>
 
                             <div class="form-line">
                                 <label for="cost">Giá gốc:</label>
-                                <input type="text" id="cost" name="cost">
+                                <input type="text" id="cost" name="cost" required>
                             </div>
-
                         </div>
 
                         <div class="form-line">

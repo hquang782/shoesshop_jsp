@@ -1,4 +1,6 @@
-<%@include file="/common/taglib.jsp"%>
+<%@ page import="com.dev4fun.model.Account" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -52,26 +54,25 @@
                                 <th>Email</th>
                                 <th>Số điện thoại</th>
                                 <th>Ngày sinh</th>
-                                <th>Địa chỉ</th>
                                 <th>Loại</th>
                                 <th class="action">Action</th>
                             </tr>
                             </thead>
-
                             <tbody>
+                            <%for (Account account: (ArrayList<Account>) request.getAttribute("listAccounts")) {%>
                             <tr>
-                                <td>Name 3</td>
-                                <td>2</td>
-                                <td>Image 3</td>
-                                <td>100</td>
-                                <td>Remaining</td>
-                                <td>100.000$</td>
-                                <td>Converse</td>
+                                <td><%=account.getUsername()%></td>
+                                <td><%=account.getFullName()%></td>
+                                <td><%=account.getEmail()%></td>
+                                <td><%=account.getPhoneNumber()%></td>
+                                <td><%=account.getDob()%></td>
+                                <td><%=account.getRole()%></td>
                                 <td>
                                     <button class="btn-edit">Edit</button>
                                     <button class="btn-delete">Delete</button>
                                 </td>
                             </tr>
+                            <%}%>
                             </tbody>
                         </table>
                     </div>
