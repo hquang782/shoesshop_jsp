@@ -26,7 +26,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
-                            <p><b><%=request.getAttribute("ttAcc")%> khách hàng</b></p>
+                            <p><b><%=request.getAttribute("totalClientAccounts")%> khách hàng</b></p>
                             <p class="total-info">This is list khách hàng.</p>
                         </div>
                     </div>

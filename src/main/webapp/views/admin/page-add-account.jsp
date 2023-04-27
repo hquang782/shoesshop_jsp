@@ -1,4 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@include file="/common/taglib.jsp"%>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">

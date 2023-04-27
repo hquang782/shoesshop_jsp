@@ -23,10 +23,10 @@ public class DashboardController extends HttpServlet {
         AccountDAO accountDAO = new AccountDAO();
         ProductDAO productDAO = new ProductDAO();
         int totalBills = billDAO.getTotalBills();
-        int totalAccounts = accountDAO.getTotalAccounts();
+        int totalClientAccounts = accountDAO.getTotalClientAccounts();
         int totalProducts = productDAO.getTotalProducts();
         int totalProductExpired = productDAO.getTotalProductExpired();
-        req.setAttribute("ttAcc", totalAccounts);
+        req.setAttribute("totalClientAccounts", totalClientAccounts);
         req.setAttribute("ttBill", totalBills);
         req.setAttribute("ttProd", totalProducts);
         req.setAttribute("ttExpired", totalProductExpired);

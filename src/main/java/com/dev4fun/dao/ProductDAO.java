@@ -191,31 +191,47 @@ public class ProductDAO extends DAO {
             throw new RuntimeException();
         }
     }
-    public ArrayList<Product> getTopSaleProducts(){// TO DO
+
+    public ArrayList<ArrayList<String>> getTopSaleProducts() {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT product.id,product.name,category.name as category, SUM(bill_detail.quantity) AS total_income\n" +
-                    "FROM product\n" +
-                    "join category on product.category_id = category.id \n" +
-                    "join bill_detail on product.id = product_id\n" +
+            String statement = "SELECT product.id,product.name,category.name AS category,product.price,\n" +
+                    "    SUM(bill_detail.quantity) AS total_sold,\n" +
+                    "   (COALESCE(product_detail.quantity,0) - SUM(bill_detail.quantity)) AS remain\n" +
+                    "FROM bill_detail\n" +
+                    "JOIN product ON product.id = bill_detail.product_id\n" +
+                    "JOIN category ON product.category_id = category.id\n" +
+                    "JOIN product_detail ON product.id = product_detail.product_id\n" +
+                    "GROUP BY product.name\n" +
+                    "ORDER BY total_sold DESC\n" +
                     "LIMIT 5;";
-            ArrayList<Product> products = new ArrayList<>();
-            ResultSet rs = conn.createStatement().executeQuery(statement);
+            ArrayList<ArrayList<String>> topproducts = new ArrayList<>();
+            PreparedStatement ps = conn.prepareStatement(statement);
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategoryId(rs.getInt("category_id"));
-                product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("image_Link"));
-                product.setImageList(rs.getString("image_List"));
-                product.setPrice(rs.getFloat("price"));
-                product.setCreatedAt(rs.getDate("created_At"));
-                products.add(product);
+                ArrayList<String> temp = new ArrayList<>();
+                temp.add(rs.getString(1));
+                temp.add(rs.getString(2));
+                temp.add(rs.getString(3));
+                temp.add(rs.getString(4));
+                temp.add(rs.getString(5));
+                temp.add(rs.getString(6));
+                topproducts.add(temp);
             }
-            return products;
+            return topproducts;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
-
+    public int getTotalProductNearExpired() {
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from product where (select sum(quantity) from product_detail)  <= 10";
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+            return 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

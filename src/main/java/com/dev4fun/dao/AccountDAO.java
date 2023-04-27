@@ -129,4 +129,30 @@ public class AccountDAO extends DAO {
             throw new RuntimeException();
         }
     }
+    public int getTotalStaffAccounts() {
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from account where account.role = 'staff'";
+            int n = 0;
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                n = rs.getInt(1);
+            }
+            return n;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public int getTotalClientAccounts() {
+        try (Connection conn = getConnection()) {
+            String statement = "select count(*) from account where account.role = 'client'";
+            int n = 0;
+            ResultSet rs = conn.createStatement().executeQuery(statement);
+            while (rs.next()) {
+                n = rs.getInt(1);
+            }
+            return n;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

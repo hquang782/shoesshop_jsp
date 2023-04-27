@@ -1,3 +1,4 @@
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -15,7 +16,7 @@
         <!-- Show total -->
         <div class="main-content">
 
-        <div class="group-box">
+            <div class="group-box">
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
@@ -23,7 +24,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng nhân viên</h4>
-                            <p><b>56 nhân viên</b></p>
+                            <p><b><%=request.getAttribute("totalStaffAccounts")%> nhân viên</b></p>
                         </div>
                     </div>
                 </div>
@@ -34,7 +35,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
-                            <p><b>56 sản phẩm</b></p>
+                            <p><b><%=request.getAttribute("totalProducts")%> sản phẩm</b></p>
                         </div>
                     </div>
                 </div>
@@ -45,7 +46,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
-                            <p><b>56 đơn hàng</b></p>
+                            <p><b><%=request.getAttribute("totalBills")%> đơn hàng</b></p>
                         </div>
                     </div>
                 </div>
@@ -56,7 +57,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
-                            <p><b>56 sản phẩm</b></p>
+                            <p><b><%=request.getAttribute("totalClientAccounts")%> khách hàng</b></p>
                         </div>
                     </div>
                 </div>
@@ -81,7 +82,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Sắp hết hàng</h4>
-                            <p><b>56 sản phẩm</b></p>
+                            <p><b><%=request.getAttribute("TotalProductNearExpired")%> sản phẩm</b></p>
                         </div>
                     </div>
                 </div>
@@ -92,7 +93,7 @@
                         </p>
                         <div class="info-recap">
                             <h4>Hết hàng</h4>
-                            <p><b>56 sản phẩm</b></p>
+                            <p><b><%=request.getAttribute("totalProductExpired")%> sản phẩm</b></p>
                         </div>
                     </div>
                 </div>
@@ -121,34 +122,37 @@
                     </div>
                     <table>
                         <thead>
-                            <tr>
-                                <th>Mã sản phẩm</th>
-                                <th>Tên sản phẩm</th>
-                                <th>Danh mục</th>
-                                <th>Giá tiền</th>
-                                <th>Đã bán</th>
-                                <th>Còn lại</th>
-                            </tr>
+                        <tr>
+                            <th>Mã sản phẩm</th>
+                            <th>Tên sản phẩm</th>
+                            <th>Danh mục</th>
+                            <th>Giá tiền</th>
+                            <th>Đã bán</th>
+                            <th>Còn lại</th>
+                        </tr>
                         </thead>
 
                         <tbody>
-                            <tr>
-                                <td>1</td>
-                                <td>name 2</td>
-                                <td>Image 1</td>
-                                <td>100</td>
-                                <td>Remaining</td>
-                                <td>100.000$</td>
-                            </tr>
-
-                            <tr>
-                                <td>2</td>
-                                <td>Name 3</td>
-                                <td>Image 3</td>
-                                <td>100</td>
-                                <td>Remaining</td>
-                                <td>100.000$</td>
-                            </tr>
+                        <%
+                            for (ArrayList<String> temp : (ArrayList<ArrayList<String>>) request.getAttribute("topSaleProducts")) {
+                        %>
+                        <tr>
+                            <td><%=temp.get(0)%>
+                            </td>
+                            <td><%=temp.get(1)%>
+                            </td>
+                            <td><%=temp.get(2)%>
+                            </td>
+                            <td><%=temp.get(3)%>
+                            </td>
+                            <td><%=temp.get(4)%>
+                            </td>
+                            <td><%=temp.get(5)%>
+                            </td>
+                        </tr>
+                        <%
+                            }
+                        %>
                         </tbody>
                     </table>
                 </div>
