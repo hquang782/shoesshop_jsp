@@ -35,7 +35,7 @@
                                 <div class="modal-line">
                                     <h3>Thêm danh mục mới</h3>
                                 </div>
-                                <form action="<c:url value="/admin/product/add?act=category"/>" method="post">
+                                <form action="<c:url value="/admin/product/add?act=category"/>" method="post" accept-charset="UTF-8">
                                     <div class="modal-line form-line">
                                         <label for="newCategory">Tên danh mục:</label>
                                         <input type="text" name="newCategory" id="newCategory">

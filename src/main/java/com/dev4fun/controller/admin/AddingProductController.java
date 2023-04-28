@@ -46,6 +46,7 @@ public class AddingProductController extends HttpServlet {
             CategoryDAO categoryDAO = new CategoryDAO();
             Category category = new Category();
             category.setName(req.getParameter("newCategory"));
+            System.out.println(req.getParameter("newCategory"));
             boolean result = categoryDAO.createCategory(category);
             resp.sendRedirect("/admin/product/add");
             return;

@@ -20,6 +20,8 @@ public class LoggerFilter implements Filter {
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
         HttpServletRequest req = (HttpServletRequest) request;
+        request.setCharacterEncoding("UTF-8");
+        response.setCharacterEncoding("UTF-8");
         System.out.println("Method: " + req.getMethod() + ", URL= " + req.getRequestURL());
         chain.doFilter(request, response);
     }

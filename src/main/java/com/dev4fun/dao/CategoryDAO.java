@@ -2,6 +2,8 @@ package com.dev4fun.dao;
 
 import com.dev4fun.model.Category;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
