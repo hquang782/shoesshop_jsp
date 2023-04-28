@@ -116,19 +116,18 @@ function addProductInOrder() {
 
 
 // PRODUCT
-
 // handle add new size
 function addSizeInProduct() {
     const listSize = document.getElementsByClassName('list-size')[0];
     listSize.innerHTML += `
         <div class="item-size">
             <div>
-                <label for="size">Size:</label>
+                <label for="size${indexSize}">Size:</label>
                 <input type="text" id="size${indexSize}" name="size${indexSize}">
             </div>
             <div>
-                <label for="size${indexSize}">Số lượng:</label>
-                <input type="number" id="size${indexSize}" name="size${indexSize}" value="0">
+                <label for="quantity${indexSize}">Số lượng:</label>
+                <input type="number" id="quantity${indexSize}" name="quantity${indexSize}" value="0">
             </div>
         </div>
     `;
@@ -168,15 +167,12 @@ function addImgInProduct() {
                 <p>Chọn ảnh</p>
                 <img style="display: none;" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/70/Solid_white.svg/2048px-Solid_white.svg.png" alt="">
             </label>
-            <input class="image-input" id="imageInput${indexImg}" type="file" name="imageInput${indexImg}">
+            <input class="image-input" id="imageInput${indexImg}" type="file" name="imageInput${indexImg}" enctype='multipart/form-data' value="">
         </div>
     `;
-    indexImg++;
     handleImageInput();
+    indexImg++;
 }
-
-
-
 
 // // btn reset event
 // const btnReset = document.getElementsByClassName('reset')[0];

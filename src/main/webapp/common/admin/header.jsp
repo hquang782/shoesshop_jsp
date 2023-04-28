@@ -23,8 +23,7 @@
                          alt="logo">
                 </a>
                 <ul class="dropdown-account-link">
-                    <li><a href="#">Profile</a></li>
-                    <li><a href="#">Settings</a></li>
+                    <li><a href="<c:url value="/admin/profile"/>">Profile</a></li>
                     <li>
                         <form method="post" action="<c:url value="/admin/logout"/>">
                             <button type="submit">Logout</button>

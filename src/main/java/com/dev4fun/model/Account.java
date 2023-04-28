@@ -112,7 +112,8 @@ public class Account {
                 ", role='" + role + '\'' +
                 ", fullName='" + fullName + '\'' +
                 ", imageLink='" + imageLink + '\'' +
-                ", dob=" + dob +
+                ", dob='" + dob + '\'' +
+                ", gender='" + gender + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
                 '}';
     }

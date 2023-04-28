@@ -130,7 +130,7 @@
                                 <div class="item-image">
                                     <label for="imageInput">
                                         <p>Chọn ảnh</p>
-                                        <img style="display: none;" alt="">
+                                        <img style="display: none;" alt="" src="">
                                     </label>
                                     <input class="image-input" id="imageInput" type="file" name="imageInput" onchange="handlePutNewImg(this);" enctype="multipart/form-data" value="">
                                 </div>

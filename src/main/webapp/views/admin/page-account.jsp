@@ -20,7 +20,6 @@
 
                 <div class="action-table">
                     <button class="btn-add"><a href="<c:url value="/admin/account/add"/>">Thêm tài khoản</a></button>
-                    <%--                    <button class="btn-export">Export File by Excel</button>--%>
                 </div>
 
                 <div class="table-content">
@@ -59,17 +58,25 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <%for (Account account: (ArrayList<Account>) request.getAttribute("listAccounts")) {%>
+                            <%for (Account account : (ArrayList<Account>) request.getAttribute("listAccounts")) {%>
                             <tr>
-                                <td><%=account.getUsername()%></td>
-                                <td><%=account.getFullName()%></td>
-                                <td><%=account.getEmail()%></td>
-                                <td><%=account.getPhoneNumber()%></td>
-                                <td><%=account.getDob()%></td>
-                                <td><%=account.getRole()%></td>
+                                <td><%=account.getUsername()%>
+                                </td>
+                                <td><%=account.getFullName()%>
+                                </td>
+                                <td><%=account.getEmail()%>
+                                </td>
+                                <td><%=account.getPhoneNumber()%>
+                                </td>
+                                <td><%=account.getDob()%>
+                                </td>
+                                <td><%=account.getRole()%>
+                                </td>
                                 <td>
-                                    <button class="btn-edit">Edit</button>
-                                    <button class="btn-delete">Delete</button>
+                                    <button class="btn-edit">Sửa</button>
+                                    <form method="post" action="<c:url value="/admin/account"/>">
+                                        <button class="btn-delete" type="submit">Xóa</button>
+                                    </form>
                                 </td>
                             </tr>
                             <%}%>

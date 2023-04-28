@@ -88,7 +88,7 @@
                         </div>
 
                         <div class="form-line form-line-btn">
-                            <button class="btn-add" type="submit">Thêm sản phẩm</button>
+                            <button class="btn-add" type="submit">Lưu lại</button>
                             <button class="btn-cancel" type="reset">Xóa hết</button>
                         </div>
                     </form>

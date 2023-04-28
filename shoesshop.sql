@@ -51,7 +51,7 @@ CREATE TABLE `product_detail`
     `size`       INT(11),
     `quantity`   INT(11),
     FOREIGN KEY (`product_id`)
-        REFERENCES `product` (`id`)
+        REFERENCES `product` (`id`) ON DELETE CASCADE
 );
 
 CREATE TABLE `bill`

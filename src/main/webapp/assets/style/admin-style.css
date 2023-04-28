@@ -23,10 +23,10 @@ a {
 }
 
 div button {
-    padding: 8px 12px;
+    padding: 12px 16px;
     cursor: pointer;
     font-weight: 600;
-    border-radius: 5px;
+    border-radius: 3px;
     border: none;
     margin-right: 8px;
     letter-spacing: 1px;
@@ -36,13 +36,9 @@ button:hover {
     opacity: 0.9;
 }
 
-input:focus,
-textarea:focus,
-select:focus {
-    background-color: #fff;
-}
 
-input:-webkit-autofill {
+input:-webkit-autofill,
+select:-webkit-autofill{
     -webkit-box-shadow: 0 0 0 1000px #f1f1f1 inset;
 }
 
@@ -198,7 +194,7 @@ input:-webkit-autofill {
 }
 
 .dropdown-account-link > li > a,
-.dropdown-account-link > li button{
+.dropdown-account-link > li button {
     padding: 10px;
     float: left;
     color: black;
@@ -207,7 +203,7 @@ input:-webkit-autofill {
 }
 
 .dropdown-account-link > li > a:hover,
-.dropdown-account-link > li button:hover{
+.dropdown-account-link > li button:hover {
     background: #F1F2F7
 }
 
@@ -350,7 +346,7 @@ input:-webkit-autofill {
     flex: 100% !important;
 }
 
-.mini-table>div {
+.mini-table > div {
     flex-direction: column;
 }
 
@@ -380,14 +376,14 @@ input:-webkit-autofill {
     padding: 4px 12px;
 }
 
-.info-recap>p,
-.info-recap>h4 {
+.info-recap > p,
+.info-recap > h4 {
     width: 100%;
     font-size: 15px;
     margin-left: 8px;
 }
 
-.info-recap>h4 {
+.info-recap > h4 {
     text-transform: uppercase;
     margin-bottom: 5px;
     font-weight: 600;
@@ -431,18 +427,18 @@ input:-webkit-autofill {
     padding: 12px 0;
 }
 
-.link-page>a {
+.link-page > a {
     padding: 4px 12px;
     border: 1px solid #cfcfcf;
     border-radius: 6px;
     color: black;
 }
 
-.link-page>a:hover {
+.link-page > a:hover {
     background-color: #cfcfcf;
 }
 
-.link-page>a:active {
+.link-page > a:active {
     background-color: white;
 }
 
@@ -478,7 +474,7 @@ product, account, order: table, modal add
     margin-top: 12px;
 }
 
-.table-content>.wrapper-table-content {
+.table-content > .wrapper-table-content {
     padding: 6px 10px;
 }
 
@@ -487,6 +483,7 @@ product, account, order: table, modal add
 }
 
 .table-content td button {
+    margin-right: 0;
     padding: 5px 10px;
     background-color: #ccc;
     border: none;
@@ -512,12 +509,12 @@ product, account, order: table, modal add
     flex-direction: column;
 }
 
-.search-table-content>.name {
+.search-table-content > .name {
     font-size: 16px;
     font-weight: 500;
 }
 
-.search-table-content>.wrapper-search {
+.search-table-content > .wrapper-search {
     display: flex;
     align-items: center;
 }
@@ -574,15 +571,15 @@ product, account, order: table, modal add
     align-items: center;
 }
 
-.wrapper-pagination>div {
+.wrapper-pagination > div {
     display: flex;
     margin-right: 10px;
     justify-content: center;
     align-items: center;
 }
 
-.wrapper-qty-row>div,
-.wrapper-action-table>div {
+.wrapper-qty-row > div,
+.wrapper-action-table > div {
     padding: 2px 6px;
 }
 
@@ -591,22 +588,22 @@ product, account, order: table, modal add
     font-size: 18px;
 }
 
-.wrapper-action-table>.index,
+.wrapper-action-table > .index,
 .wrapper-qty-row {
     font-size: 12px;
     font-weight: 400;
     margin: 0 !important;
 }
 
-.wrapper-action-table>.previous:hover,
-.wrapper-action-table>.next:hover {
+.wrapper-action-table > .previous:hover,
+.wrapper-action-table > .next:hover {
     background-color: rgb(0 0 0 / 10%);
     border-radius: 3px;
     cursor: pointer;
 }
 
-.wrapper-action-table>.previous:active,
-.wrapper-action-table>.next:active {
+.wrapper-action-table > .previous:active,
+.wrapper-action-table > .next:active {
     background-color: rgba(0, 0, 0, 0.2);
 }
 
@@ -673,7 +670,6 @@ select {
     color: #2c3345;
     padding-left: 12px;
     padding-right: 12px;
-    background-color: #f1f1f1;
 }
 
 .form-line-btn {
@@ -744,7 +740,7 @@ select {
     box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.1);
 }
 
-.modal-content>div {
+.modal-content > div {
     padding: 4px 8px;
 }
 
@@ -754,7 +750,7 @@ select {
     padding: 0 16px;
 }
 
-.modal-line>h3 {
+.modal-line > h3 {
     text-align: left;
     border-bottom: 1px solid #ddd;
     padding: 10px 0;
@@ -791,14 +787,61 @@ product, account, order: stat
     flex-direction: row;
 }
 
-.group-box>.box-info {
+.group-box > .box-info {
     margin-right: 28px;
     padding: 0;
 }
 
-.group-box>.end-right {
+.group-box > .end-right {
     margin-right: 0;
 }
+
+
+/*  */
+/*  */
+/*  */
+/*
+profile
+*/
+/*  */
+/*  */
+/*  */
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0 auto;
+    padding: 0 100px;
+    height: 100%;
+}
+
+.wrapper-avatar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wrapper-avatar p {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.wrapper-avatar img {
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-section .form-line-btn {
+    justify-content: center;
+}
+
 
 #main {
     width: 84%;

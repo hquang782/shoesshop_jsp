@@ -62,22 +62,29 @@
                             <tbody>
                             <%for (Product product : (ArrayList<Product>) request.getAttribute("listProducts")) {%>
                             <tr>
-                                <td><%=product.getId()%>
+                                <td style="width: 10%"><%=product.getId()%>
                                 </td>
-                                <td><%=product.getName()%>
+                                <td style="width: 30%"><%=product.getName()%>
                                 </td>
-                                <td><%=product.getImageLink()%>
+                                <td style="width: 10%">
+                                    <img src="<%=product.getImageLink()%>" width="100%" alt="">
                                 </td>
-                                <td><%=product.getTotalQuantity()%></td>
-                                <td><%=product.getStatus()%>
+                                <td style="width: 10%"><%=product.getTotalQuantity()%></td>
+                                <td style="width: 10%"><%=product.getStatus()%>
                                 </td>
-                                <td><%=product.getPrice()%>
+                                <td style="width: 15%"><%=product.getPrice()%>
                                 </td>
-                                <td><%=((ArrayList<Category>) request.getAttribute("listCategories")).get(product.getCategoryId()).getName()%>
+                                <td style="width: 10%"><%=
+                                "TODO"
+//                                ((ArrayList<Category>) request.getAttribute("listCategories")).get(product.getCategoryId()).getName()
+                                %>
                                 </td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
-                                    <button class="btn-delete">Xóa</button>
+                                    <form action="<c:url value="/admin/product?act=delete"/>" method="post">
+                                        <input type="hidden" name="productId" value="<%=product.getId()%>">
+                                        <button class="btn-delete" type="submit">Xóa</button>
+                                    </form>
                                 </td>
                             </tr>
                             <%}%>

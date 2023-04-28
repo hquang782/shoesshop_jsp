@@ -184,7 +184,7 @@ public class ProductDAO extends DAO {
     public boolean createProduct(Product product) {
         try (Connection conn = getConnection()) {
             String stmt = "insert into product (name, category_id, description, image_link, image_list, price, cost, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            PreparedStatement ppStmt = conn.prepareStatement(stmt, Statement.RETURN_GENERATED_KEYS);
             ppStmt.setString(1, product.getName());
             ppStmt.setInt(2, product.getCategoryId());
             ppStmt.setString(3, product.getDescription());
@@ -195,7 +195,22 @@ public class ProductDAO extends DAO {
             ppStmt.setString(8, product.getStatus());
             ppStmt.setString(9, product.getCreatedAt());
             ppStmt.executeUpdate();
-            return true;
+
+            int id;
+            ResultSet rs = ppStmt.getGeneratedKeys();
+            if (rs.next()) {
+                id = rs.getInt(1);
+                stmt = "insert into product_detail (size, product_id, quantity) values (?, ?, ?)";
+                for (ProductDetail productDetail : product.getProductDetails()) {
+                    PreparedStatement pp = conn.prepareStatement(stmt);
+                    pp.setString(1, productDetail.getSize());
+                    pp.setInt(2, id);
+                    pp.setInt(3, productDetail.getQuantity());
+                    pp.executeUpdate();
+                }
+                return true;
+            }
+            return false;
         } catch (SQLException e) {
             throw new RuntimeException();
         }
@@ -221,10 +236,11 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public boolean deleteProduct(String id) {
+    public boolean deleteProduct(int id) {
         try (Connection conn = getConnection()) {
-            String stmt = "DELETE FROM product WHERE id = " + id;
+            String stmt = "DELETE FROM product WHERE id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            ppStmt.setInt(1, id);
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {
@@ -262,6 +278,7 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public int getTotalProductNearExpired() {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from product where (select sum(quantity) from product_detail)  <= 10";

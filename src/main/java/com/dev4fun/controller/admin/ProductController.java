@@ -29,4 +29,15 @@ public class ProductController extends HttpServlet {
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-product.jsp");
         rd.forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameter("act") != null && req.getParameter("act").equals("delete") && req.getParameter("productId") != null) {
+            ProductDAO productDAO = new ProductDAO();
+            boolean result = productDAO.deleteProduct(Integer.parseInt(req.getParameter("productId")));
+            resp.sendRedirect("/admin/product");
+            return;
+        }
+        resp.sendRedirect("/admin/product");
+    }
 }

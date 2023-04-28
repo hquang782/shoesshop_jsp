@@ -40,7 +40,7 @@ public class AddingAccountController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("act").equals("role")) {
+        if (req.getParameter("act") != null && req.getParameter("act").equals("role") && req.getParameter("newCategory") != null) {
             RoleDAO roleDAO = new RoleDAO();
             Role role = new Role();
             role.setName(req.getParameter("newCategory"));

@@ -106,7 +106,7 @@ public class AccountDAO extends DAO {
 //            if (getAccountByUsernamePasswordRole(account.getUsername(), account.getRole()) == null) {
 //                return false;
 //            }
-            String stmt = "update account set username = ?, password = ?, email = ?, role = ?, fullName = ?, dob = ?, gender = ?, phoneNumber = ?, image_link = ?)";
+            String stmt = "update account set username = ?, password = ?, email = ?, role = ?, full_name = ?, dob = ?, gender = ?, phone_number = ?, image_link = ? where id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, account.getUsername());
             ppStmt.setString(2, account.getPassword());
@@ -117,6 +117,7 @@ public class AccountDAO extends DAO {
             ppStmt.setString(7, account.getGender());
             ppStmt.setString(8, account.getPhoneNumber());
             ppStmt.setString(9, account.getImageLink());
+            ppStmt.setInt(10, account.getId());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <form class="form-product" method="post" action="<c:url value="/admin/product/add"/>" enctype="multipart/form-data">
+                    <form class="form-product" action="<c:url value="/admin/product/add"/>" method="post" enctype='multipart/form-data'>
                         <div class="form-group-line">
                             <div class="form-line">
                                 <label for="code">Mã sản phẩm:</label>
@@ -74,8 +74,8 @@
                                 <label for="status">Trạng thái:</label>
                                 <select name="status" id="status" required>
                                     <option value="" selected disabled hidden>-- Chọn trạng thái --</option>
-                                    <option value="in">Còn hàng</option>
-                                    <option value="out">Hết hàng</option>
+                                    <option value="Còn hàng">Còn hàng</option>
+                                    <option value="Hết Hàng">Hết hàng</option>
                                 </select>
                             </div>
                         </div>
@@ -126,7 +126,7 @@
                         </div>
 
                         <div class="form-line form-line-btn">
-                            <button class="btn-add" type="submit">Thêm sản phẩm</button>
+                            <button class="btn-add" type="submit">Lưu lại</button>
                             <button class="btn-cancel" type="reset">Xóa hết</button>
                         </div>
                     </form>
