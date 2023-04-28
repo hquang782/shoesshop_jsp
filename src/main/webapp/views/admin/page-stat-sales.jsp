@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -20,10 +22,11 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/account.png" width="100%">
+                            <img src="<c:url value="/assets/img/account.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng nhân viên</h4>
+
                             <p><b><%=request.getAttribute("totalStaffAccounts")%> nhân viên</b></p>
                         </div>
                     </div>
@@ -31,7 +34,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/total-product.png" width="100%">
+                            <img src="<c:url value="/assets/img/total-product.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
@@ -42,7 +45,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/bill.png" width="100%">
+                            <img src="<c:url value="/assets/img/bill.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
@@ -53,7 +56,7 @@
                 <div class="box-info end-right">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/total-customer.png" width="100%">
+                            <img src="<c:url value="/assets/img/total-customer.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
@@ -67,18 +70,22 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/total-amount.png" width="100%">
+                            <img src="<c:url value="/assets/img/total-amount.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng doanh thu</h4>
-                            <p><b>56 doanh thu</b></p>
+                            <%
+                                NumberFormat nf = NumberFormat.getNumberInstance();
+                                nf.setGroupingUsed(true);
+                            %>
+                            <p><b><%=nf.format(request.getAttribute("totalIncome"))%> doanh thu</b></p>
                         </div>
                     </div>
                 </div>
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/product-warning.png" width="100%">
+                            <img src="<c:url value="/assets/img/product-warning.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Sắp hết hàng</h4>
@@ -89,7 +96,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/none-product.png" width="100%">
+                            <img src="<c:url value="/assets/img/none-product.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Hết hàng</h4>
@@ -100,11 +107,11 @@
                 <div class="box-info end-right">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                            <img src="../../assets/img/oder-cancelled.png" width="100%">
+                            <img src="<c:url value="/assets/img/oder-cancelled.png"/>" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Đơn hàng hủy</h4>
-                            <p><b>56 đơn hàng</b></p>
+                            <p><b><%=request.getAttribute("totalBillCancelled")%> đơn hàng</b></p>
                         </div>
                     </div>
                 </div>
@@ -143,7 +150,7 @@
                             </td>
                             <td><%=temp.get(2)%>
                             </td>
-                            <td><%=temp.get(3)%>
+                            <td><%=nf.format(temp.get(3))%>
                             </td>
                             <td><%=temp.get(4)%>
                             </td>

@@ -26,7 +26,11 @@ public class SaleStatisticalController extends HttpServlet {
         int totalClientAccounts = accountDAO.getTotalClientAccounts();
         int TotalProductNearExpired = productDAO.getTotalProductNearExpired();
         int totalProductExpired = productDAO.getTotalProductExpired();
+        float totalIncome  = billDAO.getTotalIncome();
+        int totalBillCancelled = billDAO.getTotalBillCancelled();
 
+        req.setAttribute("totalBillCancelled",totalBillCancelled);
+        req.setAttribute("totalIncome",totalIncome);
         req.setAttribute("totalStaffAccounts",totalStaffAccounts);
         req.setAttribute("totalProducts", totalProducts);
         req.setAttribute("totalBills",totalBills);

@@ -118,4 +118,34 @@ public class BillDAO extends DAO {
             throw new RuntimeException();
         }
     }
+
+    public float getTotalIncome (){
+        float totalIncome = 0;
+        try(Connection con = getConnection()){
+            String stmt = "SELECT sum(bill.total_amount) as total_amount FROM shoes.bill";
+            PreparedStatement ps = con.prepareStatement(stmt);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+                totalIncome = rs.getFloat(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return totalIncome;
+    }
+
+    public int getTotalBillCancelled(){
+        int totalBillCancelled=0;
+        Connection con = getConnection();
+        String stmt = "SELECT count(*) FROM shoes.bill where status = 'cancelled'";
+        try {
+            PreparedStatement ps = con.prepareStatement(stmt);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                totalBillCancelled = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return totalBillCancelled;
+    }
 }
