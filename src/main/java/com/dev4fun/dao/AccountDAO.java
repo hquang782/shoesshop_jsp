@@ -125,10 +125,11 @@ public class AccountDAO extends DAO {
         }
     }
 
-    public boolean deleteAccount(String id) {
+    public boolean deleteAccount(int id) {
         try (Connection conn = getConnection()) {
-            String stmt = "DELETE FROM account WHERE id = " + id;
+            String stmt = "DELETE FROM account WHERE id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            ppStmt.setInt(1, id);
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

@@ -1,100 +1,59 @@
-<%@page import="com.dev4fun.dao.ProductDAO"%>
-<%@page import="com.dev4fun.model.Product"%>
-<%@page import="com.dev4fun.dao.CategoryDAO"%>
-<%@page import="java.util.List"%>
-<%@page import="com.dev4fun.model.Category"%>
+<%@page import="com.dev4fun.dao.ProductDAO" %>
+<%@page import="com.dev4fun.model.Product" %>
+<%@page import="com.dev4fun.model.Category" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@include file="/common/taglib.jsp"%>
-<body>
-    <link href="../../assets/style/home_user-style.css" rel="stylesheet" type="text/css"/>
-    <!-- nav -->
-    <div class="container">
-        <%
-            List<Category> category = (List<Category>)request.getAttribute("category");
+<%@include file="/common/taglib.jsp" %>
+<link href="<c:url value="/assets/style/user/home-style.css"/>" rel="stylesheet" type="text/css"/>
 
-        %>
-        <nav>
-            <%                for (Category c : category) {
-            %>
-            <a href="home/products?loai_giay=<%=c.getName()%>" class="nav-item">
-                <img src="https://tyhisneaker.com/wp-content/uploads/2022/08/eme-2.png" alt="hình ảnh ">
-                <b class="item-text">
-                    <%=c.getName()%>
-                </b>
-            </a>
-            <%
-                }
-            %>
-        </nav>
+<div class="container">
+    <%ArrayList<Category> listCategories = (ArrayList<Category>) request.getAttribute("listCategories");%>
+    <nav>
+        <% for (Category category : listCategories) {%>
+        <a href="home/products?category=<%=category.getName()%>" class="nav-item">
+            <img src="https://tyhisneaker.com/wp-content/uploads/2022/08/eme-2.png" alt="hình ảnh ">
+            <b class="item-text">
+                <%=category.getName()%>
+            </b>
+        </a>
+        <%}%>
+    </nav>
 
-        <%
-            for (Category c : category) {
-
-        %>
-        <div class="list-product">
-            <div class="head-product">
-
-                <div class="brand"><%=c.getName()%></div>
-                <a href="home/allproduct?loai_giay=<%=c.getName()%>" class="allProduct">Tất cả sản phẩm ></a>
+    <%for (Category category : listCategories) {%>
+    <div class="list-product">
+        <div class="head-product">
+            <div class="brand"><%=category.getName()%>
             </div>
-            <%
-                List<Product> products = new ProductDAO().getProductByCategory(c.getId());
-
-            %>
-            <div class="container-product">
-                <div class="home-product">
-                    <div class="grid">
-                        <%                            for (Product p : products) {
-                        %>
-                        <div class="grid__column-2-4">
-
+            <a href="home/products?category=<%=category.getName()%>" class="allProduct">Tất cả sản phẩm</a>
+        </div>
+        <%ArrayList<Product> listProducts = new ProductDAO().getProductsByCategoryId(category.getId());%>
+        <div class="container-product">
+            <div class="home-product">
+                <div class="grid">
+                    <% for (Product product : listProducts) {%>
+                    <div class="grid__column-2-4">
+                        <a href="/">
                             <div class="home-product-item">
-
                                 <div class="home-product-item__img home-product-add-cart"
-                                     style="background-image: url(<%=p.getImageLink()%>)"></div>
+                                     style="background-image: url(<%=product.getImageLink()%>)"></div>
                                 <div class="home-product-item__properties">
-                                    <h5 class="home-product-item__name">
-                                        <%=p.getName()%>
+                                    <h5 class="home-product-item__name"><%=product.getName()%>
                                     </h5>
                                     <div class="home-product-item__infor">
-                                        <div class="home-product-item__price">
-                                            <%=p.getPrice()%>
-                                        </div>
-                                        <div class="home-product-item__quantity">
-
+                                        <div class="home-product-item__price"><%=product.getPrice()%>
                                         </div>
                                     </div>
                                     <div title="Thêm vào giỏ hàng" class="home-product-item__add-cart">
                                         <i class="fa-solid fa-cart-plus"></i>
                                     </div>
-
                                 </div>
-
                             </div>
-
-
-                        </div>
-                        <%
-                            }
-                        %>
-
+                        </a>
                     </div>
-
+                    <%}%>
                 </div>
             </div>
-
-
         </div>
-
-        <%
-            }
-        %>
-
-        <!--  -->
-
-
     </div>
-
-
-
-</body>
+    <%}%>
+</div>

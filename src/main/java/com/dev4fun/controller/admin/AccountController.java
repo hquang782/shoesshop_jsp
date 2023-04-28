@@ -3,6 +3,7 @@ package com.dev4fun.controller.admin;
 
 import com.dev4fun.dao.AccountDAO;
 import com.dev4fun.model.Account;
+import com.dev4fun.utils.SessionUtil;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -23,5 +24,17 @@ public class AccountController extends HttpServlet {
 
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-account.jsp");
         rd.forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (req.getParameter("act") != null && req.getParameter("act").equals("delete")) {
+            int id = ((Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN")).getId();
+            if (!req.getParameter("accountId").equals(String.valueOf(id))) {
+                AccountDAO accountDAO = new AccountDAO();
+                boolean result = accountDAO.deleteAccount(Integer.parseInt(req.getParameter("accountId")));
+            }
+            resp.sendRedirect("/admin/account");
+        }
     }
 }

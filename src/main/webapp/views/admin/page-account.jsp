@@ -74,7 +74,8 @@
                                 </td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
-                                    <form method="post" action="<c:url value="/admin/account"/>">
+                                    <form method="post" action="<c:url value="/admin/account?act=delete"/>">
+                                        <input type="hidden" name="accountId" value="<%=account.getId()%>">
                                         <button class="btn-delete" type="submit">Xóa</button>
                                     </form>
                                 </td>

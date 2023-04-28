@@ -47,27 +47,39 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public List<Product> getProductByCategoryName(int index, String name) {
+    public ArrayList<Product> getProductByCategoryName(int index, String categoryName) {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT * FROM product inner join category on product.category_id = category.id where category.name = ? limit ?";
-            List<Product> products = new ArrayList<>();
-            PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ppStmt.setString(1, name);
-            ppStmt.setInt(2, (index - 1) * 10);
-            ResultSet rs = ppStmt.executeQuery();
-            while (rs.next()) {
+            String statementProduct = "SELECT * FROM product inner join category on product.category_id = category.id where category.name = ? limit ?";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
+            PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
+            ppProduct.setString(1, categoryName);
+            ppProduct.setInt(2, (index - 1) * 10);
+            ResultSet rsProduct = ppProduct.executeQuery();
+            ArrayList<Product> products = new ArrayList<>();
+            while (rsProduct.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategoryId(rs.getInt("category_id"));
-                product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("image_Link"));
-                product.setImageList(rs.getString("image_List"));
-                product.setPrice(rs.getFloat("price"));
-                product.setCost(rs.getFloat("cost"));
-                product.setStatus(rs.getString("status"));
-                product.setCreatedAt(rs.getString("created_at"));
-                products.add(product);
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
+
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
             }
             return products;
         } catch (SQLException e) {
@@ -77,7 +89,7 @@ public class ProductDAO extends DAO {
 
     public int getTotalProductByCategoryName(String name) {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT count(*) FROM product inner join category on product.category_id = category.id where category.name = ?";
+            String statement = "SELECT count(*) FROM product p inner join category c on p.category_id = c.id where c.name = ?";
             PreparedStatement ppStmt = conn.prepareStatement(statement);
             ppStmt.setString(1, name);
             ResultSet rs = ppStmt.executeQuery(statement);
@@ -90,25 +102,38 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public List<Product> getProductByCategory(int id_cate) {
+    public ArrayList<Product> getProductsByCategoryId(int categoryId) {
         try (Connection conn = getConnection()) {
-            String statement = "select * from product where category_id =?";
-            List<Product> products = new ArrayList<>();
-            PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ppStmt.setInt(1, id_cate);
-            ResultSet rs = ppStmt.executeQuery();
-            while (rs.next()) {
+            String statementProduct = "select * from product where category_id = ?";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
+            PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
+            ppProduct.setInt(1, categoryId);
+            ResultSet rsProduct = ppProduct.executeQuery();
+            ArrayList<Product> products = new ArrayList<>();
+            while (rsProduct.next()) {
                 Product product = new Product();
-                product.setId(rs.getInt("id"));
-                product.setName(rs.getString("name"));
-                product.setCategoryId(rs.getInt("category_id"));
-                product.setDescription(rs.getString("description"));
-                product.setImageLink(rs.getString("image_Link"));
-                product.setImageList(rs.getString("image_List"));
-                product.setPrice(rs.getFloat("price"));
-                product.setCost(rs.getFloat("cost"));
-                product.setStatus(rs.getString("status"));
-                product.setCreatedAt(rs.getString("created_at"));
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
+
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
                 products.add(product);
             }
             return products;

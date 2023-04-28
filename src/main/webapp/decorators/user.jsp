@@ -6,8 +6,8 @@
     <title><dec:title default="Trang chủ"/></title>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
-    
-    <link href="<c:url value="/assets/style/user-style.layout.css"/>" rel="stylesheet" type="text/css" media="all"/>
+
+    <script src="https://kit.fontawesome.com/5c6f358cdb.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <!-- Header-->
