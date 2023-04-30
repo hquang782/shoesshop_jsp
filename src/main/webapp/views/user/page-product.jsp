@@ -91,6 +91,7 @@
                                 </h5>
                                 <div class="home-product-item__infor">
                                     <div class="home-product-item__price"><%=nf.format(product.getPrice())%>
+                                        <sup>đ</sup>
                                     </div>
                                 </div>
                             </div>

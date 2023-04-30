@@ -28,7 +28,7 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/admin/product/add"})
 @MultipartConfig
-public class AddingProductController extends HttpServlet {
+public class AddProductController extends HttpServlet {
     Cloudinary cloudinary;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

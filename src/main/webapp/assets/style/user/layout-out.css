@@ -19,7 +19,7 @@ header {
     font-size: 16px;
     text-align: center;
     margin-bottom: 24px;
-    background-color: #c0bca6;
+    background-color: #333333;
 }
 
 ul,
@@ -45,6 +45,10 @@ a {
     padding: 10px 15px;
     align-items: center;
     justify-content: center;
+    display: flex;
+}
+
+.wrap-logo>a {
     display: flex;
 }
 
@@ -80,7 +84,7 @@ a {
     display: flex;
     align-items: center;
     padding: 0 24px;
-    color: black;
+    color: white;
 }
 
 .wrap-search {
@@ -96,9 +100,10 @@ a {
 .wrap-search>form>input {
     width: 100%;
     border: 1px solid #dfdfdf;
-    border-radius: 30px;
-    padding: 10px;
+    border-radius: 4px;
+    padding: 8px;
     outline: none;
+    background: white;
 }
 
 .wrap-action {
@@ -108,7 +113,7 @@ a {
 }
 
 .wrap-action a {
-    color: black;
+    color: white;
 }
 
 .wrap-action>.account,
@@ -128,8 +133,8 @@ a {
 
 
 footer {
-    background-color: #c0bca6;
-    color: #252a2b;
+    background-color: #333333;
+    color: white;
     font-size: 14px;
     line-height: 1.6;
     text-align: center;

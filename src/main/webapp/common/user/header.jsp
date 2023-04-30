@@ -6,17 +6,15 @@
     <div class="container-header">
         <div class="container-header--flex">
             <div class="wrap-logo">
-                <a href="#"><img src="../assets/img/demo.png" alt=""></a>
+                <a href="#"><img src="<c:url value="/assets/img/demo.png"/>" alt=""></a>
             </div>
             <div class="wrap-link">
                 <ul class="main-link">
-                    <li><a href="#">Home</a></li>
-                    <div class="dropdown-home"></div>
-                    <li><a href="#">Products</a></li>
-                    <div class="dropdown-product"></div>
-                    <li><a href="#">Store</a></li>
-                    <li><a href="#">Blogs</a></li>
-                    <div class="dropdown-blog"></div>
+                    <li><a href="<c:url value="/home"/>">Trang chủ</a></li>
+                    <li><a href="<c:url value="/home"/>">Giới thiệu</a></li>
+                    <li><a href="<c:url value="/products"/>">Sản phẩm</a></li>
+                    <li><a href="<c:url value="/products"/>">Liên hệ</a></li>
+                    <li><a href="/policy">Store</a></li>
                 </ul>
             </div>
             <div class="wrap-search">

@@ -80,4 +80,9 @@ CREATE TABLE `bill_detail`
         REFERENCES `product` (`id`)
 );
 
-
+CREATE TABLE `config`
+(
+    `id`      VARCHAR(255) primary key,
+    `name`    VARCHAR(255),
+    `content` TEXT
+);

@@ -26,7 +26,7 @@ import java.util.Map;
 
 @WebServlet(urlPatterns = {"/admin/account/add"})
 @MultipartConfig
-public class AddingAccountController extends HttpServlet {
+public class AddAccountController extends HttpServlet {
     Cloudinary cloudinary;
 
     @Override
