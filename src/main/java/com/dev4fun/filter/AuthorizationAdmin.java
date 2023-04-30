@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/admin/*"})
-public class AuthorizationFilter implements Filter {
+public class AuthorizationAdmin implements Filter {
 
     @Override
     public void init(FilterConfig filterConfig) throws ServletException {
@@ -22,14 +22,10 @@ public class AuthorizationFilter implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String url = req.getRequestURI();
-        if (!url.contains("/admin/login")) {
+        if (!url.startsWith("/admin/login") && url.startsWith("/admin")) {
             Account account = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN");
-            if (account != null) {
-                if (account.getRole().equals("ADMIN")) {
-                    chain.doFilter(request, response);
-                } else {
-                    res.sendRedirect("/admin/login");
-                }
+            if (account != null && account.getRole().equals("ADMIN")) {
+                chain.doFilter(request, response);
             } else {
                 res.sendRedirect("/admin/login");
             }

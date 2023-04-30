@@ -14,13 +14,23 @@
     </filter-mapping>
 
     <filter>
-        <filter-name>authFilter</filter-name>
-        <filter-class>com.dev4fun.filter.AuthorizationFilter</filter-class>
+        <filter-name>adminAuthorization</filter-name>
+        <filter-class>com.dev4fun.filter.AuthorizationAdmin</filter-class>
     </filter>
 
     <filter-mapping>
-        <filter-name>authFilter</filter-name>
+        <filter-name>adminAuthorization</filter-name>
         <url-pattern>/admin/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
+        <filter-name>userAuthorization</filter-name>
+        <filter-class>com.dev4fun.filter.AuthorizationUser</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>userAuthorization</filter-name>
+        <url-pattern>/user/*</url-pattern>
     </filter-mapping>
 
     <filter>

@@ -159,3 +159,55 @@ footer {
     font-size: 12px;
     padding: 8px 0;
 }
+
+
+
+/*  */
+/*  */
+/*  */
+/*
+profile
+*/
+/*  */
+/*  */
+/*  */
+
+.profile-section {
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    margin: 0 auto;
+    padding: 0 100px;
+    height: 100%;
+}
+
+.wrapper-avatar {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.wrapper-avatar p {
+    margin-top: 10px;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.wrapper-avatar img {
+    display: block;
+    margin: 10px auto;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    object-position: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.profile-section .form-line-btn {
+    justify-content: center;
+}
+
+
+#main {
+    width: 84%;
+}

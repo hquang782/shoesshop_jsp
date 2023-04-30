@@ -1,57 +1,57 @@
+<%--@elvariable id="ACCOUNT_USER" type="com.dev4fun.model.Account"--%>
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page import="com.dev4fun.utils.SessionUtil" %>
-<%--@elvariable id="ACCOUNT_ADMIN" type="com.dev4fun.model.Account"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
         <div class="profile-section">
             <div class="wrapper-avatar">
-                <img src="${ACCOUNT_ADMIN.imageLink}" alt="Logo" class="logo">
-                <p>${ACCOUNT_ADMIN.fullName}</p>
+                <img src="${ACCOUNT_USER.imageLink}" alt="Logo" class="logo">
+                <p>${ACCOUNT_USER.fullName}</p>
             </div>
 
-            <form class="form-product" action="<c:url value="/admin/profile"/>" method="post">
+            <form class="form-product" action="<c:url value="/user/profile"/>" method="post">
                 <div class="form-line">
                     <label for="fullName">Họ và tên:</label>
-                    <input type="text" id="fullName" name="fullName" value="${ACCOUNT_ADMIN.fullName}" required>
+                    <input type="text" id="fullName" name="fullName" value="${ACCOUNT_USER.fullName}" required>
                 </div>
 
                 <div class="form-group-line">
                     <div class="form-line">
                         <label for="username">Tên đăng nhập:</label>
-                        <input type="text" id="username" name="username" value="${ACCOUNT_ADMIN.username}" required>
+                        <input type="text" id="username" name="username" value="${ACCOUNT_USER.username}" required>
                     </div>
 
                     <div class="form-line">
                         <label for="password">Mật khẩu:</label>
-                        <input type="password" id="password" name="password" value="${ACCOUNT_ADMIN.password}" required>
+                        <input type="password" id="password" name="password" value="${ACCOUNT_USER.password}" required>
                     </div>
                 </div>
 
                 <div class="form-group-line">
                     <div class="form-line">
                         <label for="email">Email:</label>
-                        <input type="email" id="email" name="email" value="${ACCOUNT_ADMIN.email}" required>
+                        <input type="email" id="email" name="email" value="${ACCOUNT_USER.email}" required>
                     </div>
 
                     <div class="form-line">
                         <label for="tel">Số điện thoại:</label>
-                        <input type="tel" id="tel" name="tel" value="${ACCOUNT_ADMIN.phoneNumber}" required>
+                        <input type="tel" id="tel" name="tel" value="${ACCOUNT_USER.phoneNumber}" required>
                     </div>
                 </div>
 
                 <div class="form-group-line">
                     <div class="form-line">
                         <label for="dob">Ngày sinh:</label>
-                        <input type="text" id="dob" name="dob" value="${ACCOUNT_ADMIN.dob}" required>
+                        <input type="text" id="dob" name="dob" value="${ACCOUNT_USER.dob}" required>
                     </div>
                     <div class="form-line">
                         <label for="gender">Giới tính:</label>
                         <select name="gender" id="gender" required>
-                            <option value="${ACCOUNT_ADMIN.gender}" selected>${ACCOUNT_ADMIN.gender}</option>
+                            <option value="${ACCOUNT_USER.gender}" selected>${ACCOUNT_USER.gender}</option>
                             <%
-                                String gender = ((Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_ADMIN")).getGender();
+                                String gender = ((Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER")).getGender();
                                 String optionGender1, optionGender2;
                                 if (gender.equals("Nam")) {
                                     optionGender1 = "Nữ";

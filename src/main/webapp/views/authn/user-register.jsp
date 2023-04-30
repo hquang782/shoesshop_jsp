@@ -72,10 +72,10 @@
 
                             <div class="form-body-line">
                                 <div class="wrapper-form-line">
-                                    <label for="telephone">Số điện thoại (?)</label>
+                                    <label for="tel">Số điện thoại (?)</label>
                                     <div>
-                                        <input type="text" placeholder="Số điện thoại" name="telephone"
-                                               id="telephone">
+                                        <input type="text" placeholder="Số điện thoại" name="tel"
+                                               id="tel">
                                     </div>
                                 </div>
                             </div>
