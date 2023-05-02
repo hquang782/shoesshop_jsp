@@ -20,8 +20,6 @@ const rightSideHeader = document.getElementsByClassName('wrap-right')[0];
 const mainContent = document.getElementById('main');
 
 btnSidebar.addEventListener('click', () => {
-    console.log(mainContent)
-    console.log(sidebar)
     if (sidebar.classList.contains('close') && leftSideHeader.classList.contains('close')) {
         sidebar.classList.remove('close');
         leftSideHeader.classList.remove('close');

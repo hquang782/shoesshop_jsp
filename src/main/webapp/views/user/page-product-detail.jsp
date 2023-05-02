@@ -12,6 +12,7 @@
         Product product = (Product) request.getAttribute("product");
         ArrayList<String> listImages = new ArrayList<>(List.of(product.getImageList().split(",")));
         NumberFormat nf = NumberFormat.getNumberInstance();
+        int quantity = 1;
     %>
     <div class="product">
         <div class="product-top">
@@ -36,7 +37,8 @@
             </div>
             <div class="product-content-right">
                 <div class="product-content-right-product-name">
-                    <h1>AF1 Low White Brown Siêu Cấp</h1>
+                    <h1><%=product.getName()%>
+                    </h1>
                     <div class="product-content-right-product-name-danhgia row">
                         <span>Mã sản phẩm: <%="SP" + product.getId()%></span>
                     </div>
@@ -56,29 +58,29 @@
                     <p style="font-weight: bold;">Số lượng:</p>
                     <div class="quantity-set">
                         <div class="quantity-reduce">
-                            <div style="font-weight: bold;">-</div>
+                            <div style="font-weight: bold;" >-</div>
                         </div>
                         <div class="quatity-value">
-                            <div>1</div>
+                            <p id="quantityValue"><%=quantity%>
+                            </p>
                         </div>
                         <div class="quantity-increase">
-                            <div style="font-weight: bold;">+</div>
+                            <div style="font-weight: bold;" onclick="dcd()">+</div>
                         </div>
                     </div>
 
                 </div>
                 <div class="product-content-right-product-button">
-                    <div class="product-content-right-product-button-mua">
-                        <button>
-                            <p>ĐẶT MUA NGAY</p>
-                        </button>
-                    </div>
                     <div class="product-content-right-product-button-cart">
                         <button>
-                            <p>THÊM VÀO GIỎ</p>
+                            <a href="/cart?act=add&&id=<%=product.getId()%>&&qtt=<%=quantity%>>">THÊM VÀO GIỎ HÀNG</a>
                         </button>
                     </div>
-
+                    <div class="product-content-right-product-button-mua">
+                        <button>
+                            <a href="/delivery">MUA NGAY</a>
+                        </button>
+                    </div>
                 </div>
                 <div class="product-content-right-bottom">
                     <div class="product-content-right-bottom-content-big">
@@ -105,4 +107,11 @@
             bigImg.src = imgItem.src
         })
     })
+
+    function dcd() {
+        <%
+            System.out.println(quantity);
+            quantity += 1;
+        %>
+    }
 </script>

@@ -94,15 +94,15 @@
                                     <label>Giới tính (?)</label>
                                     <div class="gender">
                                         <div>
-                                            <input type="radio" name="gender" value="male">
+                                            <input type="radio" name="gender" value="Nam">
                                             <p>Nam</p>
                                         </div>
                                         <div>
-                                            <input type="radio" name="gender" value="female">
+                                            <input type="radio" name="gender" value="Nữ">
                                             <p>Nữ</p>
                                         </div>
                                         <div>
-                                            <input type="radio" name="gender" value="option">
+                                            <input type="radio" name="gender" value="Khác">
                                             <p>Khác</p>
                                         </div>
                                     </div>

@@ -176,7 +176,6 @@
 }
 
 .product-content-right-product-button button {
-    width: 150px;
     height: 40px;
     display: block;
     margin: 20px 0 12px;
@@ -184,13 +183,14 @@
 }
 
 .product-content-right-product-button-mua button {
-    background-color: #3333;
+    background-color: #333333;
     border: 1px solid #333333;
     cursor: pointer;
-    margin-right: 40px;
-    font-size: 16px;
-    color: #333333;
     border-radius: 2px;
+}
+
+.product-content-right-product-button-mua button a {
+    color: white;
 }
 
 .product-content-right-product-button-mua button:first-child:hover {
@@ -199,11 +199,14 @@
 
 .product-content-right-product-button-cart button {
     cursor: pointer;
-    color: white;
-    background-color: #333333;
+    background-color: #3333;
     border: 1px solid #333333;
-    font-size: 16px;
+    margin-right: 36px;
     border-radius: 2px;
+}
+
+.product-content-right-product-button-cart button a {
+    color: #333333;
 }
 
 .product-content-right-product-button-cart button:last-child:hover {

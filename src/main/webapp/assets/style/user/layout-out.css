@@ -48,11 +48,11 @@ a {
     display: flex;
 }
 
-.wrap-logo>a {
+.wrap-logo > a {
     display: flex;
 }
 
-.wrap-logo>a>img {
+.wrap-logo > a > img {
     width: 100%;
     max-height: 35px;
 }
@@ -71,7 +71,7 @@ a {
     align-items: center;
 }
 
-.main-link>li {
+.main-link > li {
     height: 100%;
     display: flex;
     align-items: center;
@@ -79,7 +79,7 @@ a {
     font-size: 16px;
 }
 
-.main-link>li>a {
+.main-link > li > a {
     height: 100%;
     display: flex;
     align-items: center;
@@ -93,11 +93,11 @@ a {
     align-items: center;
 }
 
-.wrap-search>form {
+.wrap-search > form {
     width: 100%;
 }
 
-.wrap-search>form>input {
+.wrap-search > form > input {
     width: 100%;
     border: 1px solid #dfdfdf;
     border-radius: 4px;
@@ -116,8 +116,8 @@ a {
     color: white;
 }
 
-.wrap-action>.account,
-.wrap-action>.cart {
+.wrap-action > .account,
+.wrap-action > .cart {
     height: 100%;
     display: flex;
     align-items: center;
@@ -150,7 +150,7 @@ footer {
     display: flex;
 }
 
-.wrap-info-footer>div {
+.wrap-info-footer > div {
     width: 25%;
     padding: 0 12px;
 }
@@ -160,7 +160,13 @@ footer {
     padding: 8px 0;
 }
 
-
+.content {
+    padding: 16px;
+    width: 100%;
+    height: 100%;
+    margin: 0 auto;
+    background-color: #f5f5f5;
+}
 
 /*  */
 /*  */
@@ -208,6 +214,269 @@ profile
 }
 
 
+div button {
+    padding: 12px 16px;
+    cursor: pointer;
+    font-weight: 600;
+    border-radius: 3px;
+    border: none;
+    margin-right: 8px;
+    letter-spacing: 1px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+
+input:-webkit-autofill,
+select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px #f1f1f1 inset;
+}
+
+/* form add */
+.form-content {
+    padding: 8px;
+    width: 100%;
+    box-shadow: none !important;
+}
+
+.form-content .wrap-title {
+    padding: 0 !important;
+    padding-bottom: 6px !important;
+    border-bottom: 3px solid #00d9ff;
+    margin-bottom: 16px;
+}
+
+.form-content .wrap-title .item-title {
+    padding: 0;
+}
+
+.form-add {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group-line {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 6px;
+}
+
+.form-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    padding: 12px 10px 0 10px;
+    border-radius: 3px;
+    position: relative;
+    width: 100%;
+    margin-bottom: 6px;
+}
+
+.form-line label {
+    margin-bottom: 8px;
+    color: #2c3345;
+    display: inline-block;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.form-line input,
+textarea,
+select {
+    font-size: 16px;
+    border-radius: 4px;
+    border-width: 1px;
+    outline: none;
+    border-style: solid;
+    display: block;
+    width: 100%;
+    height: 36px;
+    border-color: #b8bdc9;
+    color: #2c3345;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.form-line-btn {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
 #main {
-    width: 84%;
+    width: 100%
+}
+
+
+/* cart */
+/*  */
+/*phần sản cart*/
+.header__cart-icon > i {
+    color: white;
+    font-size: 20px;
+}
+
+/* tao phan gior hang */
+
+.header-cart {
+    text-align: center;
+}
+
+.header-cart-wrap {
+    position: relative;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    height: 100%;
+    /* display: none; */
+}
+
+/* phan icon  */
+.header__cart-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.header__cart-notice {
+    position: absolute;
+    top: -5px;
+    right: 5px;
+    padding: 1px 6px;
+    font-size: 1.2rem;
+    line-height: 1.2rem;
+    border-radius: 10px;
+    border: 2px solid;
+    font-weight: 400;
+    color: white;
+    background-color: #333333;
+}
+
+
+.header__cart-list {
+    background-color: white;
+    position: absolute;
+    top: calc(100% + 4px);
+    right: 1px;
+    width: 420px;
+    border-radius: 2px;
+    box-shadow: 0 1px 3.125rem 0 rgba(0, 0, 0, 0.2);
+    animation: fadeIn ease-in 0.2s;
+    cursor: default;
+    z-index: 20;
+}
+
+/* tao nut mui ten  */
+.serieel {
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: -24px;
+    border-width: 16px 20px;
+    border-style: solid;
+    border-color: transparent transparent white transparent;
+    /* border-color: #000; */
+}
+
+.header__cart-no-cart-img {
+    margin: 20px 0 10px;
+    width: 54%;
+}
+
+.header__cart-list-no-cart-msg {
+    font-size: 14px;
+    padding: 10px 0 20px;
+    color: #999;
+}
+
+
+/* phan xem khi da co san pham  */
+
+.header__cart-heading {
+    text-align: left;
+    margin: 8px 0 8px 12px;
+    font-size: 14px;
+    color: #999;
+    font-weight: 400;
+}
+
+
+.header__cart-list-item {
+    padding-left: 0;
+    list-style: none;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+/* css cho tung item khi co san pham */
+.header__cart-item {
+    display: flex;
+    padding: 2px 12px;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.header__cart-item-img {
+    background-position: 50px 0;
+    height: 60px;
+    width: 70px;
+}
+
+.product-img {
+    background-position: 50px 0;
+    height: 100%;
+    width: 100%;
+}
+
+.header__cart-item-img > a {
+    display: block;
+    height: 100%;
+}
+
+.item_hr {
+    border-top: 2px dashed #ccc;
+    width: 90%;
+    margin: 0 auto;
+}
+
+
+.header__cart-item-info {
+    display: flex;
+    justify-content: space-between;
+    margin: 8px;
+    width: 100%;
+}
+
+.header__cart-item-info-name {
+    color: #313131;
+}
+
+.header__cart-item-info-price {
+    margin-top: 2px;
+    font-size: 17px;
+    color: #333333;
+}
+
+/* phan button */
+.list-cart-item-button {
+    margin: 10px 12px;
+    float: right;
+    font-size: 16px;
+    padding: 6px 12px;
+    color: #fff;
+    background-color: #333333;
+    border: none;
+    border-radius: 2px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.list-cart-item-button:hover {
+    opacity: 0.8;
+}
+
+.open-cart {
+    display: none;
 }

@@ -2,13 +2,17 @@
 <%@page import="com.dev4fun.model.Product" %>
 <%@page import="com.dev4fun.model.Category" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
 <link href="<c:url value="/assets/style/user/home-style.css"/>" rel="stylesheet" type="text/css"/>
 
 <div class="main">
     <div class="container">
-        <%ArrayList<Category> listCategories = (ArrayList<Category>) request.getAttribute("listCategories");%>
+        <%
+            ArrayList<Category> listCategories = (ArrayList<Category>) request.getAttribute("listCategories");
+            NumberFormat nf = NumberFormat.getNumberInstance();
+        %>
         <nav>
             <% for (Category category : listCategories) {%>
             <a href="/products?category=<%=category.getName()%>" class="nav-item">
@@ -41,7 +45,7 @@
                                         <h5 class="home-product-item__name"><%=product.getName()%>
                                         </h5>
                                         <div class="home-product-item__infor">
-                                            <div class="home-product-item__price"><%=product.getPrice()%>
+                                            <div class="home-product-item__price"><%=nf.format(product.getPrice())%>
                                                 <sup>đ</sup>
                                             </div>
                                         </div>

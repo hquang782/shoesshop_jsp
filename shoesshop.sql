@@ -40,6 +40,7 @@ CREATE TABLE `product`
     `description` VARCHAR(128),
     `image_link`  TEXT,
     `image_list`  TEXT,
+    `status`      VARCHAR(128),
     FOREIGN KEY (`category_id`)
         REFERENCES `category` (`id`)
 );
