@@ -40,7 +40,7 @@ public class RegisterController extends HttpServlet {
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
         account.setPassword(req.getParameter("password"));
-        account.setImageLink("");
+        account.setImageLink("https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg");
 
         AccountDAO accountDAO = new AccountDAO();
         boolean result = accountDAO.createAccount(account);

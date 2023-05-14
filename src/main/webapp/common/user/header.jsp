@@ -1,6 +1,8 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dev4fun.model.Cart" %>
 <%@ page import="com.dev4fun.utils.CartUtil" %>
+<%@ page import="com.dev4fun.utils.SessionUtil" %>
+<%@ page import="com.dev4fun.model.Account" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <title>Header</title>
@@ -8,11 +10,12 @@
 <header class="header ">
     <%
         ArrayList<Cart> listCarts = CartUtil.getCart(request);
+        Account accountUser = (Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER");
     %>
     <div class="container-header">
         <div class="container-header--flex">
             <div class="wrap-logo">
-                <a href="#"><img src="<c:url value="/assets/img/demo.png"/>" alt=""></a>
+                <a href="<c:url value="/home"/>"><img src="<c:url value="/assets/img/demo.png"/>" alt=""></a>
             </div>
             <div class="wrap-link">
                 <ul class="main-link">
@@ -80,7 +83,27 @@
                 </div>
 
                 <div class="account">
-                    <a href="#">Accounts</a>
+                    <%if (accountUser == null) {%>
+                    <a href="<c:url value="/login"/>">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+                    <%} else {%>
+                    <div class="wrap-account">
+                        <a class="account-item">
+                            <img src="<%=accountUser.getImageLink()%>"
+                                 alt="logo">
+                        </a>
+                        <ul class="dropdown-account-link">
+                            <li><a href="<c:url value="/user/profile"/>">Tài khoản của tôi</a></li>
+                            <li><a href="<c:url value="/user/profile"/>">Đơn mua</a></li>
+                            <li>
+                                <form method="post" action="<c:url value="/logout"/>">
+                                    <button type="submit">Đăng xuất</button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <%}%>
                 </div>
             </div>
         </div>

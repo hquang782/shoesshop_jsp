@@ -14,3 +14,18 @@ window.addEventListener("click", (e) => {
         listCart.classList.add("open-cart")
     }
 })
+
+
+// Drop down account
+const dropdownAccount = document.getElementsByClassName('dropdown-account-link')[0];
+const btnAccountItem = document.getElementsByClassName('account-item')[0];
+
+btnAccountItem.addEventListener('click', () => {
+    dropdownAccount.classList.contains('open-dropdown') ? dropdownAccount.classList.remove('open-dropdown') : dropdownAccount.classList.add('open-dropdown');
+});
+
+window.onclick = (event) => {
+    if (!dropdownAccount.contains(event.target) && !btnAccountItem.contains(event.target)) {
+        dropdownAccount.classList.remove('open-dropdown');
+    }
+};

@@ -109,7 +109,6 @@ a {
 .wrap-action {
     width: 15%;
     display: flex;
-    justify-content: center;
 }
 
 .wrap-action a {
@@ -127,6 +126,69 @@ a {
 
 .sticky {
     position: sticky;
+}
+
+.wrap-account {
+    display: flex;
+    align-items: center;
+    order: 2;
+    margin-left: auto;
+    height: 100%;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.account-item {
+    height: 35px;
+    width: 35px;
+}
+
+.account-item > img {
+    border-radius: 50%;
+    height: 100%;
+}
+
+.account-item > img:hover {
+    opacity: 0.9;
+}
+
+/* dropdown account */
+.dropdown-account-link {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    width: 170px;
+    padding: 10px;
+    box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+    background: #fff;
+    border: none;
+    border-radius: 5px;
+    display: none;
+}
+
+.dropdown-account-link > li {
+    width: 100%;
+    text-align: left;
+    overflow: hidden;
+}
+
+.dropdown-account-link > li > a,
+.dropdown-account-link > li button {
+    padding: 10px;
+    float: left;
+    color: black;
+    width: 100%;
+    text-align: center;
+}
+
+.dropdown-account-link > li > a:hover,
+.dropdown-account-link > li button:hover {
+    background: #F1F2F7
+}
+
+.open-dropdown {
+    display: block;
 }
 
 /* Footer */
@@ -313,7 +375,7 @@ select {
 /* cart */
 /*  */
 /*phần sản cart*/
-.header__cart-icon > i {
+.fa-solid {
     color: white;
     font-size: 20px;
 }
@@ -322,6 +384,8 @@ select {
 
 .header-cart {
     text-align: center;
+    padding-right: 10px;
+    padding-left: 40px;
 }
 
 .header-cart-wrap {

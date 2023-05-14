@@ -3,7 +3,7 @@
 
 <div>
     <div class="header">
-        <a href="#" class="logo">
+        <a href="<c:url value="/home"/>" class="logo">
             <img src="<c:url value="/assets/img/demo.png"/>" alt="Brand">
         </a>
     </div>
