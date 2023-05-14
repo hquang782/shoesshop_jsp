@@ -18,8 +18,13 @@ import java.text.ParseException;
 public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher rd = req.getRequestDispatcher("/views/authn/user-login.jsp");
-        rd.forward(req, resp);
+        Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_USER");
+        if (acc != null) {
+            resp.sendRedirect("/user/profile");
+        } else {
+            RequestDispatcher rd = req.getRequestDispatcher("/views/authn/user-login.jsp");
+            rd.forward(req, resp);
+        }
     }
 
     @Override
