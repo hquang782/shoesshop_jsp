@@ -1,7 +1,7 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="com.dev4fun.model.Product" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="java.text.NumberFormat" %>
+<%@page import="java.util.ArrayList" %>
+<%@page import="java.text.NumberFormat" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <link href="<c:url value="/assets/style/user/product-style.css"/>" rel="stylesheet" type="text/css"/>

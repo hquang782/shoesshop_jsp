@@ -76,7 +76,7 @@
                             </div>
                             <%}%>
                             <button class="list-cart-item-button">
-                                <a href="#">Xem giỏ hàng</a>
+                                <a href="<c:url value="/cart"/>">Xem giỏ hàng</a>
                             </button>
                         </div>
                     </div>

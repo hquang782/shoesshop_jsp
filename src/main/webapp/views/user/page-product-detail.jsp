@@ -68,7 +68,6 @@
                             <div style="font-weight: bold;" onclick="dcd()">+</div>
                         </div>
                     </div>
-
                 </div>
                 <div class="product-content-right-product-button">
                     <div class="product-content-right-product-button-cart">

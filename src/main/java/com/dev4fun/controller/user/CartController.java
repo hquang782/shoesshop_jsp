@@ -1,5 +1,6 @@
 package com.dev4fun.controller.user;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import java.io.IOException;
 public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/user/page-cart.jsp");
+        requestDispatcher.forward(req, resp);
     }
 }
