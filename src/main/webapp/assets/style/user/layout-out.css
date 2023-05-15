@@ -244,8 +244,8 @@ profile
     display: flex;
     flex-direction: column;
     background-color: white;
-    margin: 0 auto;
-    padding: 0 100px;
+    margin: 0 100px;
+    padding: 12px 30px;
     height: 100%;
 }
 
@@ -341,6 +341,7 @@ select:-webkit-autofill {
     color: #2c3345;
     display: inline-block;
     font-weight: 600;
+    font-size: 14px;
     word-break: break-word;
 }
 
@@ -369,14 +370,10 @@ select {
 
 
 /* cart */
-/*  */
-/*phần sản cart*/
 .fa-solid {
     color: white;
     font-size: 20px;
 }
-
-/* tao phan gior hang */
 
 .header-cart {
     text-align: center;
@@ -452,8 +449,6 @@ select {
 }
 
 
-/* phan xem khi da co san pham  */
-
 .header__cart-heading {
     text-align: left;
     margin: 8px 0 8px 12px;
@@ -470,7 +465,6 @@ select {
     overflow-y: auto;
 }
 
-/* css cho tung item khi co san pham */
 .header__cart-item {
     display: flex;
     padding: 2px 12px;
