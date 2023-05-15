@@ -2,6 +2,7 @@ package com.dev4fun.controller.admin;
 
 import com.dev4fun.dao.AccountDAO;
 import com.dev4fun.model.Account;
+import com.dev4fun.utils.BCrypt;
 import com.dev4fun.utils.SessionUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -28,6 +29,7 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        BCrypt bCrypt=new BCrypt();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         if (username.equals("") || password.equals("")) {
@@ -36,17 +38,21 @@ public class LoginController extends HttpServlet {
             Account account;
             try {
                 account = new AccountDAO().getAccountByUsernamePassword(username);
-                if (account != null) {
-                        if (account.getRole().equals("ADMIN")) {
-                        SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
-                        resp.sendRedirect("/admin");
-                        }
-                        else{
-                            resp.sendRedirect("/admin/login");
-                        }
-                } else {
-                    resp.sendRedirect("/admin/login");
-                }
+                if(account!=null)
+                  {
+                      if(bCrypt.checkpw(password, account.getPassword()))
+                      {
+                          if (account.getRole().equals("ADMIN")) {
+                          SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
+                          resp.sendRedirect("/user/profile");
+                          }
+                          else{
+                              resp.sendRedirect("/login");
+                          }
+                      }
+                      else resp.sendRedirect("/login");
+                  }
+                  else resp.sendRedirect("/login");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
