@@ -7,6 +7,7 @@ import com.dev4fun.dao.DAO;
 import com.dev4fun.dao.RoleDAO;
 import com.dev4fun.model.Account;
 import com.dev4fun.model.Role;
+import com.dev4fun.utils.BCrypt;
 import com.dev4fun.utils.SessionUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -38,6 +39,7 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = new Account();
+        BCrypt bCrypt=new BCrypt();
         account.setUsername(req.getParameter("username"));
         account.setFullName(req.getParameter("fullName"));
         account.setPhoneNumber(req.getParameter("tel"));
@@ -45,7 +47,7 @@ public class RegisterController extends HttpServlet {
         account.setEmail(req.getParameter("email"));
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
-        account.setPassword(req.getParameter("password"));
+        account.setPassword(bCrypt.hashpw(req.getParameter("password"),bCrypt.gensalt()));
         account.setImageLink("https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg");
 
         AccountDAO accountDAO = new AccountDAO();

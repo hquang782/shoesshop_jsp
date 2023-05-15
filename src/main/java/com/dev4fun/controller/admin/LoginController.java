@@ -35,14 +35,15 @@ public class LoginController extends HttpServlet {
         } else {
             Account account;
             try {
-                account = new AccountDAO().getAccountByUsernamePassword(username, password);
+                account = new AccountDAO().getAccountByUsernamePassword(username);
                 if (account != null) {
-                    if (account.getRole().equals("ADMIN")) {
+                        if (account.getRole().equals("ADMIN")) {
                         SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
                         resp.sendRedirect("/admin");
-                    } else {
-                        resp.sendRedirect("/admin/login");
-                    }
+                        }
+                        else{
+                            resp.sendRedirect("/admin/login");
+                        }
                 } else {
                     resp.sendRedirect("/admin/login");
                 }

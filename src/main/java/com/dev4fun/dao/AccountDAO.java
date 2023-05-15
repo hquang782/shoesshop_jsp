@@ -9,12 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO extends DAO {
-    public Account getAccountByUsernamePassword(String username, String password) throws ParseException {
+    public Account getAccountByUsernamePassword(String username) throws ParseException {
         try (Connection conn = getConnection()) {
-            String statement = "select * from account where username = ? and password = ?";
+            String statement = "select * from account where username = ?";
             PreparedStatement ppStmt = conn.prepareStatement(statement);
             ppStmt.setString(1, username);
-            ppStmt.setString(2, password);
             ResultSet rs = ppStmt.executeQuery();
 
             SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
