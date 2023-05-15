@@ -30,30 +30,25 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BCrypt bCrypt=new BCrypt();
+        BCrypt bCrypt = new BCrypt();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
-        
+
         if (username.equals("") || password.equals("")) {
             resp.sendRedirect("/login");
         } else {
             try {
                 Account account = new AccountDAO().getAccountByUsername(username);
-                  if(account!=null)
-                  {
-                      if(bCrypt.checkpw(password, account.getPassword()))
-                      {
-                          if (account.getRole().equals("USER")) {
-                          SessionUtil.getInstance().putValue(req, "ACCOUNT_USER", account);
-                          resp.sendRedirect("/user/profile");
-                          }
-                          else{
-                              resp.sendRedirect("/login");
-                          }
-                      }
-                      else resp.sendRedirect("/login");
-                  }
-                  else resp.sendRedirect("/login");
+                if (account != null) {
+                    if (BCrypt.checkpw(password, account.getPassword())) {
+                        if (account.getRole().equals("USER")) {
+                            SessionUtil.getInstance().putValue(req, "ACCOUNT_USER", account);
+                            resp.sendRedirect("/user/profile");
+                        } else {
+                            resp.sendRedirect("/login");
+                        }
+                    } else resp.sendRedirect("/login");
+                } else resp.sendRedirect("/login");
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

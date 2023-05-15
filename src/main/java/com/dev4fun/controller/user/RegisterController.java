@@ -47,7 +47,7 @@ public class RegisterController extends HttpServlet {
         account.setEmail(req.getParameter("email"));
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
-        account.setPassword(bCrypt.hashpw(req.getParameter("password"),bCrypt.gensalt()));
+        account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
         account.setImageLink("https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg");
 
         AccountDAO accountDAO = new AccountDAO();
