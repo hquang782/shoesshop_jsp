@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AccountDAO extends DAO {
-    public Account getAccountByUsernamePassword(String username) throws ParseException {
+    public Account getAccountByUsername(String username) throws ParseException {
         try (Connection conn = getConnection()) {
             String statement = "select * from account where username = ?";
             PreparedStatement ppStmt = conn.prepareStatement(statement);

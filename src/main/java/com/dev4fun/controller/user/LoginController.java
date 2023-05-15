@@ -38,7 +38,7 @@ public class LoginController extends HttpServlet {
             resp.sendRedirect("/login");
         } else {
             try {
-                Account account = new AccountDAO().getAccountByUsernamePassword(username);
+                Account account = new AccountDAO().getAccountByUsername(username);
                   if(account!=null)
                   {
                       if(bCrypt.checkpw(password, account.getPassword()))
