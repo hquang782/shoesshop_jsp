@@ -46,16 +46,16 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public Product getProductByName(String name) {
+    public ArrayList<Product> getProductByName(String name) {
         try (Connection conn = getConnection()) {
-            String statementProduct = "select * from product where name = ?";
+            String statementProduct = "select * from product where name like ?";
             String statementProductDetail = "select * from product_detail where product_id = ?";
-
+            ArrayList<Product> all = new ArrayList<>();
             PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
-            ppProduct.setString(1, name);
+            ppProduct.setString(1, "%"+name+"%");
             ResultSet rsProduct = ppProduct.executeQuery();
-            Product product = new Product();
             while (rsProduct.next()) {
+                Product product = new Product();
                 product.setId(rsProduct.getInt("id"));
                 product.setName(rsProduct.getString("name"));
                 product.setCategoryId(rsProduct.getInt("category_id"));
@@ -78,8 +78,9 @@ public class ProductDAO extends DAO {
                     productDetail.setSize(rsProductDetail.getString("size"));
                     product.getProductDetails().add(productDetail);
                 }
+                all.add(product);
             }
-            return product;
+            return all;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

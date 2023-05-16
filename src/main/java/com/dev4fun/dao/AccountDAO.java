@@ -2,6 +2,7 @@ package com.dev4fun.dao;
 
 import com.dev4fun.model.Account;
 
+import java.awt.image.AreaAveragingScaleFilter;
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -36,11 +37,12 @@ public class AccountDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public Account getAccountByFullname(String fullname){
+    public ArrayList<Account> getAccountByFullname(String fullname){
+        ArrayList<Account> accounts = new ArrayList<>();
         try (Connection con = getConnection()) {
-            String statement = "select * from account where full_name = ?";
+            String statement = "select * from account where full_name like ?";
             PreparedStatement ps = con.prepareStatement(statement);
-            ps.setString(1, fullname);
+            ps.setString(1, "%"+fullname+"%");
             ResultSet rs = ps.executeQuery();
             SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
             Account account = null;
@@ -56,8 +58,9 @@ public class AccountDAO extends DAO {
                 account.setDob((rs.getString("dob")));
                 account.setGender((rs.getString("gender")));
                 account.setPhoneNumber(rs.getString("phone_number"));
+                accounts.add(account);
             }
-            return account;
+            return accounts;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

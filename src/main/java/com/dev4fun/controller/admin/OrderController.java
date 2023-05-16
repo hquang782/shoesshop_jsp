@@ -18,12 +18,13 @@ import java.util.ArrayList;
 public class OrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-//        if (req.getParameter("t") != null && req.getParameter("v") != null) {
+        BillDetailDAO billDetailDAO = new BillDetailDAO();
+        ArrayList<BillDetail> billDetailArrayList = billDetailDAO.getAllBillDetail();
+        if (req.getParameter("t") != null && req.getParameter("v") != null) {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
             System.out.println(temp + " " + value);
-            BillDetailDAO billDetailDAO = new BillDetailDAO();
-            ArrayList<BillDetail> statForSearch = new ArrayList<>();
+            ArrayList<BillDetail> statForSearch;
             switch (temp) {
                 case "id":
                     //id don hang ID
@@ -45,9 +46,12 @@ public class OrderController extends HttpServlet {
                     statForSearch = billDetailDAO.getAllBillDetail();
                     break;
             }
-//        }
-        req.setAttribute("statforsearch",statForSearch);
-
+            req.setAttribute("statforsearch",statForSearch);
+            req.setAttribute("txt",value);
+        }
+        else{
+            req.setAttribute("statforsearch",billDetailArrayList);
+        }
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-order.jsp");
         rd.forward(req, resp);
     }

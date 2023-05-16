@@ -172,15 +172,15 @@ public class BillDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public Bill getBillByStatus(String st) {
+    public ArrayList<Bill> getBillByStatus(String st) {
+        ArrayList<Bill> bills = new ArrayList<>();
         try (Connection conn = getConnection()) {
             String stmt = "select * from bill where status = ?";
-            Bill bill = null;
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setString(1,st);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                bill = new Bill();
+                Bill bill = new Bill();
                 bill.setId(rs.getInt("id"));
                 bill.setStatus(rs.getString("status"));
                 bill.setUserId(rs.getInt("user_id"));
@@ -190,8 +190,9 @@ public class BillDAO extends DAO {
                 bill.setTotalAmount(rs.getFloat("total_amount"));
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
+                bills.add(bill);
             }
-            return bill;
+            return bills;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

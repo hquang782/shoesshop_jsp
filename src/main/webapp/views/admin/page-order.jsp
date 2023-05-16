@@ -38,8 +38,8 @@
                                     </select>
                                 </div>
                                 <div class="search-value">
-                                    <input type="text" name="v" placeholder="Gõ ở đây..."
-                                           value="<%=request.getParameter("value") != null ? request.getParameter("value") : ""%>"
+                                    <input type="text" name="v" placeholder="Gõ ở đây..." value="${txt}"
+<%--                                           value="<%=request.getParameter("value") != null ? request.getParameter("value") : ""%>"--%>
                                     >
                                 </div>
 
@@ -81,7 +81,8 @@
                                 </td>
                             </tr>
                             </tbody>
-                            <%}
+                            <%
+                                }
                             %>
                         </table>
                     </div>
