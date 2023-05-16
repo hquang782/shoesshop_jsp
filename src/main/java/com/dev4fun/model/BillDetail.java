@@ -3,12 +3,28 @@ package com.dev4fun.model;
 public class BillDetail {
     private int id;
     private int quantity;
-    private int productId;
-    private int billId;
+    private Product product;
+    private Bill bill;
     private float amount;
 
     public BillDetail() {
 
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+
+    public Bill getBill() {
+        return bill;
+    }
+
+    public void setBill(Bill bill) {
+        this.bill = bill;
     }
 
     public int getId() {
@@ -17,14 +33,6 @@ public class BillDetail {
 
     public int getQuantity() {
         return quantity;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public int getBillId() {
-        return billId;
     }
 
     public float getAmount() {
@@ -37,14 +45,6 @@ public class BillDetail {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
-    }
-
-    public void setBillId(int billId) {
-        this.billId = billId;
     }
 
     public void setAmount(float amount) {

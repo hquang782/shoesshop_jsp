@@ -1,3 +1,5 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dev4fun.model.BillDetail" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -17,29 +19,35 @@
             <div class="wrapper-main-container">
 
                 <div class="action-table">
-                    <button id="btnAddProduct" class="btn-add" type="button"><a href="<c:url value="/admin/order/add"/>">Thêm đơn hàng</a></button>
-<%--                    <button class="btn-export">Xuất file Excel</button>--%>
+                    <button id="btnAddProduct" class="btn-add" type="button"><a
+                            href="<c:url value="/admin/order/add"/>">Thêm đơn hàng</a></button>
+                    <%--                    <button class="btn-export">Xuất file Excel</button>--%>
                 </div>
 
                 <div class="table-content">
                     <div class="search-table-content">
                         <div class="wrapper-search">
-                            <div class="search-option">
-                                <select name="option_search_table" id="optionSearchTable">
-                                    <option value="" selected disabled hidden>Tìm kiếm theo</option>
-                                    <option value="name">ID Đơn hàng</option>
-                                    <option value="status">Khách hàng</option>
-                                    <option value="category">Đơn hàng</option>
-                                    <option value="category">Tình trạng</option>
-                                </select>
-                            </div>
-                            <div class="search-value">
-                                <input type="text" placeholder="Gõ ở đây...">
-                            </div>
+                            <form id="formSearch" method="get" action="<c:url value="/admin/order"/>" >
+                                <div class="search-option">
+                                    <select name="t" id="optionSearchTable">
+                                        <option value="" selected disabled hidden>Tìm kiếm theo</option>
+                                        <option value="id">ID Đơn hàng</option>
+                                        <option value="fn">Khách hàng</option>
+                                        <option value="name">Đơn hàng</option>
+                                        <option value="st">Tình trạng</option>
+                                    </select>
+                                </div>
+                                <div class="search-value">
+                                    <input type="text" name="v" placeholder="Gõ ở đây..."
+                                           value="<%=request.getParameter("value") != null ? request.getParameter("value") : ""%>"
+                                    >
+                                </div>
 
-                            <div class="btn-search">
-                                <button>Tìm kiếm</button>
-                            </div>
+                                <div class="btn-search">
+                                    <button type="submit">Tìm kiếm</button>
+                                </div>
+                            </form>
+
                         </div>
 
                     </div>
@@ -56,21 +64,25 @@
                                 <th class="action">Tính năng</th>
                             </tr>
                             </thead>
-
+                            <%
+                                for(BillDetail token : (ArrayList<BillDetail>) request.getAttribute("statforsearch")){
+                            %>
                             <tbody>
                             <tr>
-                                <td>1</td>
-                                <td>name 2</td>
-                                <td>Image 1</td>
-                                <td>100</td>
-                                <td>100.000$</td>
-                                <td>Hoàn thành</td>
+                                <td><%=token.getId()%></td>
+                                <td><%=token.getBill().getFullName()%></td>
+                                <td><%=token.getProduct().getName()%></td>
+                                <td><%=token.getQuantity()%></td>
+                                <td><%=token.getAmount()%>></td>
+                                <td><%=token.getBill().getStatus()%></td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
                                     <button class="btn-delete">Xóa</button>
                                 </td>
                             </tr>
                             </tbody>
+                            <%}
+                            %>
                         </table>
                     </div>
 
@@ -105,4 +117,4 @@
         </div>
     </div>
 </div>
-</div>
+

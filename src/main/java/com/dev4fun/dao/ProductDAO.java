@@ -46,7 +46,44 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    public Product getProductByName(String name) {
+        try (Connection conn = getConnection()) {
+            String statementProduct = "select * from product where name = ?";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
 
+            PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
+            ppProduct.setString(1, name);
+            ResultSet rsProduct = ppProduct.executeQuery();
+            Product product = new Product();
+            while (rsProduct.next()) {
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
+
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
+            }
+            return product;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public ArrayList<Product> getProductByCategoryName(int index, String categoryName) {
         try (Connection conn = getConnection()) {
             String statementProduct = "SELECT * FROM product inner join category on product.category_id = category.id where category.name = ? limit ?";

@@ -148,4 +148,52 @@ public class BillDAO extends DAO {
         }
         return totalBillCancelled;
     }
+    public Bill getBillByUserid(int id) {
+        try (Connection conn = getConnection()) {
+            String stmt = "select * from bill where user_id = ?";
+            Bill bill = null;
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setInt(1,id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bill = new Bill();
+                bill.setId(rs.getInt("id"));
+                bill.setStatus(rs.getString("status"));
+                bill.setUserId(rs.getInt("user_id"));
+                bill.setFullName(rs.getString("full_name"));
+                bill.setEmail(rs.getString("email"));
+                bill.setPhoneNumber(rs.getString("phone_number"));
+                bill.setTotalAmount(rs.getFloat("total_amount"));
+                bill.setPayMethod(rs.getString("pay_method"));
+                bill.setNote(rs.getString("note"));
+            }
+            return bill;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public Bill getBillByStatus(String st) {
+        try (Connection conn = getConnection()) {
+            String stmt = "select * from bill where status = ?";
+            Bill bill = null;
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setString(1,st);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                bill = new Bill();
+                bill.setId(rs.getInt("id"));
+                bill.setStatus(rs.getString("status"));
+                bill.setUserId(rs.getInt("user_id"));
+                bill.setFullName(rs.getString("full_name"));
+                bill.setEmail(rs.getString("email"));
+                bill.setPhoneNumber(rs.getString("phone_number"));
+                bill.setTotalAmount(rs.getFloat("total_amount"));
+                bill.setPayMethod(rs.getString("pay_method"));
+                bill.setNote(rs.getString("note"));
+            }
+            return bill;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

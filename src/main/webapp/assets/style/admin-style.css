@@ -518,7 +518,9 @@ product, account, order: table, modal add
     display: flex;
     align-items: center;
 }
-
+.wrapper-search > form{
+    display: flex;
+}
 .wrapper-search div {
     margin: 0 6px;
     padding: 8px 0;
