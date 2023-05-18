@@ -38,7 +38,7 @@
                                     </select>
                                 </div>
                                 <div class="search-value">
-                                    <input type="text" name="v" placeholder="Gõ ở đây..." value="${txt}"
+                                    <input type="text" name="v" placeholder="Gõ ở đây..." value="${txt_sbilldetail}"
 <%--                                           value="<%=request.getParameter("value") != null ? request.getParameter("value") : ""%>"--%>
                                     >
                                 </div>
@@ -65,7 +65,7 @@
                             </tr>
                             </thead>
                             <%
-                                for(BillDetail token : (ArrayList<BillDetail>) request.getAttribute("statforsearch")){
+                                for(BillDetail token : (ArrayList<BillDetail>) request.getAttribute("searchBillDetail")){
                             %>
                             <tbody>
                             <tr>

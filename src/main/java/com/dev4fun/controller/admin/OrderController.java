@@ -24,33 +24,34 @@ public class OrderController extends HttpServlet {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
             System.out.println(temp + " " + value);
-            ArrayList<BillDetail> statForSearch;
+            ArrayList<BillDetail> searchBillDetail;
             switch (temp) {
                 case "id":
                     //id don hang ID
-                    statForSearch = billDetailDAO.getBillDetailbyId("bill_id", value);
+                    searchBillDetail = billDetailDAO.getBillDetailbyId("bill_id", value);
                     break;
                 case "fn":
                     //ten khach hang full_name
-                    statForSearch = billDetailDAO.getBillDetailbyCustomer(value);
+                    searchBillDetail = billDetailDAO.getBillDetailbyCustomer(value);
                     break;
                 case "name":
                     //ten don hang
-                    statForSearch = billDetailDAO.getBillDetailbyProduct(value);
+                    searchBillDetail = billDetailDAO.getBillDetailbyProduct(value);
                     break;
                 case "st":
                     //status
-                    statForSearch = billDetailDAO.getBillDetailbyStatus(value);
+                    searchBillDetail = billDetailDAO.getBillDetailbyStatus(value);
                     break;
                 default:
-                    statForSearch = billDetailDAO.getAllBillDetail();
+                    searchBillDetail = billDetailDAO.getAllBillDetail();
                     break;
             }
-            req.setAttribute("statforsearch",statForSearch);
-            req.setAttribute("txt",value);
+            req.setAttribute("searchBillDetail",searchBillDetail);
+            req.setAttribute("txt_sbilldetail",value);
         }
         else{
-            req.setAttribute("statforsearch",billDetailArrayList);
+            System.out.println("all");
+            req.setAttribute("searchBillDetail",billDetailArrayList);
         }
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-order.jsp");
         rd.forward(req, resp);

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Product {
     private int id;
     private int categoryId;
+    private Category category;
     private String name;
     private String description;
     private String imageLink;
@@ -14,11 +15,27 @@ public class Product {
     private String status;
     private int totalQuantity;
     private String createdAt;
-
+    private int sold;
     private ArrayList<ProductDetail> productDetails;
 
     public Product() {
         this.productDetails = new ArrayList<>();
+    }
+
+    public int getSold() {
+        return sold;
+    }
+
+    public void setSold(int sold) {
+        this.sold = sold;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 
     public ArrayList<ProductDetail> getProductDetails() {

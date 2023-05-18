@@ -1,5 +1,6 @@
 package com.dev4fun.dao;
 
+import com.dev4fun.model.Category;
 import com.dev4fun.model.Product;
 import com.dev4fun.model.ProductDetail;
 
@@ -46,19 +47,24 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public ArrayList<Product> getProductByName(String name) {
+
+    public ArrayList<Product> getProductByCategoryName(String name) {//TODO
         try (Connection conn = getConnection()) {
-            String statementProduct = "select * from product where name like ?";
+            String statementProduct = "SELECT product.*\n" +
+                    "FROM shoes.product\n" +
+                    "INNER JOIN category ON category_id = category.id\n" +
+                    "WHERE category.name like ?";
             String statementProductDetail = "select * from product_detail where product_id = ?";
             ArrayList<Product> all = new ArrayList<>();
             PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
-            ppProduct.setString(1, "%"+name+"%");
+            ppProduct.setString(1, "%" + name + "%");
             ResultSet rsProduct = ppProduct.executeQuery();
             while (rsProduct.next()) {
                 Product product = new Product();
                 product.setId(rsProduct.getInt("id"));
                 product.setName(rsProduct.getString("name"));
                 product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setCategory(new CategoryDAO().getCategoryById(rsProduct.getInt("category_id")));
                 product.setDescription(rsProduct.getString("description"));
                 product.setImageLink(rsProduct.getString("image_Link"));
                 product.setImageList(rsProduct.getString("image_List"));
@@ -85,20 +91,21 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public ArrayList<Product> getProductByCategoryName(int index, String categoryName) {
+
+    public ArrayList<Product> getProductByName(String name) {
         try (Connection conn = getConnection()) {
-            String statementProduct = "SELECT * FROM product inner join category on product.category_id = category.id where category.name = ? limit ?";
+            String statementProduct = "select * from product where name like ?";
             String statementProductDetail = "select * from product_detail where product_id = ?";
+            ArrayList<Product> all = new ArrayList<>();
             PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
-            ppProduct.setString(1, categoryName);
-            ppProduct.setInt(2, (index - 1) * 10);
+            ppProduct.setString(1, "%" + name + "%");
             ResultSet rsProduct = ppProduct.executeQuery();
-            ArrayList<Product> products = new ArrayList<>();
             while (rsProduct.next()) {
                 Product product = new Product();
                 product.setId(rsProduct.getInt("id"));
                 product.setName(rsProduct.getString("name"));
                 product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setCategory(new CategoryDAO().getCategoryById(rsProduct.getInt("category_id")));
                 product.setDescription(rsProduct.getString("description"));
                 product.setImageLink(rsProduct.getString("image_Link"));
                 product.setImageList(rsProduct.getString("image_List"));
@@ -118,12 +125,54 @@ public class ProductDAO extends DAO {
                     productDetail.setSize(rsProductDetail.getString("size"));
                     product.getProductDetails().add(productDetail);
                 }
+                all.add(product);
             }
-            return products;
+            return all;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+    public ArrayList<Product> getProductByStatus(String status) {
+        try (Connection conn = getConnection()) {
+            String statementProduct = "select * from product where status like ?";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
+            ArrayList<Product> all = new ArrayList<>();
+            PreparedStatement ppProduct = conn.prepareStatement(statementProduct);
+            ppProduct.setString(1, "%" + status + "%");
+            ResultSet rsProduct = ppProduct.executeQuery();
+            while (rsProduct.next()) {
+                Product product = new Product();
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setCategory(new CategoryDAO().getCategoryById(rsProduct.getInt("category_id")));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
+
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
+                all.add(product);
+            }
+            return all;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     public int getTotalProductByCategoryName(String name) {
         try (Connection conn = getConnection()) {
@@ -131,10 +180,11 @@ public class ProductDAO extends DAO {
             PreparedStatement ppStmt = conn.prepareStatement(statement);
             ppStmt.setString(1, name);
             ResultSet rs = ppStmt.executeQuery(statement);
+            int total =0;
             while (rs.next()) {
-                return rs.getInt(1);
+                total =  rs.getInt(1);
             }
-            return 0;
+            return total;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -153,6 +203,7 @@ public class ProductDAO extends DAO {
                 product.setId(rsProduct.getInt("id"));
                 product.setName(rsProduct.getString("name"));
                 product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setCategory(new CategoryDAO().getCategoryById(rsProduct.getInt("category_id")));
                 product.setDescription(rsProduct.getString("description"));
                 product.setImageLink(rsProduct.getString("image_Link"));
                 product.setImageList(rsProduct.getString("image_List"));
@@ -184,10 +235,11 @@ public class ProductDAO extends DAO {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from product";
             ResultSet rs = conn.createStatement().executeQuery(statement);
+            int total = 0;
             while (rs.next()) {
-                return rs.getInt(1);
+                total = rs.getInt(1);
             }
-            return 0;
+            return total;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -197,10 +249,11 @@ public class ProductDAO extends DAO {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from product where (select sum(quantity) from product_detail) = 0";
             ResultSet rs = conn.createStatement().executeQuery(statement);
+            int total = 0;
             while (rs.next()) {
-                return rs.getInt(1);
+                total =  rs.getInt(1);
             }
-            return 0;
+            return total;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -217,6 +270,7 @@ public class ProductDAO extends DAO {
                 product.setId(rsProduct.getInt("id"));
                 product.setName(rsProduct.getString("name"));
                 product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setCategory(new CategoryDAO().getCategoryById(rsProduct.getInt("category_id")));
                 product.setDescription(rsProduct.getString("description"));
                 product.setImageLink(rsProduct.getString("image_Link"));
                 product.setImageList(rsProduct.getString("image_List"));
@@ -346,10 +400,11 @@ public class ProductDAO extends DAO {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from product where (select sum(quantity) from product_detail)  <= 10";
             ResultSet rs = conn.createStatement().executeQuery(statement);
+            int total = 0;
             while (rs.next()) {
-                return rs.getInt(1);
+                total = rs.getInt(1);
             }
-            return 0;
+            return total;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

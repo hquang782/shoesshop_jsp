@@ -145,4 +145,29 @@ public class BillDetailDAO extends DAO {
         }
         return billDetails;
     }
+    public ArrayList<BillDetail> getBillDetailbyProductId(int id) {
+
+        try (Connection conn = getConnection()) {
+            String stmt = "SELECT * from bill_detail where ? = ?";
+            ArrayList<BillDetail> bills = new ArrayList<>();
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setString(1, "product_id");
+            ps.setInt(2, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                BillDetail token = new BillDetail();
+                token.setId(rs.getInt("id"));
+                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
+                Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
+                token.setBill(bill);
+                token.setProduct(product);
+                token.setQuantity(rs.getInt("quantity"));
+                token.setAmount(rs.getFloat("amount"));
+                bills.add(token);
+            }
+            return bills;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

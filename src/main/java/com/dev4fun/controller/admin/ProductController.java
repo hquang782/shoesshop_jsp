@@ -20,12 +20,30 @@ public class ProductController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductDAO productDAO = new ProductDAO();
         ArrayList<Product> listProducts = productDAO.getAllProduct();
-        req.setAttribute("listProducts", listProducts);
 
-        CategoryDAO categoryDAO = new CategoryDAO();
-        ArrayList<Category> listCategories = categoryDAO.getAllCategory();
-        req.setAttribute("listCategories", listCategories);
 
+        if(req.getParameter("t")!=null&&req.getParameter("v")!=null){
+            String temp = req.getParameter("t");
+            String value = req.getParameter("v");
+            System.out.println(temp + " " + value);
+            ArrayList<Product> searchProduct = new ArrayList<>();
+            if(temp.equals("name")) {
+                searchProduct = productDAO.getProductByName(value);
+            }
+            else if (temp.equals("category")){
+                searchProduct = productDAO.getProductByCategoryName(value);
+            }
+            else{
+                searchProduct = productDAO.getProductByStatus(value);
+            }
+            req.setAttribute("listProducts",searchProduct);
+            req.setAttribute("txt_sproduct",value);
+        }
+        else{
+            System.out.println("all");
+            req.setAttribute("listProducts", listProducts);
+
+        }
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-product.jsp");
         rd.forward(req, resp);
     }

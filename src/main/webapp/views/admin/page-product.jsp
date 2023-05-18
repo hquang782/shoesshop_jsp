@@ -20,28 +20,32 @@
 
             <div class="wrapper-main-container">
                 <div class="action-table">
-                    <button id="btnAddProduct" class="btn-add"><a href="<c:url value="/admin/product/add"/>">Thêm sản phẩm</a></button>
+                    <button id="btnAddProduct" class="btn-add"><a href="<c:url value="/admin/product/add"/>">Thêm sản
+                        phẩm</a></button>
                     <%--<button class="btn-export">Xuất file Excel</button>--%>
                 </div>
 
                 <div class="table-content">
                     <div class="search-table-content">
                         <div class="wrapper-search">
-                            <div class="search-option">
-                                <select name="option_search_table" id="optionSearchTable">
-                                    <option value="" selected disabled hidden>Tìm kiếm theo</option>
-                                    <option value="name">Tên sản phẩm</option>
-                                    <option value="status">Trạng thái</option>
-                                    <option value="category">Danh mục</option>
-                                </select>
-                            </div>
-                            <div class="search-value">
-                                <input type="text" placeholder="Gõ ở đây...">
-                            </div>
+                            <form method="get" action="<c:url value="/admin/product"/>">
+                                <div class="search-option">
+                                    <select name="t" id="optionSearchTable">
+                                        <option value="" selected disabled hidden>Tìm kiếm theo</option>
+                                        <option value="name">Tên sản phẩm</option>
+                                        <option value="status">Trạng thái</option>
+                                        <option value="category">Danh mục</option>
+                                    </select>
+                                </div>
+                                <div class="search-value">
+                                    <input type="text" name="v" placeholder="Gõ ở đây..." value="${txt_sproduct}">
+                                </div>
 
-                            <div class="btn-search">
-                                <button>Tìm kiếm</button>
-                            </div>
+                                <div class="btn-search">
+                                    <button>Tìm kiếm</button>
+                                </div>
+                            </form>
+
                         </div>
 
                     </div>
@@ -69,15 +73,13 @@
                                 <td style="width: 10%">
                                     <img src="<%=product.getImageLink()%>" width="100%" alt="">
                                 </td>
-                                <td style="width: 10%"><%=product.getTotalQuantity()%></td>
+                                <td style="width: 10%"><%=product.getTotalQuantity()%>
+                                </td>
                                 <td style="width: 10%"><%=product.getStatus()%>
                                 </td>
                                 <td style="width: 15%"><%=product.getPrice()%>
                                 </td>
-                                <td style="width: 10%"><%=
-                                "TODO"
-//                                ((ArrayList<Category>) request.getAttribute("listCategories")).get(product.getCategoryId()).getName()
-                                %>
+                                <td style="width: 10%"><%=product.getCategory().getName()%>
                                 </td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
