@@ -8,6 +8,7 @@ import com.dev4fun.model.Role;
 
 import com.cloudinary.*;
 import com.cloudinary.utils.ObjectUtils;
+import com.dev4fun.utils.BCrypt;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -75,7 +76,7 @@ public class AddAccountController extends HttpServlet {
         account.setEmail(req.getParameter("email"));
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
-        account.setPassword(req.getParameter("password"));
+        account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
 
         Part filePart = req.getPart("imageInput");
         String urlImage = "https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg";

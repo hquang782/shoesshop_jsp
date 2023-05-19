@@ -48,7 +48,7 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public ArrayList<Product> getProductByCategoryName(String name) {//TODO
+    public ArrayList<Product> getProductByCategoryName(String name) {
         try (Connection conn = getConnection()) {
             String statementProduct = "SELECT product.*\n" +
                     "FROM shoes.product\n" +

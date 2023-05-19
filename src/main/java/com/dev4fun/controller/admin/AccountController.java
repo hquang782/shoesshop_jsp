@@ -20,7 +20,35 @@ public class AccountController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         AccountDAO accountDAO = new AccountDAO();
         ArrayList<Account> listAccounts = accountDAO.getAllAccount();
-        req.setAttribute("listAccounts", listAccounts);
+
+        if (req.getParameter("t") != null && req.getParameter("v") != null) {
+            String temp = req.getParameter("t");
+            String value = req.getParameter("v");
+            System.out.println(temp + " " + value);
+            ArrayList<Account> accounts = new ArrayList<>();
+            switch (temp) {
+                case "name":
+                    accounts = accountDAO.getAccountByElement("username", value);
+                    break;
+                case "email":
+                    accounts = accountDAO.getAccountByElement(temp, value);
+                    break;
+                case "phone_number":
+                    accounts = accountDAO.getAccountByElement(temp, value);
+                    break;
+                default:
+                    accounts = accountDAO.getAccountByElement(temp, value);
+                    break;
+            }
+            req.setAttribute("listAccounts",accounts);
+            req.setAttribute("txt_sAccount",value);
+            System.out.println(accounts.size());
+        } else {
+            req.setAttribute("listAccounts", listAccounts);
+            System.out.println(listAccounts.size());
+        }
+
+
 
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-account.jsp");
         rd.forward(req, resp);

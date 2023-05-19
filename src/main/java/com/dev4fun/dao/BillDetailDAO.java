@@ -91,7 +91,7 @@ public class BillDetailDAO extends DAO {
     }
 
     public ArrayList<BillDetail> getBillDetailbyCustomer(String name) {
-        ArrayList<Account> accounts = new AccountDAO().getAccountByFullname(name);
+        ArrayList<Account> accounts = new AccountDAO().getAccountByElement("full_name",name);
         ArrayList<BillDetail> bills = new ArrayList<>();
         for (Account account : accounts) {
             Bill bill = new BillDAO().getBillByUserid(account.getId());

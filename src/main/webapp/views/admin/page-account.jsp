@@ -25,22 +25,25 @@
                 <div class="table-content">
                     <div class="search-table-content">
                         <div class="wrapper-search">
-                            <div class="search-option">
-                                <select name="option_search_table" id="optionSearchTable">
-                                    <option value="" selected disabled hidden>Tìm kiếm theo</option>
-                                    <option value="name">Tên</option>
-                                    <option value="email">Email</option>
-                                    <option value="phone_number">Số điện thoại</option>
-                                    <option value="role">Loại tài khoản</option>
-                                </select>
-                            </div>
-                            <div class="search-value">
-                                <input type="text" placeholder="Typing here...">
-                            </div>
+                            <form method="get" action="<c:url value="/admin/account"/>">
+                                <div class="search-option">
+                                    <select name="t" id="optionSearchTable">
+                                        <option value="" selected disabled hidden>Tìm kiếm theo</option>
+                                        <option value="name">Tên</option>
+                                        <option value="email">Email</option>
+                                        <option value="phone_number">Số điện thoại</option>
+                                        <option value="role">Loại tài khoản</option>
+                                    </select>
+                                </div>
+                                <div class="search-value">
+                                    <input type="text" placeholder="Typing here..." name="v" value="${txt_sAccount}">
+                                </div>
 
-                            <div class="btn-search">
-                                <button>Tìm kiếm</button>
-                            </div>
+                                <div class="btn-search">
+                                    <button type="submit">Tìm kiếm</button>
+                                </div>
+                            </form>
+
                         </div>
 
                     </div>
@@ -57,8 +60,9 @@
                                 <th class="action">Action</th>
                             </tr>
                             </thead>
-                            <tbody>
                             <%for (Account account : (ArrayList<Account>) request.getAttribute("listAccounts")) {%>
+                            <tbody>
+
                             <tr>
                                 <td><%=account.getUsername()%>
                                 </td>
@@ -80,8 +84,9 @@
                                     </form>
                                 </td>
                             </tr>
-                            <%}%>
+
                             </tbody>
+                            <%}%>
                         </table>
                     </div>
 

@@ -42,7 +42,7 @@
                                 </div>
 
                                 <div class="btn-search">
-                                    <button>Tìm kiếm</button>
+                                    <button type="submit">Tìm kiếm</button>
                                 </div>
                             </form>
 

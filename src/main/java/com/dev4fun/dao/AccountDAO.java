@@ -37,6 +37,34 @@ public class AccountDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    public ArrayList<Account> getAccountByElement(String temp, String value) {
+        try (Connection conn = getConnection()) {
+            String statement = "select * from account where "+temp+" = ?";
+            PreparedStatement ppStmt = conn.prepareStatement(statement);
+            ppStmt.setString(1,value);
+            ResultSet rs = ppStmt.executeQuery();
+
+            SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
+            ArrayList<Account> accounts = new ArrayList<>();
+            while (rs.next()) {
+                Account account = new Account();
+                account.setId(rs.getInt("id"));
+                account.setUsername(rs.getString("username"));
+                account.setEmail(rs.getString("email"));
+                account.setPassword(rs.getString("password"));
+                account.setRole(rs.getString("role"));
+                account.setImageLink(rs.getString("image_link"));
+                account.setFullName(rs.getString("full_name"));
+                account.setDob((rs.getString("dob")));
+                account.setGender((rs.getString("gender")));
+                account.setPhoneNumber(rs.getString("phone_number"));
+                accounts.add(account);
+            }
+            return accounts;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public ArrayList<Account> getAccountByFullname(String fullname){
         ArrayList<Account> accounts = new ArrayList<>();
         try (Connection con = getConnection()) {
