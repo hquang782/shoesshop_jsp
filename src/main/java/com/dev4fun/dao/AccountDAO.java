@@ -2,12 +2,12 @@ package com.dev4fun.dao;
 
 import com.dev4fun.model.Account;
 
-import java.awt.image.AreaAveragingScaleFilter;
+
 import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class AccountDAO extends DAO {
     public Account getAccountByUsername(String username) throws ParseException {
@@ -39,9 +39,9 @@ public class AccountDAO extends DAO {
     }
     public ArrayList<Account> getAccountByElement(String temp, String value) {
         try (Connection conn = getConnection()) {
-            String statement = "select * from account where "+temp+" = ?";
+            String statement = "select * from account where "+temp+" like('%"+ value + "%')";
             PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ppStmt.setString(1,value);
+//            ppStmt.setString(1,value);
             ResultSet rs = ppStmt.executeQuery();
 
             SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
@@ -51,7 +51,7 @@ public class AccountDAO extends DAO {
                 account.setId(rs.getInt("id"));
                 account.setUsername(rs.getString("username"));
                 account.setEmail(rs.getString("email"));
-                account.setPassword(rs.getString("password"));
+//                account.setPassword(rs.getString("password"));
                 account.setRole(rs.getString("role"));
                 account.setImageLink(rs.getString("image_link"));
                 account.setFullName(rs.getString("full_name"));
@@ -65,34 +65,7 @@ public class AccountDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public ArrayList<Account> getAccountByFullname(String fullname){
-        ArrayList<Account> accounts = new ArrayList<>();
-        try (Connection con = getConnection()) {
-            String statement = "select * from account where full_name like ?";
-            PreparedStatement ps = con.prepareStatement(statement);
-            ps.setString(1, "%"+fullname+"%");
-            ResultSet rs = ps.executeQuery();
-            SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
-            Account account = null;
-            while (rs.next()) {
-                account = new Account();
-                account.setId(rs.getInt("id"));
-                account.setUsername(rs.getString("username"));
-                account.setEmail(rs.getString("email"));
-                account.setPassword(rs.getString("password"));
-                account.setRole(rs.getString("role"));
-                account.setImageLink(rs.getString("image_link"));
-                account.setFullName(rs.getString("full_name"));
-                account.setDob((rs.getString("dob")));
-                account.setGender((rs.getString("gender")));
-                account.setPhoneNumber(rs.getString("phone_number"));
-                accounts.add(account);
-            }
-            return accounts;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
+
     public ArrayList<Account> getAllAccount() {
         try (Connection conn = getConnection()) {
             String statement = "select * from account";

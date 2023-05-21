@@ -1,5 +1,6 @@
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -27,12 +28,17 @@
                         <div class="wrapper-search">
                             <form method="get" action="<c:url value="/admin/account"/>">
                                 <div class="search-option">
-                                    <select name="t" id="optionSearchTable">
+                                    <select name="t" id="optionSearchTable" >
+                                        <% if(request.getParameter("t")!=null){%>
+                                        <option value="" selected  >${typeSearch}</option>
+                                        <%}
+                                        else {%>
                                         <option value="" selected disabled hidden>Tìm kiếm theo</option>
-                                        <option value="name">Tên</option>
-                                        <option value="email">Email</option>
-                                        <option value="phone_number">Số điện thoại</option>
-                                        <option value="role">Loại tài khoản</option>
+                                        <%}%>
+                                        <option value="username" style="display: ${username}">Tên người dùng</option>
+                                        <option value="email" style="display: ${email}">Email</option>
+                                        <option value="phone_number"  style="display: ${phone_number}">Số điện thoại</option>
+                                        <option value="role" style="display: ${role}">Loại tài khoản</option>
                                     </select>
                                 </div>
                                 <div class="search-value">
@@ -60,61 +66,38 @@
                                 <th class="action">Action</th>
                             </tr>
                             </thead>
-                            <%for (Account account : (ArrayList<Account>) request.getAttribute("listAccounts")) {%>
-                            <tbody>
-
-                            <tr>
-                                <td><%=account.getUsername()%>
-                                </td>
-                                <td><%=account.getFullName()%>
-                                </td>
-                                <td><%=account.getEmail()%>
-                                </td>
-                                <td><%=account.getPhoneNumber()%>
-                                </td>
-                                <td><%=account.getDob()%>
-                                </td>
-                                <td><%=account.getRole()%>
-                                </td>
-                                <td>
-                                    <button class="btn-edit">Sửa</button>
-                                    <form method="post" action="<c:url value="/admin/account?act=delete"/>">
-                                        <input type="hidden" name="accountId" value="<%=account.getId()%>">
-                                        <button class="btn-delete" type="submit">Xóa</button>
-                                    </form>
-                                </td>
-                            </tr>
-
-                            </tbody>
-                            <%}%>
+                            <% ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
+                                Gson gson = new Gson();
+                                String jsonAccounts = gson.toJson(listAccounts);%>
+                            <tbody class="list-accounts"></tbody>
                         </table>
                     </div>
 
                     <div class="pagination-table-content">
+                        <form method="get" action="<c:url value="/admin/account"/>"></form>
                         <div class="wrapper-pagination">
-                            <div class="wrapper-qty-row">
-                                <div>
-                                    <p>Rows per table</p>
-                                </div>
-                                <div>
-                                    <select name="qty_row" id="qtyRow">
-                                        <option value="10">10</option>
-                                        <option value="25">25</option>
-                                        <option value="50">50</option>
-                                        <option value="100">100</option>
-                                    </select>
-                                </div>
-                            </div>
-
+                            <%--                            <div class="wrapper-qty-row">--%>
+                            <%--                                <div>--%>
+                            <%--                                    <p>Rows per table</p>--%>
+                            <%--                                </div>--%>
+                            <%--                                <div>--%>
+                            <%--                                    <select name="qty_row" id="qtyRow">--%>
+                            <%--                                        <option value="10">10</option>--%>
+                            <%--                                        <option value="25">25</option>--%>
+                            <%--                                        <option value="50">50</option>--%>
+                            <%--                                        <option value="100">100</option>--%>
+                            <%--                                    </select>--%>
+                            <%--                                </div>--%>
+                            <%--                            </div>--%>
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <p>1-2 of 2</p>
                                 </div>
                                 <div class="previous">
-                                    <p>&#8592;</p>
+                                    <button onclick="previousPages()">&#8592;</button>
                                 </div>
                                 <div class="next">
-                                    <p>&#8594;</p>
+                                    <button onclick="nextPages()">&#8594;</button>
                                 </div>
                             </div>
                         </div>
@@ -124,3 +107,6 @@
         </div>
     </div>
 </div>
+<script>
+    const data = <%=jsonAccounts%>
+</script>

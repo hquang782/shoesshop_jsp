@@ -24,30 +24,23 @@ public class AccountController extends HttpServlet {
         if (req.getParameter("t") != null && req.getParameter("v") != null) {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
+            String none = "none";
             System.out.println(temp + " " + value);
-            ArrayList<Account> accounts = new ArrayList<>();
-            switch (temp) {
-                case "name":
-                    accounts = accountDAO.getAccountByElement("username", value);
-                    break;
-                case "email":
-                    accounts = accountDAO.getAccountByElement(temp, value);
-                    break;
-                case "phone_number":
-                    accounts = accountDAO.getAccountByElement(temp, value);
-                    break;
-                default:
-                    accounts = accountDAO.getAccountByElement(temp, value);
-                    break;
-            }
-            req.setAttribute("listAccounts",accounts);
-            req.setAttribute("txt_sAccount",value);
+            ArrayList<Account> accounts;
+            accounts = accountDAO.getAccountByElement(temp, value);
+            String typeSearch = temp.equals("username") ? "Tên người dùng" :
+                    temp.equals("role") ? "Loại tài khoản" :
+                            temp.equals("email") ? "Email" : "Số điện thoại";
+
+            req.setAttribute("typeSearch",typeSearch);
+            req.setAttribute(temp,none);
+            req.setAttribute("listAccounts", accounts);
+            req.setAttribute("txt_sAccount", value);
             System.out.println(accounts.size());
         } else {
             req.setAttribute("listAccounts", listAccounts);
             System.out.println(listAccounts.size());
         }
-
 
 
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-account.jsp");
