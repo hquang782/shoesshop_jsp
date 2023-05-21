@@ -233,5 +233,7 @@ function displayPage(page) {
 function getTotalPages() {
     return Math.ceil(data.length / rowPerPage);
 }
+numPage = document.getElementById("currentPage");
+numPage.innerText = currentPage.toString()+"/"+getTotalPages().toString()
 
 displayPage(currentPage)

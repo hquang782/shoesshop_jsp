@@ -91,7 +91,7 @@
                             <%--                            </div>--%>
                             <div class="wrapper-action-table">
                                 <div class="index">
-                                    <p>1-2 of 2</p>
+                                    <p id="currentPage"></p>
                                 </div>
                                 <div class="previous">
                                     <button onclick="previousPages()">&#8592;</button>
