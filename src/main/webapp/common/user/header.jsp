@@ -95,7 +95,7 @@
                         </a>
                         <ul class="dropdown-account-link">
                             <li><a href="<c:url value="/user/profile"/>">Tài khoản của tôi</a></li>
-                            <li><a href="<c:url value="/user/profile"/>">Đơn mua</a></li>
+                            <li><a href="<c:url value="/user/orders"/>">Đơn mua</a></li>
                             <li>
                                 <form method="post" action="<c:url value="/logout"/>">
                                     <button type="submit">Đăng xuất</button>

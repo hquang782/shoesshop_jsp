@@ -22,7 +22,7 @@
                             <div class="wrapper-form-line">
                                 <label for="username">Tên đăng nhập</label>
                                 <div>
-                                    <input type="text" placeholder="Tên đăng nhập" name="username" id="username" value="hquang782" required>
+                                    <input type="text" placeholder="Tên đăng nhập" name="username" id="username" value="admin" required>
                                 </div>
                             </div>
                         </div>
@@ -31,7 +31,7 @@
                             <div class="wrapper-form-line">
                                 <label for="password">Mật khẩu</label>
                                 <div>
-                                    <input type="password" placeholder="Mật khẩu" name="password" id="password" value="123456" required>
+                                    <input type="password" placeholder="Mật khẩu" name="password" id="password" value="admin" required>
                                 </div>
                             </div>
                         </div>

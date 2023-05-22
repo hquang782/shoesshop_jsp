@@ -1,6 +1,7 @@
 package com.dev4fun.dao;
 
 import com.dev4fun.model.Bill;
+import com.dev4fun.model.BillDetail;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -26,6 +27,49 @@ public class BillDAO extends DAO {
                 bill.setNote(rs.getString("note"));
             }
             return bill;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Bill> getBillsByAccountId(int id) {
+        try (Connection conn = getConnection()) {
+            String stmtBill = "select * from bill where user_id = ?";
+            String stmtBillDetail = "select * from bill_detail where bill_id = ?";
+            PreparedStatement ppStBill = conn.prepareStatement(stmtBill);
+            PreparedStatement ppStBillDetail = conn.prepareStatement(stmtBillDetail);
+            ppStBill.setInt(1, id);
+            ResultSet rsBill = ppStBill.executeQuery();
+            ArrayList<Bill> bills = new ArrayList<>();
+            while (rsBill.next()) {
+                Bill bill = new Bill();
+                bill.setId(rsBill.getInt("id"));
+                bill.setStatus(rsBill.getString("status"));
+                bill.setUserId(rsBill.getInt("user_id"));
+                bill.setFullName(rsBill.getString("full_name"));
+                bill.setEmail(rsBill.getString("email"));
+                bill.setPhoneNumber(rsBill.getString("phone_number"));
+                bill.setTotalAmount(rsBill.getFloat("total_amount"));
+                bill.setPayMethod(rsBill.getString("pay_method"));
+                bill.setNote(rsBill.getString("note"));
+
+                ArrayList<BillDetail> listBillDetails = new ArrayList<>();
+                ppStBillDetail.setInt(1, bill.getId());
+                ResultSet rsBillDetail = ppStBillDetail.executeQuery();
+                while (rsBillDetail.next()) {
+                    BillDetail billDetail = new BillDetail();
+                    billDetail.setId(rsBillDetail.getInt("id"));
+//                    billDetail.setBillId(rsBillDetail.getInt("bill_id"));
+                    billDetail.setQuantity(rsBillDetail.getInt("quantity"));
+//                    billDetail.setProductId(rsBillDetail.getInt("product_id"));
+                    billDetail.setAmount(rsBillDetail.getInt("amount"));
+                    listBillDetails.add(billDetail);
+                }
+
+                bill.setBillDetails(listBillDetails);
+                bills.add(bill);
+            }
+            return bills;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

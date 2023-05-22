@@ -94,4 +94,8 @@ public class Bill {
     public void setBillDetails(ArrayList<BillDetail> billDetails) {
         this.billDetails = billDetails;
     }
+
+    public ArrayList<BillDetail> getBillDetails() {
+        return billDetails;
+    }
 }
