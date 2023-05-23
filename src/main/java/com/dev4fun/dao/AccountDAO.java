@@ -39,7 +39,7 @@ public class AccountDAO extends DAO {
     }
     public ArrayList<Account> getAccountByElement(String temp, String value) {
         try (Connection conn = getConnection()) {
-            String statement = "select * from account where "+temp+" like('%"+ value + "%')";
+            String statement = "select * from account where "+temp+" like '%"+ value + "%'";
             PreparedStatement ppStmt = conn.prepareStatement(statement);
 //            ppStmt.setString(1,value);
             ResultSet rs = ppStmt.executeQuery();
@@ -76,7 +76,7 @@ public class AccountDAO extends DAO {
                 account.setId(rs.getInt("id"));
                 account.setUsername(rs.getString("username"));
                 account.setEmail(rs.getString("email"));
-                account.setPassword(rs.getString("password"));
+//                account.setPassword(rs.getString("password"));
                 account.setRole(rs.getString("role"));
                 account.setFullName(rs.getString("full_name"));
                 account.setImageLink(rs.getString("image_link"));

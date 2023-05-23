@@ -31,7 +31,7 @@ public class AccountController extends HttpServlet {
             String typeSearch = temp.equals("username") ? "Tên người dùng" :
                     temp.equals("role") ? "Loại tài khoản" :
                             temp.equals("email") ? "Email" : "Số điện thoại";
-
+            req.setAttribute("valueSearch",temp);
             req.setAttribute("typeSearch",typeSearch);
             req.setAttribute(temp,none);
             req.setAttribute("listAccounts", accounts);

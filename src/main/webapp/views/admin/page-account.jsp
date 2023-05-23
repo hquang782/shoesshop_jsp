@@ -28,16 +28,16 @@
                         <div class="wrapper-search">
                             <form method="get" action="<c:url value="/admin/account"/>">
                                 <div class="search-option">
-                                    <select name="t" id="optionSearchTable" >
-                                        <% if(request.getParameter("t")!=null){%>
-                                        <option value="" selected  >${typeSearch}</option>
-                                        <%}
-                                        else {%>
+                                    <select name="t" id="optionSearchTable">
+                                        <% if (request.getParameter("t") != null) {%>
+                                        <option value="${valueSearch}" selected>${typeSearch}</option>
+                                        <%} else {%>
                                         <option value="" selected disabled hidden>Tìm kiếm theo</option>
                                         <%}%>
                                         <option value="username" style="display: ${username}">Tên người dùng</option>
                                         <option value="email" style="display: ${email}">Email</option>
-                                        <option value="phone_number"  style="display: ${phone_number}">Số điện thoại</option>
+                                        <option value="phone_number" style="display: ${phone_number}">Số điện thoại
+                                        </option>
                                         <option value="role" style="display: ${role}">Loại tài khoản</option>
                                     </select>
                                 </div>
@@ -74,7 +74,6 @@
                     </div>
 
                     <div class="pagination-table-content">
-                        <form method="get" action="<c:url value="/admin/account"/>"></form>
                         <div class="wrapper-pagination">
                             <%--                            <div class="wrapper-qty-row">--%>
                             <%--                                <div>--%>
@@ -110,3 +109,4 @@
 <script>
     const data = <%=jsonAccounts%>
 </script>
+<script type="text/javascript" src="<c:url value="../../assets/js/admin.account.js"/>"></script>
