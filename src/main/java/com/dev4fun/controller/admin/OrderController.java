@@ -24,34 +24,43 @@ public class OrderController extends HttpServlet {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
             System.out.println(temp + " " + value);
-            ArrayList<BillDetail> searchBillDetail;
+            String none = "none";
+            ArrayList<BillDetail> listBillDetail;
             switch (temp) {
                 case "id":
                     //id don hang ID
-                    searchBillDetail = billDetailDAO.getBillDetailbyId("bill_id", value);
+                    listBillDetail = billDetailDAO.getBillDetailbyId("bill_id", value);
                     break;
                 case "fn":
                     //ten khach hang full_name
-                    searchBillDetail = billDetailDAO.getBillDetailbyCustomer(value);
+                    listBillDetail = billDetailDAO.getBillDetailbyCustomer(value);
                     break;
                 case "name":
                     //ten don hang
-                    searchBillDetail = billDetailDAO.getBillDetailbyProduct(value);
+                    listBillDetail = billDetailDAO.getBillDetailbyProduct(value);
                     break;
                 case "st":
                     //status
-                    searchBillDetail = billDetailDAO.getBillDetailbyStatus(value);
+                    listBillDetail = billDetailDAO.getBillDetailbyStatus(value);
                     break;
                 default:
-                    searchBillDetail = billDetailDAO.getAllBillDetail();
+                    listBillDetail = billDetailDAO.getAllBillDetail();
                     break;
             }
-            req.setAttribute("searchBillDetail",searchBillDetail);
+            String typeSearch = temp.equals("id") ? "ID Đơn hàng" :
+                    temp.equals("fn") ? "Khách hàng" :
+                            temp.equals("name") ? "Đơn hàng" : "Tình trạng";
+            req.setAttribute("valueSearch",temp);
+            req.setAttribute(temp,none);
+            req.setAttribute("typeSearch",typeSearch);
+            req.setAttribute("listBillDetail",listBillDetail);
             req.setAttribute("txt_sbilldetail",value);
         }
         else{
             System.out.println("all");
-            req.setAttribute("searchBillDetail",billDetailArrayList);
+            req.setAttribute("valueSearch","");
+            req.setAttribute("typeSearch","Tìm kiếm theo");
+            req.setAttribute("listBillDetail",billDetailArrayList);
         }
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-order.jsp");
         rd.forward(req, resp);

@@ -26,6 +26,7 @@ public class ProductController extends HttpServlet {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
             System.out.println(temp + " " + value);
+            String none= "none";
             ArrayList<Product> searchProduct = new ArrayList<>();
             if(temp.equals("name")) {
                 searchProduct = productDAO.getProductByName(value);
@@ -36,13 +37,19 @@ public class ProductController extends HttpServlet {
             else{
                 searchProduct = productDAO.getProductByStatus(value);
             }
+            String typeSearch = temp.equals("name") ? "Tên sản phẩm" :
+                    temp.equals("category") ? "Danh mục" : "Trạng thái";
+            req.setAttribute("valueSearch",temp);
+            req.setAttribute(temp,none);
+            req.setAttribute("typeSearch",typeSearch);
             req.setAttribute("listProducts",searchProduct);
             req.setAttribute("txt_sproduct",value);
         }
         else{
             System.out.println("all");
+            req.setAttribute("valueSearch","");
+            req.setAttribute("typeSearch","Tìm kiếm theo");
             req.setAttribute("listProducts", listProducts);
-
         }
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-product.jsp");
         rd.forward(req, resp);

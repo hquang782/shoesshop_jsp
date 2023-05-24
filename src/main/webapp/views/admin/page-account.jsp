@@ -68,8 +68,34 @@
                             </thead>
                             <% ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
                                 Gson gson = new Gson();
-                                String jsonAccounts = gson.toJson(listAccounts);%>
-                            <tbody class="list-accounts"></tbody>
+                                String jsonAccounts = gson.toJson(listAccounts);
+                                int sIndex = 0, eIndex = listAccounts.size();
+                                if (request.getParameter("startIndex") != null) {
+                                    sIndex = Integer.parseInt(request.getParameter("startIndex"));
+                                }
+                                if(sIndex+5<listAccounts.size()) eIndex = sIndex+5;
+                            %>
+                            <tbody class="list-accounts">
+                            <% for (int i = sIndex; i <eIndex; i++) {%>
+
+                            <tr>
+                                <td><%=listAccounts.get(i).getUsername()%></td>
+                                <td><%=listAccounts.get(i).getFullName()%></td>
+                                <td><%=listAccounts.get(i).getEmail()%></td>
+                                <td><%=listAccounts.get(i).getPhoneNumber()%></td>
+                                <td><%=listAccounts.get(i).getDob()%></td>
+                                <td><%=listAccounts.get(i).getRole()%></td>
+                                <td>
+                                    <button class="btn-edit">Sửa</button>
+                                    <form method="post" action="<c:url value="/admin/account?act=delete"/>">
+                                        <input type="hidden" name="accountId" value="<%=listAccounts.get(i).getId()%>">
+                                        <button class="btn-delete" type="submit">Xóa</button>
+                                    </form>
+                                </td>
+                            </tr>
+                            <%}%>
+
+                            </tbody>
                         </table>
                     </div>
 
@@ -94,6 +120,7 @@
                                 </div>
                                 <div class="previous">
                                     <button onclick="previousPages()">&#8592;</button>
+                                    <input style="display: none" id="st" name="startIndex">
                                 </div>
                                 <div class="next">
                                     <button onclick="nextPages()">&#8594;</button>
@@ -107,6 +134,7 @@
     </div>
 </div>
 <script>
-    const data = <%=jsonAccounts%>
+    const data =
+    <%=jsonAccounts%>
 </script>
-<script type="text/javascript" src="<c:url value="../../assets/js/admin.account.js"/>"></script>
+<script type="text/javascript" src="<c:url value="../../assets/js/admin.pagination.js"/>"></script>

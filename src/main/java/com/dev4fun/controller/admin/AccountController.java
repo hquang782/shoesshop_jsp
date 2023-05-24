@@ -38,6 +38,8 @@ public class AccountController extends HttpServlet {
             req.setAttribute("txt_sAccount", value);
             System.out.println(accounts.size());
         } else {
+            req.setAttribute("valueSearch","");
+            req.setAttribute("typeSearch","Tìm kiếm theo");
             req.setAttribute("listAccounts", listAccounts);
             System.out.println(listAccounts.size());
         }
