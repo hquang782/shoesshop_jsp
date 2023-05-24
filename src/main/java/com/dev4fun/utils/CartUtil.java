@@ -23,13 +23,19 @@ public class CartUtil {
         }
         int isExist = isExisting(listCarts, product.getId());
         if (isExist != -1) {
-            listCarts.get(isExist).setQuantity(listCarts.get(isExist).getQuantity() + quantity);
+            listCarts.get(isExist).setQuantity(Math.min(listCarts.get(isExist).getProduct().getTotalQuantity(), listCarts.get(isExist).getQuantity() + quantity)
+                    );
         } else {
             listCarts.add(new Cart(product, quantity));
         }
         SessionUtil.getInstance().putValue(request, "listCarts", listCarts);
     }
-
+    public static void updateCart(HttpServletRequest request, int id,int quantity)
+    {
+        ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
+        int index = isExisting(listCarts, id);
+        listCarts.get(index).setQuantity(quantity);
+    }
     public static void removeProductInCart(HttpServletRequest request, int id) {
         ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
         listCarts.remove(isExisting(listCarts, id));
