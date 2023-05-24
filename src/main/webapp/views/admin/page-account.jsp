@@ -73,18 +73,24 @@
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
                                 }
-                                if(sIndex+5<listAccounts.size()) eIndex = sIndex+5;
+                                if (sIndex + 5 < listAccounts.size()) eIndex = sIndex + 5;
                             %>
                             <tbody class="list-accounts">
-                            <% for (int i = sIndex; i <eIndex; i++) {%>
+                            <% for (int i = sIndex; i < eIndex; i++) {%>
 
                             <tr>
-                                <td><%=listAccounts.get(i).getUsername()%></td>
-                                <td><%=listAccounts.get(i).getFullName()%></td>
-                                <td><%=listAccounts.get(i).getEmail()%></td>
-                                <td><%=listAccounts.get(i).getPhoneNumber()%></td>
-                                <td><%=listAccounts.get(i).getDob()%></td>
-                                <td><%=listAccounts.get(i).getRole()%></td>
+                                <td><%=listAccounts.get(i).getUsername()%>
+                                </td>
+                                <td><%=listAccounts.get(i).getFullName()%>
+                                </td>
+                                <td><%=listAccounts.get(i).getEmail()%>
+                                </td>
+                                <td><%=listAccounts.get(i).getPhoneNumber()%>
+                                </td>
+                                <td><%=listAccounts.get(i).getDob()%>
+                                </td>
+                                <td><%=listAccounts.get(i).getRole()%>
+                                </td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
                                     <form method="post" action="<c:url value="/admin/account?act=delete"/>">
@@ -116,15 +122,22 @@
                             <%--                            </div>--%>
                             <div class="wrapper-action-table">
                                 <div class="index">
-                                    <p id="currentPage"></p>
+                                    <% String pageIndex;
+                                        if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
+                                        else pageIndex = "1/2";
+                                    %>
+                                    <p id="currentPage"><%=pageIndex%></p>
                                 </div>
-                                <div class="previous">
-                                    <button onclick="previousPages()">&#8592;</button>
+                                <form action="<c:url value="/admin/account"/>" method="get" style="display: flex">
                                     <input style="display: none" id="st" name="startIndex">
-                                </div>
-                                <div class="next">
-                                    <button onclick="nextPages()">&#8594;</button>
-                                </div>
+                                    <input style="display: none" id="page" name="pageIndex">
+                                    <div class="previous">
+                                        <button onclick="previousPages()">&#8592;</button>
+                                    </div>
+                                    <div class="next">
+                                        <button onclick="nextPages()">&#8594;</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>

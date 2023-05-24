@@ -127,15 +127,22 @@
 
                             <div class="wrapper-action-table">
                                 <div class="index">
-                                    <p id="currentPage"></p>
+                                    <% String pageIndex;
+                                        if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
+                                        else pageIndex = "1/2";
+                                    %>
+                                    <p id="currentPage"><%=pageIndex%></p>
                                 </div>
-                                <div class="previous">
-                                    <button onclick="previousPages()">&#8592;</button>
-                                    <input style="display: none" id="st" name="startIndex" >
-                                </div>
-                                <div class="next">
-                                    <button onclick="nextPages()">&#8594;</button>
-                                </div>
+                                <form action="<c:url value="/admin/account"/>" method="get" style="display: flex">
+                                    <input style="display: none" id="st" name="startIndex">
+                                    <input style="display: none" id="page" name="pageIndex">
+                                    <div class="previous">
+                                        <button onclick="previousPages()">&#8592;</button>
+                                    </div>
+                                    <div class="next">
+                                        <button onclick="nextPages()">&#8594;</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
