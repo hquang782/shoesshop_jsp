@@ -1,3 +1,5 @@
+
+<%@page import="com.dev4fun.dao.ProductDAO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.dev4fun.model.Product" %>
 <%@ page import="java.util.ArrayList" %>
@@ -13,6 +15,7 @@
         ArrayList<ProductDetail> pds = product.getProductDetails();
         ArrayList<String> listImages = new ArrayList<>(List.of(product.getImageList().split(",")));
         NumberFormat nf = NumberFormat.getNumberInstance();
+        ProductDAO pdao = new ProductDAO();
         int quantity = 1;
     %>
     <div class="product">
@@ -51,7 +54,7 @@
                     <p style="font-weight: bold; font-size: 18px;">Size:</p>
                     <div class="size">
                         <%for (ProductDetail pd : product.getProductDetails()) {%>
-                        <span id="choose-size" onclick="getspanValue()"><%=pd.getSize()%></span>
+                        <span id="choose-size" onclick="getspanValue(event)"><%=pd.getSize()%></span>
                         <%}%>
                     </div>
                 </div>
@@ -72,12 +75,13 @@
                 </div>
                 <div class="product-content-right-product-button">
                     <div class="product-content-right-product-button-cart">
-                        <form action="<c:url value="/cart?act=add"/>" method="post">
+                        <form action="<c:url value="/cart?act=add"/>" method="get">
                             <button type="submit" onclick="getValue()">
                                 THÊM VÀO GIỎ HÀNG
                             </button>
-                            <input id="qtt" type="hidden" name="quantity">
+                            <input type="hidden" name="act" value="add">
                             <input type="hidden" name="productId" value="<%=product.getId()%>">
+                            <input id="qtt" type="hidden" name="quantity">
                             <input id="size" type="hidden" name="size">
                         </form>
                     </div>
@@ -112,18 +116,18 @@
             bigImg.src = imgItem.src
         })
     })
-    var totalquantity =<%=product.getTotalQuantity()%>;
-    var size = <%=pds.get(0).getSize()%>
-        function getspanValue(event) {
-            document.getElementById("quantityValue").value = 1;
-            size = event.target.innerText;
-            console.log(size);
-
-        }
+    var id =<%=product.getId()%>
+    var totalquantity = <%=pdao.getQuantityBySize(product.getId(), Integer.valueOf(pds.get(0).getSize()))%>;
+    var size=<%=pds.get(0).getSize()%>;
+    function getspanValue(event) {
+        document.getElementById("quantityValue").value = 1;
+        size = event.target.innerText;
+        
+        console.log(size);
+    }
 
     function getValue() {
         var quantity = document.getElementById("quantityValue").value;
-        var size = document.getElementById("choose-size").value;
         console.log(quantity + " " + size);
         document.getElementById("qtt").value = quantity;
         document.getElementById("size").value = size;

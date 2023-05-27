@@ -1,3 +1,4 @@
+<%@page import="com.dev4fun.dao.ProductDAO"%>
 <%@page import="java.util.ArrayList" %>
 <%@page import="com.dev4fun.utils.CartUtil" %>
 <%@page import="com.dev4fun.model.Cart" %>
@@ -8,6 +9,8 @@
 <div class="main">
     <%
         ArrayList<Cart> cart = new CartUtil().getCart(request);
+        ProductDAO pdao = new ProductDAO();
+        Float total=Float.valueOf(0);
     %>
     <div class="navigate">
         <a href="<c:url value="/home"/>">Trang chủ</a>
@@ -20,7 +23,8 @@
                 <div class="heading-cart">
                     <h1>Giỏ hàng của bạn</h1>
                 </div>
-                <form action="<c:url value="/cart"/>" method="post">
+                <form action="<c:url value="/cart"/>" method="get">
+                    <input type="hidden" name="act" value="update">
                     <p class="title-number-cart">Bạn đang có <strong><%=cart.size()%> sản phẩm</strong>
                         trong giỏ hàng</p>
                     <div class="table-cart">
@@ -31,13 +35,7 @@
                                     <img src="<%=c.getProduct().getImageLink()%>">
                                 </div>
                                 <div class="item-remove">
-                                    <form action="<c:url value="/cart"/>" method="post">
-                                        <input type="hidden" name="productId"
-                                               value="<%=c.getProduct().getId()%>">
-                                        <input type="hidden" name="quantity" value="0">
-                                        <input type="submit" class="btn btn-primary" value="Xóa">
-                                    </form>
-
+                                    <a href="/cart?act=remove&productId=<%=c.getProduct().getId()%>&size=<%=c.getSize()%>" onclick="return confirm('Bạn chắc chắn không?')">Xóa</a>
                                 </div>
                             </div>
 
@@ -47,8 +45,10 @@
                                         <a href=""><%=c.getProduct().getName()%>
                                         </a>
                                     </div>
+                                        <input type="hidden" name="size" value="<%=c.getSize()%>">
                                     <div class="size">
-                                        <span>Size: S</span>
+                                        <span>Size: <%=c.getSize()%></span>
+                                        
                                     </div>
                                 </div>
                                 <div class="price">
@@ -58,44 +58,45 @@
 
                             <div class="wrapper-total">
                                 <div class="item-total-price">
-                                    <span>498,000đ</span>
+                                    <span><%=c.getProduct().getPrice()*c.getQuantity()%></span>
                                 </div>
                                 <div class="item-qty">
                                     <div class="quantity">
                                         <div class="quantity-set">
                                             <div class="quantity-reduce">
-                                                <div onclick="">-</div>
+                                                <div onclick="Sub(<%=c.getProduct().getId()%><%=c.getSize()%>)">-</div>
                                             </div>
                                             <div class="quatity-value">
-                                                <input id="quantityValue" type="number" value="<%=c.getQuantity()%>" min="1">
+                                                <input id="quantityValue<%=c.getProduct().getId()%><%=c.getSize()%>" type="number" value="<%=c.getQuantity()%>" min="1" name="quantity" max="<%=pdao.getQuantityBySize(c.getProduct().getId(),c.getSize() )%>">
                                             </div>
                                             <div class="quantity-increase">
-                                                <div onclick="">+</div>
+                                                <div onclick="Add(<%=c.getProduct().getId()%><%=c.getSize()%>)">+</div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <form action="<c:url value="/cart"/>" method="post">
-                                    <button type="submit" onclick="getValue()">
-                                        Cap nhat
-                                    </button>
-                                    <input id="qtt" type="hidden" name="quantity">
-                                    <input type="hidden" name="productId" value="<%=c.getProduct().getId()%>">
-                                </form>
+                                
                             </div>
                         </div>
-                        <%}%>
+                        <%
+                            total+=c.getProduct().getPrice()*c.getQuantity();
+                            }
+                        %>
                     </div>
+                    
+                    <button type="submit">
+                    Cập nhật
+                    </button>
                 </form>
             </div>
         </div>
-
+                    
         <div class="right-side">
             <div class="mainCart-sidebar wrap-order-summary">
                 <div class="order-summary-block">
                     <h2 class="summary-title">Thông tin đơn hàng</h2>
                     <div class="summary-total">
-                        <p>Tổng tiền: <span class="total-final">498,000₫</span></p>
+                        <p>Tổng tiền: <span class="total-final"><%=(long)(Math.round(total))%>Đ</span></p>
                     </div>
                     <div class="summary-action">
                         <div class="summary-alert alert alert-danger">
@@ -112,20 +113,18 @@
     </div>
 </div>
 <script>
-    function getValue() {
-        var input = document.getElementById("quantityValue").value;
-        document.getElementById("qtt").value = input;
+ function Add(id) {
+        var input = Number(document.getElementById("quantityValue"+id).value);
+        
+            document.getElementById("quantityValue"+id).value = input + 1;
+        
+
     }
 
-    function Add() {
-        var input = Number(document.getElementById("quantityValue").value);
-        document.getElementById("quantityValue").value = input + 1;
-    }
-
-    function Sub() {
-        var input = Number(document.getElementById("quantityValue").value);
+    function Sub(id) {
+        var input = Number(document.getElementById("quantityValue"+id).value);
         if (input > 1) {
-            document.getElementById("quantityValue").value = input - 1;
+            document.getElementById("quantityValue"+id).value = input - 1;
         }
     }
 </script>
