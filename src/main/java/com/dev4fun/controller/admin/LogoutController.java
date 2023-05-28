@@ -13,6 +13,7 @@ public class LogoutController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         SessionUtil.getInstance().removeValue(req, "ACCOUNT_ADMIN");
+        SessionUtil.getInstance().removeAllValues(req);
         resp.sendRedirect("/admin/login");
     }
 }

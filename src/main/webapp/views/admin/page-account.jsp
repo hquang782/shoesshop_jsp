@@ -66,7 +66,9 @@
                                 <th class="action">Action</th>
                             </tr>
                             </thead>
+
                             <% ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
+
                                 Gson gson = new Gson();
                                 String jsonAccounts = gson.toJson(listAccounts);
                                 int sIndex = 0, eIndex = listAccounts.size();
@@ -124,7 +126,7 @@
                                 <div class="index">
                                     <% String pageIndex;
                                         if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/2";
+                                        else pageIndex = "1/"+(int)Math.ceil(listAccounts.size()/5.0);
                                     %>
                                     <p id="currentPage"><%=pageIndex%></p>
                                 </div>

@@ -22,6 +22,11 @@ public class LoginController extends HttpServlet {
         if (acc != null) {
             resp.sendRedirect("/admin");
         } else {
+            String errorLog = (String) SessionUtil.getInstance().getValue(req,"errorMessage");
+            if(errorLog!=null){
+                System.out.println(errorLog);
+                req.setAttribute("errorLog",errorLog);
+            }
             RequestDispatcher rd = req.getRequestDispatcher("/views/authn/admin-login.jsp");
             rd.forward(req, resp);
         }
@@ -44,10 +49,17 @@ public class LoginController extends HttpServlet {
                             SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
                             resp.sendRedirect("/admin");
                         } else {
+                            SessionUtil.getInstance().putValue(req,"errorMessage","Tài khoản không có quyền truy cập. Vui lòng thử lại.");
                             resp.sendRedirect("/admin/login");
                         }
-                    } else resp.sendRedirect("/admin/login");
-                } else resp.sendRedirect("/admin/login");
+                    } else{
+                        SessionUtil.getInstance().putValue(req,"errorMessage","Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
+                        resp.sendRedirect("/admin/login");
+                    }
+                } else {
+                    SessionUtil.getInstance().putValue(req,"errorMessage","Tài khoản không tồn tại. Vui lòng thử lại.");
+                    resp.sendRedirect("/admin/login");
+                }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

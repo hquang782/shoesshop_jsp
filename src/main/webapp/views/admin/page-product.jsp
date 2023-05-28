@@ -129,7 +129,7 @@
                                 <div class="index">
                                     <% String pageIndex;
                                         if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/2";
+                                        else pageIndex = "1/"+(int)Math.ceil(listProducts.size()/5.0);
                                     %>
                                     <p id="currentPage"><%=pageIndex%></p>
                                 </div>
