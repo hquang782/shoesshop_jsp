@@ -409,4 +409,23 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    public int getQuantityBySize(int id,int size)
+    {
+        try (Connection conn = getConnection()) {
+            String statement = "SELECT quantity FROM "
+                    + "shoes.product as p inner join product_detail as pd on p.id=pd.product_id "
+                    + "where pd.product_id=? and size=? ;";
+            PreparedStatement pp = conn.prepareStatement(statement);
+            pp.setInt(1, id);
+            pp.setInt(2, size);
+            ResultSet rs = pp.executeQuery();
+            int quantity = 0;
+            while (rs.next()) {
+                quantity = rs.getInt(1);
+            }
+            return quantity;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
