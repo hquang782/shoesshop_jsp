@@ -1,6 +1,6 @@
-<%@ page import="com.dev4fun.model.Product" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="com.dev4fun.utils.SessionUtil" %>
+<%@ page import="com.dev4fun.utils.CartUtil" %>
+<%@ page import="com.dev4fun.model.Cart" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
@@ -100,22 +100,27 @@
                     </thead>
                     <tbody>
                     <%
+                        NumberFormat nf = NumberFormat.getNumberInstance();
                         float totalAmount = 0;
-                        for (Product product: (ArrayList<Product>) SessionUtil.getInstance().getValue(request, "CART")) {
-                        totalAmount += product.getTotalQuantity() * product.getPrice();
+                        for (Cart cart : CartUtil.getCart(request)) {
+                            totalAmount += cart.getQuantity() * cart.getProduct().getPrice();
                     %>
                     <tr class="product">
                         <td class="product-image">
-                            <img src="<%=product.getImageLink()%>"
-                                 alt="<%=product.getName()%>">
+                            <img src="<%=cart.getProduct().getImageLink()%>"
+                                 alt="<%=cart.getProduct().getName()%>">
                         </td>
                         <td class="product-description">
-                            <p class="description"><%=product.getName()%></p>
-                            <p><%=product.getProductDetails().get(0).getSize()%></p>
-                            <p>X <%=product.getTotalQuantity()%></p>
+                            <p class="description"><%=cart.getProduct().getName()%>
+                            </p>
+                            <p><%=cart.getSize()%>
+                            </p>
+                            <p>X <%=cart.getQuantity()%>
+                            </p>
                         </td>
                         <td class="product-price td--right">
-                            <p><%=product.getTotalQuantity() * product.getPrice()%></p>
+                            <p><%=nf.format(cart.getProduct().getTotalQuantity() * cart.getProduct().getPrice())%><sup>đ</sup>
+                            </p>
                         </td>
                     </tr>
                     <%}%>
@@ -134,7 +139,7 @@
                     <tr class="total-line">
                         <td>Tạm tính</td>
                         <td class="td--right">
-                            <p class="td--right"><%=totalAmount%>đ</p>
+                            <p class="td--right"><%=nf.format(totalAmount)%><sup>đ</sup></p>
                         </td>
                     </tr>
                     <tr class="total-line">
@@ -150,7 +155,7 @@
                             <p class="label-total">Tổng cộng</p>
                         </td>
                         <td class="td--right">
-                            <p class="total-amount"><%=totalAmount%>đ</p>
+                            <p class="total-amount"><%=nf.format(totalAmount)%><sup>đ</sup></p>
                         </td>
                     </tr>
                     </tfoot>

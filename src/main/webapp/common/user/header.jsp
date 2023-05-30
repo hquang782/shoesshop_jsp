@@ -36,7 +36,9 @@
                     <div class="header-cart-wrap">
                         <div class="header__cart-icon" onclick="handleClickCart();">
                             <i class="fa-solid fa-cart-shopping">
-                                <span class="header__cart-notice"></span>
+                                <%if (listCarts.size() > 0) {%>
+                                <span class="header__cart-notice"><%=listCarts.size()%></span>
+                                <%}%>
                             </i>
                         </div>
                         <div class="header__cart-list open-cart">
@@ -57,15 +59,21 @@
                                     <li class="header__cart-item">
                                         <div class="header__cart-item-img">
                                             <a href="/products/<%=cart.getProduct().getName().replaceAll(" ", "-") + "-" + cart.getProduct().getId()%>">
-                                                <img src="<%=cart.getProduct().getImageLink()%>" class="product-img" alt="loi">
+                                                <div style="background-image: url(<%=cart.getProduct().getImageLink()%>)" class="product-img"></div>
                                             </a>
                                         </div>
                                         <div class="header__cart-item-info">
-                                            <p class="header__cart-item-info-name"><%=cart.getProduct().getName()%>
-                                            </p>
+                                            <div class="header__cart-item-info-name">
+                                                <p>
+                                                    <%=cart.getProduct().getName()%>
+                                                </p>
+                                                <p>
+                                                    Size: <%=cart.getSize()%>
+                                                </p>
+                                            </div>
                                             <div style="text-align: left">
                                                 <p class="header__cart-item-info-price"><%=cart.getProduct().getPrice()%><sup>đ</sup></p>
-                                                <p class="header__cart-item-info-price"><%=cart.getQuantity()%>
+                                                <p class="header__cart-item-info-price">X <%=cart.getQuantity()%>
                                                 </p>
                                             </div>
                                         </div>

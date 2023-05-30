@@ -15,7 +15,7 @@
         %>
         <nav>
             <% for (Category category : listCategories) {%>
-            <a href="/products?category=<%=category.getName()%>" class="nav-item">
+            <a href="<c:url value="/products?category=<%=category.getName()%>"/>" class="nav-item">
                 <img src="https://tyhisneaker.com/wp-content/uploads/2022/08/eme-2.png" alt="hình ảnh ">
                 <b class="item-text">
                     <%=category.getName()%>
@@ -29,7 +29,7 @@
             <div class="head-product">
                 <div class="brand"><%=category.getName()%>
                 </div>
-                <a href="/products?category=<%=category.getName()%>" class="allProduct">Tất cả sản phẩm</a>
+                <a href="<c:url value="/products?category=<%=category.getName()%>"/>" class="allProduct">Tất cả sản phẩm</a>
             </div>
             <%ArrayList<Product> listProducts = new ProductDAO().getProductsByCategoryId(category.getId());%>
             <div class="container-product">

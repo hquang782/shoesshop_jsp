@@ -1,16 +1,18 @@
-<%@page import="com.dev4fun.dao.ProductDAO"%>
+<%@page import="com.dev4fun.dao.ProductDAO" %>
 <%@page import="java.util.ArrayList" %>
 <%@page import="com.dev4fun.utils.CartUtil" %>
 <%@page import="com.dev4fun.model.Cart" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <link rel="stylesheet" href="<c:url value="/assets/style/user/cart-style.css"/>"/>
 <div class="main">
     <%
-        ArrayList<Cart> cart = new CartUtil().getCart(request);
-        ProductDAO pdao = new ProductDAO();
-        Float total=Float.valueOf(0);
+        NumberFormat nf = NumberFormat.getNumberInstance();
+        ArrayList<Cart> cart = CartUtil.getCart(request);
+        ProductDAO productDao = new ProductDAO();
+        float total = 0;
     %>
     <div class="navigate">
         <a href="<c:url value="/home"/>">Trang chủ</a>
@@ -35,75 +37,79 @@
                                     <img src="<%=c.getProduct().getImageLink()%>">
                                 </div>
                                 <div class="item-remove">
-                                    <a href="/cart?act=remove&productId=<%=c.getProduct().getId()%>&size=<%=c.getSize()%>" onclick="return confirm('Bạn chắc chắn không?')">Xóa</a>
+                                    <a href="<c:url value="/cart?act=remove&productId=<%=c.getProduct().getId()%>&size=<%=c.getSize()%>"/>">Xóa</a>
                                 </div>
                             </div>
 
                             <div class="wrapper-info">
                                 <div class="item-info">
                                     <div class="title">
-                                        <a href=""><%=c.getProduct().getName()%>
+                                        <a href="/products/<%=c.getProduct().getName().replaceAll(" ", "-") + "-" + c.getProduct().getId()%>">
+                                            <%=c.getProduct().getName()%>
                                         </a>
                                     </div>
-                                        <input type="hidden" name="size" value="<%=c.getSize()%>">
+                                    <input type="hidden" name="size" value="<%=c.getSize()%>">
                                     <div class="size">
                                         <span>Size: <%=c.getSize()%></span>
-                                        
+
                                     </div>
                                 </div>
                                 <div class="price">
-                                    <span><%=c.getProduct().getPrice()%></span>
+                                    <span><%=nf.format(c.getProduct().getPrice())%><sup>đ</sup></span>
                                 </div>
                             </div>
 
                             <div class="wrapper-total">
                                 <div class="item-total-price">
-                                    <span><%=c.getProduct().getPrice()*c.getQuantity()%></span>
+                                    <span><%=nf.format(c.getProduct().getPrice() * c.getQuantity())%><sup>đ</sup></span>
                                 </div>
                                 <div class="item-qty">
                                     <div class="quantity">
                                         <div class="quantity-set">
                                             <div class="quantity-reduce">
-                                                <div onclick="Sub(<%=c.getProduct().getId()%><%=c.getSize()%>)">-</div>
+                                                <div onclick="Sub(<%=c.getProduct().getId()%> + '-' + <%=c.getSize()%>)">-
+                                                </div>
                                             </div>
                                             <div class="quatity-value">
-                                                <input id="quantityValue<%=c.getProduct().getId()%><%=c.getSize()%>" type="number" value="<%=c.getQuantity()%>" min="1" name="quantity" max="<%=pdao.getQuantityBySize(c.getProduct().getId(),c.getSize() )%>">
+                                                <input id="quantityValue-<%=c.getProduct().getId()%>-<%=c.getSize()%>" type="text" value="<%=c.getQuantity()%>" name="quantity"
+                                                       max="<%=productDao.getQuantityBySize(c.getProduct().getId(), c.getSize())%>">
                                             </div>
                                             <div class="quantity-increase">
-                                                <div onclick="Add(<%=c.getProduct().getId()%><%=c.getSize()%>)">+</div>
+                                                <div onclick="Add(<%=c.getProduct().getId()%> + '-' + <%=c.getSize()%>)">+
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </div>
                         <%
-                            total+=c.getProduct().getPrice()*c.getQuantity();
+                                total += c.getProduct().getPrice() * c.getQuantity();
                             }
                         %>
                     </div>
-                    
+
                     <button type="submit">
-                    Cập nhật
+                        Cập nhật
                     </button>
                 </form>
             </div>
         </div>
-                    
+
         <div class="right-side">
             <div class="mainCart-sidebar wrap-order-summary">
                 <div class="order-summary-block">
                     <h2 class="summary-title">Thông tin đơn hàng</h2>
                     <div class="summary-total">
-                        <p>Tổng tiền: <span class="total-final"><%=(long)(Math.round(total))%>Đ</span></p>
+                        <p>Tổng tiền: <span class="total-final"><%=nf.format(total)%><sup>đ</sup></span></p>
                     </div>
                     <div class="summary-action">
                         <div class="summary-alert alert alert-danger">
-                            FreeShip toàn quốc với đơn hàng từ 500.000Đ
+                            FreeShip toàn quốc với đơn hàng từ 500.000<sup>đ</sup>
                         </div>
                         <div class="summary-button">
-                            <a id="btnCart-checkout" class="checkout-btn btnred" href="#">THANH TOÁN</a>
+                            <a href="<c:url value="/checkout"/>" id="btnCart-checkout" class="checkout-btn btnred">THANH TOÁN</a>
                         </div>
                         <br>
                     </div>
@@ -113,18 +119,15 @@
     </div>
 </div>
 <script>
- function Add(id) {
-        var input = Number(document.getElementById("quantityValue"+id).value);
-        
-            document.getElementById("quantityValue"+id).value = input + 1;
-        
-
+    function Add(id) {
+        const input = Number(document.getElementById("quantityValue-" + id).value);
+        document.getElementById("quantityValue-" + id).value = input + 1;
     }
 
     function Sub(id) {
-        var input = Number(document.getElementById("quantityValue"+id).value);
+        const input = Number(document.getElementById("quantityValue-" + id).value);
         if (input > 1) {
-            document.getElementById("quantityValue"+id).value = input - 1;
+            document.getElementById("quantityValue-" + id).value = input - 1;
         }
     }
 </script>

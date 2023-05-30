@@ -16,11 +16,6 @@
         font-weight: 600;
     }
 
-    /* .container p {
-        font-size: 24px;
-        margin: 0;
-    } */
-
     .container .btn-back {
         display: inline-block;
         background-color: #333;
@@ -40,5 +35,5 @@
     <h1>404</h1>
     <h2>Không tìm thấy trang</h2>
     <p>Trang bạn đang tìm kiếm có thể đã bị xóa, chuyển đi, thay đổi link hoặc chưa bao giờ tồn tại.</p>
-    <a href="/home" class="btn-back">Trở về trang chủ</a>
+    <a href="<c:url value="/home"/>" class="btn-back">Trở về trang chủ</a>
 </div>

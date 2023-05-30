@@ -17,35 +17,39 @@ public class CartUtil {
         return listCarts;
     }
 
-    public static void addProductToCart(HttpServletRequest request, Product product,int size, int quantity) {
+    public static void addProductToCart(HttpServletRequest request, Product product, int size, int quantity) {
         ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
         if (listCarts == null) {
             listCarts = new ArrayList<>();
         }
-        int isExist = isExisting(listCarts, product.getId(),size);
+        int isExist = isExisting(listCarts, product.getId(), size);
         if (isExist != -1) {
-            listCarts.get(isExist).setQuantity(Math.min(new ProductDAO().getQuantityBySize(listCarts.get(isExist).getProduct().getId(), size), listCarts.get(isExist).getQuantity() + quantity)
-                    );
+            listCarts.get(isExist).setQuantity(Math.min(
+                    new ProductDAO().getQuantityBySize(listCarts.get(isExist).getProduct().getId(), size),
+                    listCarts.get(isExist).getQuantity() + quantity));
         } else {
-            listCarts.add(new Cart(product, size ,quantity));
+            listCarts.add(new Cart(product, size, quantity));
         }
         SessionUtil.getInstance().putValue(request, "listCarts", listCarts);
     }
-    public static void updateCart(HttpServletRequest request,String[] quantity,String[] size)
-    {
+
+    public static void updateCart(HttpServletRequest request, String[] quantity, String[] size) {
         ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
-        for(int i=0;i<listCarts.size();i++)
-            listCarts.get(i).setQuantity(Math.min(new ProductDAO().getQuantityBySize(listCarts.get(i).getProduct().getId(), Integer.parseInt(size[i])),Integer.parseInt(quantity[i])));
+        for (int i = 0; i < listCarts.size(); i++)
+            listCarts.get(i).setQuantity(Math.min(
+                    new ProductDAO().getQuantityBySize(listCarts.get(i).getProduct().getId(), Integer.parseInt(size[i])),
+                    Integer.parseInt(quantity[i])));
     }
-    public static void removeProductInCart(HttpServletRequest request, int id,int size) {
+
+    public static void removeProductInCart(HttpServletRequest request, int id, int size) {
         ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
         listCarts.remove(isExisting(listCarts, id, size));
     }
 
-    
-    public static int isExisting(ArrayList<Cart> listCarts, int id,int size) {
+
+    public static int isExisting(ArrayList<Cart> listCarts, int id, int size) {
         for (int i = 0; i < listCarts.size(); i++) {
-            if (listCarts.get(i).getProduct().getId() == id && listCarts.get(i).getSize()==size) {
+            if (listCarts.get(i).getProduct().getId() == id && listCarts.get(i).getSize() == size) {
                 return i;
             }
         }

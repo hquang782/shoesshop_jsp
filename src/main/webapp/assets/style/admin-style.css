@@ -74,6 +74,15 @@ select:-webkit-autofill{
     padding: 8px 0;
 }
 
+.table-content td>.img {
+    padding-top: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: top;
+    width: 100%;
+    border-top-right-radius: 2px 2px;
+}
+
 .table-content th {
     background-color: #f1f1f1;
 }

@@ -86,7 +86,7 @@
                                 <td style="width: 30%"><%=listProducts.get(i).getName()%>
                                 </td>
                                 <td style="width: 10%">
-                                    <img src="<%=listProducts.get(i).getImageLink()%>" width="100%" alt="">
+                                    <div class="img" style="background-image: url(<%=listProducts.get(i).getImageLink()%>)"></div>
                                 </td>
                                 <td style="width: 10%"><%=listProducts.get(i).getTotalQuantity()%>
                                 </td>
