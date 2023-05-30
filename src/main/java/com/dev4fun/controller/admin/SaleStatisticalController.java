@@ -3,6 +3,7 @@ package com.dev4fun.controller.admin;
 import com.dev4fun.dao.AccountDAO;
 import com.dev4fun.dao.BillDAO;
 import com.dev4fun.dao.ProductDAO;
+import com.dev4fun.model.Statistic;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -38,7 +39,7 @@ public class SaleStatisticalController extends HttpServlet {
         req.setAttribute("TotalProductNearExpired",TotalProductNearExpired);
         req.setAttribute("totalProductExpired",totalProductExpired);
         //table san pham ban chay
-        ArrayList<ArrayList<String>> topSaleProducts = productDAO.getTopSaleProducts();
+        ArrayList<Statistic> topSaleProducts = productDAO.getTopSaleProducts();
         req.setAttribute("topSaleProducts", topSaleProducts);
 
 

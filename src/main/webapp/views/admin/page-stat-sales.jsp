@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="com.dev4fun.model.Statistic" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -141,20 +142,20 @@
 
                         <tbody>
                         <%
-                            for (ArrayList<String> temp : (ArrayList<ArrayList<String>>) request.getAttribute("topSaleProducts")) {
+                            for (Statistic temp : (ArrayList<Statistic>) request.getAttribute("topSaleProducts")) {
                         %>
                         <tr>
-                            <td><%=temp.get(0)%>
+                            <td><%=temp.getProductId()%>
                             </td>
-                            <td><%=temp.get(1)%>
+                            <td><%=temp.getProductName()%>
                             </td>
-                            <td><%=temp.get(2)%>
+                            <td><%=temp.getCategoryName()%>
                             </td>
-                            <td><%=nf.format(temp.get(3))%>
+                            <td><%=nf.format(temp.getPrice())%>
                             </td>
-                            <td><%=temp.get(4)%>
+                            <td><%=temp.getTotalSold()%>
                             </td>
-                            <td><%=temp.get(5)%>
+                            <td><%=temp.getRemain()%>
                             </td>
                         </tr>
                         <%
@@ -164,6 +165,28 @@
                     </table>
                 </div>
             </div>
+            <div class="wrap-chart">
+                <canvas id="myChart"></canvas>
+
+            </div>
         </div>
     </div>
 </div>
+
+<script>
+    const xValues = [50,60,70,80,90,100,110,120,130,140,150];
+    const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+
+    new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor:"rgba(0,0,255,1.0)",
+                borderColor: "rgba(0,0,255,0.1)",
+                data: yValues
+            }]
+        },
+
+    });
+</script>

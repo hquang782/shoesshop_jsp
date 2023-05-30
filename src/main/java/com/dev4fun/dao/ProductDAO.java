@@ -3,6 +3,7 @@ package com.dev4fun.dao;
 import com.dev4fun.model.Category;
 import com.dev4fun.model.Product;
 import com.dev4fun.model.ProductDetail;
+import com.dev4fun.model.Statistic;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -402,29 +403,29 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public ArrayList<ArrayList<String>> getTopSaleProducts() {
+    public ArrayList<Statistic> getTopSaleProducts() {
         try (Connection conn = getConnection()) {
             String statement = "SELECT product.id,product.name,category.name AS category,product.price,\n" +
-                    "    SUM(bill_detail.quantity) AS total_sold,\n" +
-                    "   (COALESCE(product_detail.quantity,0) - SUM(bill_detail.quantity)) AS remain\n" +
+                    "SUM(bill_detail.quantity) AS total_sold,\n" +
+                    "(product_detail.quantity- SUM(bill_detail.quantity)) AS remain\n" +
                     "FROM bill_detail\n" +
                     "JOIN product ON product.id = bill_detail.product_id\n" +
                     "JOIN category ON product.category_id = category.id\n" +
                     "JOIN product_detail ON product.id = product_detail.product_id\n" +
-                    "GROUP BY product.name\n" +
+                    "GROUP BY product.id\n" +
                     "ORDER BY total_sold DESC\n" +
-                    "LIMIT 5;";
-            ArrayList<ArrayList<String>> topproducts = new ArrayList<>();
+                    "LIMIT 5";
+            ArrayList<Statistic> topproducts = new ArrayList<>();
             PreparedStatement ps = conn.prepareStatement(statement);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                ArrayList<String> temp = new ArrayList<>();
-                temp.add(rs.getString(1));
-                temp.add(rs.getString(2));
-                temp.add(rs.getString(3));
-                temp.add(rs.getString(4));
-                temp.add(rs.getString(5));
-                temp.add(rs.getString(6));
+                Statistic temp = new Statistic();
+                temp.setProductId(rs.getInt(1));
+                temp.setProductName(rs.getString(2));
+                temp.setCategoryName(rs.getString(3));
+                temp.setPrice(rs.getFloat(4));
+                temp.setTotalSold(rs.getInt(5));
+                temp.setRemain(rs.getInt(6));
                 topproducts.add(temp);
             }
             return topproducts;
