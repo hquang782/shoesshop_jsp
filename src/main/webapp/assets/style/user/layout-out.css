@@ -240,6 +240,10 @@ profile
 /*  */
 /*  */
 
+.content-profile {
+    width: 1200px !important;
+}
+
 .profile-section {
     display: flex;
     flex-direction: column;

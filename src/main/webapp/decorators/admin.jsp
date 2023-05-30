@@ -15,7 +15,7 @@
 
 
 <!-- Main-->
-<div style="display: flex">
+<div style="display: flex; height: 100%; min-height: calc(100vh - 60px);">
     <%-- Sidebar--%>
     <%@include file="/common/admin/sidebar.jsp" %>
 

@@ -7,6 +7,11 @@
 
 <link rel="stylesheet" href="<c:url value="/assets/style/user/order-style.css"/>"/>
 <div class="main">
+    <div class="navigate">
+        <a href="<c:url value="/home"/>">Trang chủ</a>
+        <span>/</span>
+        <a href="<c:url value="/user/orders"/>">Đơn mua</a>
+    </div>
     <div class="content">
         <div>
             <%

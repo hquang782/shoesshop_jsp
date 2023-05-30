@@ -67,10 +67,8 @@
                             </tr>
                             </thead>
 
-                            <% ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
-
-//                                Gson gson = new Gson();
-//                                String jsonAccounts = gson.toJson(listAccounts);
+                            <%
+                                ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
                                 int sIndex = 0, eIndex = listAccounts.size();
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
@@ -125,10 +123,11 @@
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <% String pageIndex;
-                                        if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/"+(int)Math.ceil(listAccounts.size()/5.0);
+                                        if (request.getParameter("pageIndex") != null) pageIndex = request.getParameter("pageIndex");
+                                        else pageIndex = "1/" + (int) Math.ceil(listAccounts.size() / 5.0);
                                     %>
-                                    <p id="currentPage"><%=pageIndex%></p>
+                                    <p id="currentPage"><%=pageIndex%>
+                                    </p>
                                 </div>
                                 <form action="<c:url value="/admin/account"/>" method="get" style="display: flex">
                                     <input style="display: none" id="st" name="startIndex">

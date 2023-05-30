@@ -68,13 +68,11 @@
                             </tr>
                             </thead>
                             <% ArrayList<Product> listProducts = (ArrayList<Product>) request.getAttribute("listProducts");
-//                                Gson gson = new Gson();
-//                                String jsonProducts = gson.toJson(listProducts);
                                 int sIndex = 0, eIndex = listProducts.size();
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
                                 }
-                                if(sIndex+5<listProducts.size()) eIndex = sIndex+5;
+                                if (sIndex + 5 < listProducts.size()) eIndex = sIndex + 5;
                             %>
 
                             <tbody>
@@ -128,10 +126,11 @@
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <% String pageIndex;
-                                        if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/"+(int)Math.ceil(listProducts.size()/5.0);
+                                        if (request.getParameter("pageIndex") != null) pageIndex = request.getParameter("pageIndex");
+                                        else pageIndex = "1/" + (int) Math.ceil(listProducts.size() / 5.0);
                                     %>
-                                    <p id="currentPage"><%=pageIndex%></p>
+                                    <p id="currentPage"><%=pageIndex%>
+                                    </p>
                                 </div>
                                 <form action="<c:url value="/admin/product"/>" method="get" style="display: flex">
                                     <input style="display: none" id="st" name="startIndex">

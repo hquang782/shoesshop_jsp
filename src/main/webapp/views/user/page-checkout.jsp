@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
-<link rel="stylesheet" href="<c:url value="/assets/style/user/delivery-style.css"/>"/>
+<link rel="stylesheet" href="<c:url value="/assets/style/user/checkout-style.css"/>"/>
 <div class="main">
     <div class="content">
         <div class="left-side">

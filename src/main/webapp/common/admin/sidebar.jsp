@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<div id="sidebar" style="height: 100vh">
+<div id="sidebar">
     <div class="sidebar">
         <div class="wrap-link-sidebar">
             <ul class="link-page">

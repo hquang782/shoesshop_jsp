@@ -1,6 +1,6 @@
 .content {
     display: flex !important;
-    width: 80% !important;
+    width: 1200px !important;
 }
 
 .content>div {
@@ -9,7 +9,7 @@
 
 .navigate {
     margin: auto;
-    width: 80% !important;
+    width: 1200px  !important;
     padding-left: 14px;
 }
 
