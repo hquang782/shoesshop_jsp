@@ -69,8 +69,8 @@
 
                             <% ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
 
-                                Gson gson = new Gson();
-                                String jsonAccounts = gson.toJson(listAccounts);
+//                                Gson gson = new Gson();
+//                                String jsonAccounts = gson.toJson(listAccounts);
                                 int sIndex = 0, eIndex = listAccounts.size();
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
@@ -149,7 +149,8 @@
     </div>
 </div>
 <script>
-    const data =
-    <%=jsonAccounts%>
+    const dataLength =
+    <%=listAccounts.size()%>
+    const rowPerPage = 5
 </script>
-<script type="text/javascript" src="<c:url value="../../assets/js/admin.pagination.js"/>"></script>
+<script type="text/javascript" src="<c:url value="../../assets/js/pagination.js"/>"></script>

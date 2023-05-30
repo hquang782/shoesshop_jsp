@@ -68,8 +68,8 @@
                             </tr>
                             </thead>
                             <% ArrayList<Product> listProducts = (ArrayList<Product>) request.getAttribute("listProducts");
-                                Gson gson = new Gson();
-                                String jsonProducts = gson.toJson(listProducts);
+//                                Gson gson = new Gson();
+//                                String jsonProducts = gson.toJson(listProducts);
                                 int sIndex = 0, eIndex = listProducts.size();
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
@@ -133,7 +133,7 @@
                                     %>
                                     <p id="currentPage"><%=pageIndex%></p>
                                 </div>
-                                <form action="<c:url value="/admin/account"/>" method="get" style="display: flex">
+                                <form action="<c:url value="/admin/product"/>" method="get" style="display: flex">
                                     <input style="display: none" id="st" name="startIndex">
                                     <input style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
@@ -153,7 +153,8 @@
 </div>
 <script>
     const data =
-    <%=jsonProducts%>
+    <%=listProducts.size()%>
+    const rowPerPage = 5;
 </script>
-<script src="<c:url value="../../assets/js/admin.pagination.js"/>">
+<script src="<c:url value="../../assets/js/pagination.js"/>">
 </script>

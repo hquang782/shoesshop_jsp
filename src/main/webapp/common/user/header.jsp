@@ -28,7 +28,7 @@
             </div>
             <div class="wrap-search">
                 <form action="<c:url value="/products"/>" method="get">
-                    <input type="text" name="search" placeholder="Tìm kiếm bằng tên sản phẩm">
+                    <input type="text" name="search" placeholder="Tìm kiếm bằng tên sản phẩm" value="${valueSearch}">
                 </form>
             </div>
             <div class="wrap-action">

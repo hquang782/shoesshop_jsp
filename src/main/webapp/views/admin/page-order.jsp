@@ -71,8 +71,8 @@
                             </thead>
                             <%
                                 ArrayList<BillDetail> listBillDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetail");
-                                Gson gson = new Gson();
-                                String jsonBillDetails = gson.toJson(listBillDetails);
+//                                Gson gson = new Gson();
+//                                String jsonBillDetails = gson.toJson(listBillDetails);
                                 int sIndex = 0, eIndex = listBillDetails.size();
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
@@ -121,7 +121,7 @@
                                     %>
                                     <p id="currentPage"><%=pageIndex%></p>
                                 </div>
-                                <form action="<c:url value="/admin/account"/>" method="get" style="display: flex">
+                                <form action="<c:url value="/admin/order"/>" method="get" style="display: flex">
                                     <input style="display: none" id="st" name="startIndex">
                                     <input style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
@@ -141,7 +141,8 @@
 </div>
 <script>
     const data =
-    <%=jsonBillDetails%>
+    <%=listBillDetails.size()%>
+    const rowPerPage = 5
 </script>
-<script src="<c:url value="../../assets/js/admin.pagination.js"/>">
+<script src="<c:url value="../../assets/js/pagination.js"/>">
 </script>

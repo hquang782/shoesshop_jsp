@@ -1,7 +1,6 @@
-console.log(data)
-const rowPerPage = 5
+console.log(dataLength)
 let startIndex = 0;
-let endIndex = data.length;
+let endIndex = dataLength;
 let currentPage = 1;
 
 function previousPages() {
@@ -19,7 +18,7 @@ function nextPages() {
 }
 
 function getTotalPages() {
-    return Math.ceil(data.length / rowPerPage);
+    return Math.ceil(dataLength / rowPerPage);
 }
 
 

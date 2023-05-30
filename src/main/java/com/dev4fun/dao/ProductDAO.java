@@ -297,7 +297,44 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    public ArrayList<Product> getProductByElement(String temp) {
+        try (Connection conn = getConnection()) {
+            String statementProduct = "select * from product where id like '%"+temp+"%' or name like '%"+temp+"%' or price like '%"+temp+"%'";
+            String statementProductDetail = "select * from product_detail where product_id = ?";
+            ArrayList<Product> products = new ArrayList<>();
+            ResultSet rsProduct = conn.createStatement().executeQuery(statementProduct);
+            while (rsProduct.next()) {
+                Product product = new Product();
+                product.setId(rsProduct.getInt("id"));
+                product.setName(rsProduct.getString("name"));
+                product.setCategoryId(rsProduct.getInt("category_id"));
+                product.setCategory(new CategoryDAO().getCategoryById(rsProduct.getInt("category_id")));
+                product.setDescription(rsProduct.getString("description"));
+                product.setImageLink(rsProduct.getString("image_Link"));
+                product.setImageList(rsProduct.getString("image_List"));
+                product.setPrice(rsProduct.getFloat("price"));
+                product.setCost(rsProduct.getFloat("cost"));
+                product.setStatus(rsProduct.getString("status"));
+                product.setCreatedAt(rsProduct.getString("created_at"));
 
+                PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
+                ppProductDetail.setInt(1, product.getId());
+                ResultSet rsProductDetail = ppProductDetail.executeQuery();
+                while (rsProductDetail.next()) {
+                    ProductDetail productDetail = new ProductDetail();
+                    productDetail.setId(rsProductDetail.getInt("id"));
+                    productDetail.setProductId(rsProductDetail.getInt("product_id"));
+                    productDetail.setQuantity(rsProductDetail.getInt("quantity"));
+                    productDetail.setSize(rsProductDetail.getString("size"));
+                    product.getProductDetails().add(productDetail);
+                }
+                products.add(product);
+            }
+            return products;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public boolean createProduct(Product product) {
         try (Connection conn = getConnection()) {
             String stmt = "insert into product (name, category_id, description, image_link, image_list, price, cost, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
