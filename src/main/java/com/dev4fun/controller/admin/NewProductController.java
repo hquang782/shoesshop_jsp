@@ -26,18 +26,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/admin/product/add"})
+@WebServlet(urlPatterns = {"/admin/product/*"})
 @MultipartConfig
-public class AddProductController extends HttpServlet {
-    Cloudinary cloudinary;
+public class NewProductController extends HttpServlet {
+    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "dzimy62tk",
+            "api_key", "441111963494553",
+            "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o",
+            "secure", true));
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CategoryDAO categoryDAO = new CategoryDAO();
         ArrayList<Category> listCategories = categoryDAO.getAllCategory();
         req.setAttribute("listCategories", listCategories);
 
-        RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-add-product.jsp");
-        rd.forward(req, resp);
+        String url = req.getRequestURI();
+        if (url.contains("/admin/product/add")) {
+            RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-new-product.jsp");
+            rd.forward(req, resp);
+        } else if (url.contains("/admin/product/edit") && req.getParameter("id") != null) {
+            ProductDAO productDAO = new ProductDAO();
+            Product product = productDAO.getProductById(Integer.parseInt(req.getParameter("id")));
+            req.setAttribute("product", product);
+            RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-new-product.jsp");
+            rd.forward(req, resp);
+        }
+        resp.sendRedirect("/admin/product");
     }
 
     @Override
@@ -46,11 +61,11 @@ public class AddProductController extends HttpServlet {
             CategoryDAO categoryDAO = new CategoryDAO();
             Category category = new Category();
             category.setName(req.getParameter("newCategory"));
-            System.out.println(req.getParameter("newCategory"));
             boolean result = categoryDAO.createCategory(category);
             resp.sendRedirect("/admin/product/add");
             return;
         }
+
         LocalDateTime currentDateTime = LocalDateTime.now();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
 
@@ -62,7 +77,8 @@ public class AddProductController extends HttpServlet {
         product.setCost(Float.parseFloat(req.getParameter("cost")));
         product.setStatus(req.getParameter("status"));
         product.setCategoryId(Integer.parseInt(req.getParameter("category")));
-        product.setDescription(req.getParameter("description"));
+//        product.setDescription(req.getParameter("description"));
+        product.setDescription("req.getParameter()");
         product.setCreatedAt(currentDateTime.format(dtf));
 
         int numSize = 0;
@@ -75,24 +91,6 @@ public class AddProductController extends HttpServlet {
             listProductDetails.add(productDetail);
         }
         product.setProductDetails(listProductDetails);
-
-        // TODO DELETE
-        try {
-            DAO dao = new DAO();
-            Connection connection = dao.getConnection();
-            ResultSet res = connection.createStatement().executeQuery("select * from cloudinary");
-            while (res.next()) {
-                cloudinary = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", res.getString(1),
-                        "api_key", res.getString(2),
-                        "api_secret", res.getString(3),
-                        "secure", true));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Del public key dau :))");
-        }
-        //
 
         int numImage = 0;
         StringBuilder listImages = new StringBuilder();
@@ -114,7 +112,12 @@ public class AddProductController extends HttpServlet {
         }
         product.setImageList(listImages.toString());
 
-        boolean result = productDAO.createProduct(product);
+        String url = req.getRequestURI();
+        if (url.contains("/admin/product/add")) {
+            boolean result = productDAO.createProduct(product);
+        } else if (url.contains("/admin/product/edit")) {
+            boolean result = productDAO.updateProduct(product);
+        }
         resp.sendRedirect("/admin/product");
     }
 }

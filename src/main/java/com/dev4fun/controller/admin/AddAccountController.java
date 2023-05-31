@@ -28,7 +28,11 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/admin/account/add"})
 @MultipartConfig
 public class AddAccountController extends HttpServlet {
-    Cloudinary cloudinary;
+    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+            "cloud_name", "dzimy62tk",
+            "api_key", "441111963494553",
+            "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o",
+            "secure", true));
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -49,24 +53,6 @@ public class AddAccountController extends HttpServlet {
             resp.sendRedirect("/admin/account/add");
             return;
         }
-
-        // TODO DELETE
-        try {
-            DAO dao = new DAO();
-            Connection connection = dao.getConnection();
-            ResultSet res = connection.createStatement().executeQuery("select * from cloudinary");
-            while (res.next()) {
-                cloudinary = new Cloudinary(ObjectUtils.asMap(
-                        "cloud_name", res.getString(1),
-                        "api_key", res.getString(2),
-                        "api_secret", res.getString(3),
-                        "secure", true));
-            }
-
-        } catch (SQLException e) {
-            System.out.println("Del public key dau :))");
-        }
-        //
 
         Account account = new Account();
         account.setUsername(req.getParameter("username"));

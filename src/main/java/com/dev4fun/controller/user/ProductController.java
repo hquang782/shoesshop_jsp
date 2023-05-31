@@ -18,28 +18,16 @@ import javax.servlet.http.HttpServletResponse;
 public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        ArrayList<Product> listProducts =new ArrayList<>();
-        if(request.getParameter("search")!=null){
+        ArrayList<Product> listProducts;
+        if (request.getParameter("search") != null) {
             String temp = request.getParameter("search");
             listProducts = new ProductDAO().getProductByElement(temp);
-            if (listProducts.size()==0) {
+            if (listProducts.size() == 0) {
                 listProducts = new ProductDAO().getProductByCategoryName(temp);
             }
-            request.setAttribute("valueSearch",temp);
-        }
-        else{
-//            String indexPage = request.getParameter("p");
-//            if (indexPage == null) {
-//                indexPage = "1";
-//            }
-//            int index = Integer.parseInt(indexPage);
+            request.setAttribute("valueSearch", temp);
+        } else {
             listProducts = new ProductDAO().getAllProduct();
-//            int count = new ProductDAO().getTotalProducts();
-//            int endPage = count / 10;
-//            if (count % 10 != 0) {
-//                endPage++;
-//            }
-//            request.setAttribute("endPage", endPage);
         }
         request.setAttribute("listProducts", listProducts);
         RequestDispatcher rd = request.getRequestDispatcher("/views/user/page-product.jsp");

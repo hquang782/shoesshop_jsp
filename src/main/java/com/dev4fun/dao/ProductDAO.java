@@ -338,6 +338,7 @@ public class ProductDAO extends DAO {
     }
     public boolean createProduct(Product product) {
         try (Connection conn = getConnection()) {
+            System.out.println(product);
             String stmt = "insert into product (name, category_id, description, image_link, image_list, price, cost, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt, Statement.RETURN_GENERATED_KEYS);
             ppStmt.setString(1, product.getName());
@@ -373,7 +374,7 @@ public class ProductDAO extends DAO {
 
     public boolean updateProduct(Product product) {
         try (Connection conn = getConnection()) {
-            String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, cost = ?, status = ?, created_at = ?)";
+            String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, cost = ?, status = ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, product.getName());
             ppStmt.setInt(2, product.getCategoryId());
@@ -383,7 +384,6 @@ public class ProductDAO extends DAO {
             ppStmt.setFloat(6, product.getPrice());
             ppStmt.setFloat(7, product.getCost());
             ppStmt.setString(8, product.getStatus());
-            ppStmt.setString(9, product.getCreatedAt());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {
