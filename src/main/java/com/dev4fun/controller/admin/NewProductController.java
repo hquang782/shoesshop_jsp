@@ -51,8 +51,9 @@ public class NewProductController extends HttpServlet {
             req.setAttribute("product", product);
             RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-new-product.jsp");
             rd.forward(req, resp);
+        } else {
+            resp.sendRedirect("/admin/product");
         }
-        resp.sendRedirect("/admin/product");
     }
 
     @Override

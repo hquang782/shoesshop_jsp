@@ -1,6 +1,5 @@
 <%@ page import="com.dev4fun.model.Product" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.google.gson.Gson" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -95,7 +94,7 @@
                                 <td style="width: 10%"><%=listProducts.get(i).getCategory().getName()%>
                                 </td>
                                 <td>
-                                    <button class="btn-edit">Sửa</button>
+                                    <a class="btn-edit" href="/admin/product/edit?id=<%=listProducts.get(0).getId()%>">Sửa</a>
                                     <form action="<c:url value="/admin/product?act=delete"/>" method="post">
                                         <input type="hidden" name="productId" value="<%=listProducts.get(i).getId()%>">
                                         <button class="btn-delete" type="submit">Xóa</button>

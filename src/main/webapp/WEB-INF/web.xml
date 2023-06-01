@@ -24,6 +24,16 @@
     </filter-mapping>
 
     <filter>
+        <filter-name>apiCors</filter-name>
+        <filter-class>com.dev4fun.filter.CorsFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>apiCors</filter-name>
+        <url-pattern>/admin/api/*</url-pattern>
+    </filter-mapping>
+
+    <filter>
         <filter-name>userAuthorization</filter-name>
         <filter-class>com.dev4fun.filter.AuthorizationUser</filter-class>
     </filter>
