@@ -372,9 +372,9 @@ public class ProductDAO extends DAO {
         }
     }
 
-    public boolean updateProduct(Product product) {
+    public boolean updateProductById(Product product) {
         try (Connection conn = getConnection()) {
-            String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, cost = ?, status = ?)";
+            String stmt = "update product set name = ?, category_id = ?, description = ?, image_link = ?, image_list = ?, price = ?, cost = ?, status = ? where id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, product.getName());
             ppStmt.setInt(2, product.getCategoryId());
@@ -384,6 +384,7 @@ public class ProductDAO extends DAO {
             ppStmt.setFloat(6, product.getPrice());
             ppStmt.setFloat(7, product.getCost());
             ppStmt.setString(8, product.getStatus());
+            ppStmt.setInt(9, product.getId());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

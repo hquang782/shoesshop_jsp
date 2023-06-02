@@ -45,5 +45,17 @@ public class ConfigDAO extends DAO {
             throw new RuntimeException();
         }
     }
-    // TODO create, update, delete
+
+    public boolean updateConfigById(Config config, String id) {
+        try (Connection conn = getConnection()) {
+            String statement = "update config set content = ? where id = ?";
+            PreparedStatement pp = conn.prepareStatement(statement);
+            pp.setString(1, config.getContent());
+            pp.setString(2, id);
+            pp.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
 }

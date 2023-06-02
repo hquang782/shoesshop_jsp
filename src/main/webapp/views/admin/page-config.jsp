@@ -75,12 +75,16 @@
             }
         }
     })
+    // editors[0].html.set()
+    // editors[1].html.set()
+    // editors[2].html.set()
+
     const submitPolicy = document.getElementById('submitPolicy')
     submitPolicy.addEventListener('click', async () => {
-        const body = JSON.stringify({ data: editors[0].html.get() })
+        const body = JSON.stringify({ content: editors[0].html.get() })
         console.log(body);
         const res = await fetch(
-            'https://localhost:8443/admin/api/config/policy',
+            'https://localhost:8000/admin/api/config/policy',
             {
                 method: 'POST',
                 body: body
@@ -91,10 +95,10 @@
 
     const submitAboutUs = document.getElementById('submitAboutUs')
     submitAboutUs.addEventListener('click', async () => {
-        const body = JSON.stringify({ data: editors[1].html.get() })
+        const body = JSON.stringify({ content: editors[1].html.get() })
         console.log(body);
         const res = await fetch(
-            'https://localhost:8443/admin/api/config/about-us',
+            'https://localhost:8000/admin/api/config/about-us',
             {
                 method: 'POST',
                 body: body
@@ -105,10 +109,10 @@
 
     const submitStore = document.getElementById('submitStore')
     submitStore.addEventListener('click', async () => {
-        const body = JSON.stringify({ data: editors[2].html.get() })
+        const body = JSON.stringify({ content: editors[2].html.get() })
         console.log(body);
         const res = await fetch(
-            'https://localhost:8443/admin/api/config/store',
+            'https://localhost:8000/admin/api/config/store',
             {
                 method: 'POST',
                 body: body
