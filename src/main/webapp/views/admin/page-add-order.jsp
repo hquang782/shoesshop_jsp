@@ -67,7 +67,7 @@
                                     <option value="" selected disabled hidden>-- Chọn trạng thái --</option>
                                     <option value="done">Đã xử lý</option>
                                     <option value="waiting">Đang chờ</option>
-                                    <option value="canvel">Đã hủy</option>
+                                    <option value="cancel">Đã hủy</option>
                                 </select>
                             </div>
 
@@ -77,7 +77,8 @@
                             <div class="title-list">
                                 <%--@declare id="imageinput"--%>
                                 <label for="imageInput">Thêm sản phẩm cho đơn hàng:</label>
-                                <button type="button" class="btn-add-div" onclick="addProductInOrder();">Thêm sản phẩm</button>
+                                <button type="button" class="btn-add-div" onclick="addProductInOrder();">Thêm sản phẩm
+                                </button>
                             </div>
                             <div class="list-product"></div>
                         </div>
@@ -97,3 +98,32 @@
         </div>
     </div>
 </div>
+<script>
+    let indexProd = 0;
+    window.onload = () => {
+        indexProd = 0;
+    }
+
+    function addProductInOrder() {
+        const listProduct = document.getElementsByClassName('list-product')[0];
+        listProduct.innerHTML += `
+        <div class="form-group-line">
+            <div class="form-line">
+                <label for="status">Sản phẩm:</label>
+                <select name="status" id="status">
+                    <option value="" selected disabled hidden>-- Chọn mã sản phẩm --</option>
+                    <option value="done">Đã xử lý</option>
+                    <option value="waiting">Đang chờ</option>
+                    <option value="cancel">Đã hủy</option>
+                </select>
+            </div>
+
+            <div class="form-line">
+                <label for="quantityProduct${indexProd}">Số lượng:</label>
+                <input type="number" id="quantityProduct${indexProd}" name="quantityProduct${indexProd}">
+            </div>
+        </div>
+    `;
+        indexProd++;
+    }
+</script>

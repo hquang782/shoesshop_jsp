@@ -71,8 +71,6 @@
                             </thead>
                             <%
                                 ArrayList<BillDetail> listBillDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetail");
-//                                Gson gson = new Gson();
-//                                String jsonBillDetails = gson.toJson(listBillDetails);
                                 int sIndex = 0, eIndex = listBillDetails.size();
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
@@ -82,7 +80,7 @@
                             <tbody>
                             <% for (int i = sIndex; i < eIndex; i++) {%>
                             <tr>
-                                <td><%=listBillDetails.get(i).getId()%></td>
+                                <td><%=listBillDetails.get(i).getBill().getId()%></td>
                                 <td><%=listBillDetails.get(i).getBill().getFullName()%></td>
                                 <td><%=listBillDetails.get(i).getProduct().getName()%></td>
                                 <td><%=listBillDetails.get(i).getQuantity()%></td>
@@ -90,7 +88,11 @@
                                 <td><%=listBillDetails.get(i).getBill().getStatus()%></td>
                                 <td>
                                     <button class="btn-edit">Sửa</button>
-                                    <button class="btn-delete">Xóa</button>
+                                    <form action="<c:url value="/admin/order?act=delete"/>" method="post">
+                                        <input type="hidden" name="billId" value="<%=listBillDetails.get(i).getId()%>">
+                                        <button type="submit" class="btn-delete">Xóa</button>
+                                    </form>
+
                                 </td>
                             </tr>
                             <%
@@ -140,7 +142,7 @@
     </div>
 </div>
 <script>
-    const data =
+    const dataLength =
     <%=listBillDetails.size()%>
     const rowPerPage = 5
 </script>

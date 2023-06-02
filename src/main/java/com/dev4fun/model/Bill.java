@@ -8,10 +8,12 @@ public class Bill {
     private int userId;
     private String fullName;
     private String email;
+    private String address;
     private String phoneNumber;
     private float totalAmount;
     private String payMethod;
     private String note;
+    private String createdAt;
 
     private ArrayList<BillDetail> billDetails;
 
@@ -97,5 +99,21 @@ public class Bill {
 
     public ArrayList<BillDetail> getBillDetails() {
         return billDetails;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

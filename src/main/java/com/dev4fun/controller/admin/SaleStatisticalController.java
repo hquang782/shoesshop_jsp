@@ -3,6 +3,7 @@ package com.dev4fun.controller.admin;
 import com.dev4fun.dao.AccountDAO;
 import com.dev4fun.dao.BillDAO;
 import com.dev4fun.dao.ProductDAO;
+import com.dev4fun.model.Chart;
 import com.dev4fun.model.Statistic;
 
 import javax.servlet.RequestDispatcher;
@@ -29,7 +30,9 @@ public class SaleStatisticalController extends HttpServlet {
         int totalProductExpired = productDAO.getTotalProductExpired();
         float totalIncome  = billDAO.getTotalIncome();
         int totalBillCancelled = billDAO.getTotalBillCancelled();
+        ArrayList<Chart> incomeForChart = billDAO.getIncomeForChart();
 
+        req.setAttribute("incomeForChart",incomeForChart);
         req.setAttribute("totalBillCancelled",totalBillCancelled);
         req.setAttribute("totalIncome",totalIncome);
         req.setAttribute("totalStaffAccounts",totalStaffAccounts);

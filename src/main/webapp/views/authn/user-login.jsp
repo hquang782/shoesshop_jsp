@@ -17,7 +17,7 @@
                             <a href="<c:url value="/register"/>">Bạn chưa có tài khoản?</a>
                         </div>
                     </div>
-
+                    <p id="error-message" style="display: block; color: red;">${errorLog}</p>
                     <div>
                         <div class="form-body-line">
                             <div class="wrapper-form-line">

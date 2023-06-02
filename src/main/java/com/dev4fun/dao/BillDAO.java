@@ -2,6 +2,7 @@ package com.dev4fun.dao;
 
 import com.dev4fun.model.Bill;
 import com.dev4fun.model.BillDetail;
+import com.dev4fun.model.Chart;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -21,10 +22,12 @@ public class BillDAO extends DAO {
                 bill.setUserId(rs.getInt("user_id"));
                 bill.setFullName(rs.getString("full_name"));
                 bill.setEmail(rs.getString("email"));
+                bill.setAddress(rs.getString("address"));
                 bill.setPhoneNumber(rs.getString("phone_number"));
                 bill.setTotalAmount(rs.getFloat("total_amount"));
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
+                bill.setCreatedAt(rs.getString("created_at"));
             }
             return bill;
         } catch (SQLException e) {
@@ -48,11 +51,12 @@ public class BillDAO extends DAO {
                 bill.setUserId(rsBill.getInt("user_id"));
                 bill.setFullName(rsBill.getString("full_name"));
                 bill.setEmail(rsBill.getString("email"));
+                bill.setAddress(rsBill.getString("address"));
                 bill.setPhoneNumber(rsBill.getString("phone_number"));
                 bill.setTotalAmount(rsBill.getFloat("total_amount"));
                 bill.setPayMethod(rsBill.getString("pay_method"));
                 bill.setNote(rsBill.getString("note"));
-
+                bill.setCreatedAt(rsBill.getString("created_at"));
                 ArrayList<BillDetail> listBillDetails = new ArrayList<>();
                 ppStBillDetail.setInt(1, bill.getId());
                 ResultSet rsBillDetail = ppStBillDetail.executeQuery();
@@ -87,10 +91,12 @@ public class BillDAO extends DAO {
                 bill.setUserId(rs.getInt("user_id"));
                 bill.setFullName(rs.getString("full_name"));
                 bill.setEmail(rs.getString("email"));
+                bill.setAddress(rs.getString("address"));
                 bill.setPhoneNumber(rs.getString("phone_number"));
                 bill.setTotalAmount(rs.getFloat("total_amount"));
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
+                bill.setCreatedAt(rs.getString("created_at"));
                 bills.add(bill);
             }
             return bills;
@@ -115,17 +121,18 @@ public class BillDAO extends DAO {
 
     public boolean createBill(Bill bill) {
         try (Connection conn = getConnection()) {
-            String stmt = "insert into bill (status, user_id, full_name, email, phone_number, total_amount, pay_method, note) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, bill.getStatus());
             ppStmt.setInt(2, bill.getUserId());
             ppStmt.setString(3, bill.getFullName());
             ppStmt.setString(4, bill.getEmail());
-            ppStmt.setString(5, bill.getPhoneNumber());
-            ppStmt.setFloat(6, bill.getTotalAmount());
-            ppStmt.setString(7, bill.getPayMethod());
-            ppStmt.setString(7, bill.getNote());
-            ppStmt.executeUpdate();
+            ppStmt.setString(5, bill.getAddress());
+            ppStmt.setString(6, bill.getPhoneNumber());
+            ppStmt.setFloat(7, bill.getTotalAmount());
+            ppStmt.setString(8, bill.getPayMethod());
+            ppStmt.setString(9, bill.getNote());
+            ppStmt.setString(10, bill.getCreatedAt());
             return true;
         } catch (SQLException e) {
             throw new RuntimeException();
@@ -134,16 +141,18 @@ public class BillDAO extends DAO {
 
     public boolean updateBill(Bill bill) {
         try (Connection conn = getConnection()) {
-            String stmt = "update bill set status = ?, user_id = ?, full_name = ?, email = ?, phone_number = ?, total_amount = ?, pay_method = ?, note = ?)";
+            String stmt = "update bill set status = ?, user_id = ?, full_name = ?, email = ?,address=?, phone_number = ?, total_amount = ?, pay_method = ?, note = ?, created_at = ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, bill.getStatus());
             ppStmt.setInt(2, bill.getUserId());
             ppStmt.setString(3, bill.getFullName());
             ppStmt.setString(4, bill.getEmail());
-            ppStmt.setString(5, bill.getPhoneNumber());
-            ppStmt.setFloat(6, bill.getTotalAmount());
-            ppStmt.setString(7, bill.getPayMethod());
-            ppStmt.setString(7, bill.getNote());
+            ppStmt.setString(5, bill.getAddress());
+            ppStmt.setString(6, bill.getPhoneNumber());
+            ppStmt.setFloat(7, bill.getTotalAmount());
+            ppStmt.setString(8, bill.getPayMethod());
+            ppStmt.setString(9, bill.getNote());
+            ppStmt.setString(10, bill.getCreatedAt());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {
@@ -163,28 +172,28 @@ public class BillDAO extends DAO {
         }
     }
 
-    public float getTotalIncome (){
-        float totalIncome = 0;
-        try(Connection con = getConnection()){
+    public int getTotalIncome() {
+        int totalIncome = 0;
+        try (Connection con = getConnection()) {
             String stmt = "SELECT sum(bill.total_amount) as total_amount FROM shoes.bill";
             PreparedStatement ps = con.prepareStatement(stmt);
             ResultSet rs = ps.executeQuery();
-            if(rs.next())
-                totalIncome = rs.getFloat(1);
+            if (rs.next())
+                totalIncome = rs.getInt(1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         return totalIncome;
     }
 
-    public int getTotalBillCancelled(){
-        int totalBillCancelled=0;
+    public int getTotalBillCancelled() {
+        int totalBillCancelled = 0;
         Connection con = getConnection();
         String stmt = "SELECT count(*) FROM shoes.bill where status = 'cancelled'";
         try {
             PreparedStatement ps = con.prepareStatement(stmt);
             ResultSet rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 totalBillCancelled = rs.getInt(1);
             }
         } catch (SQLException e) {
@@ -192,12 +201,13 @@ public class BillDAO extends DAO {
         }
         return totalBillCancelled;
     }
+
     public Bill getBillByUserid(int id) {
         try (Connection conn = getConnection()) {
             String stmt = "select * from bill where user_id = ?";
             Bill bill = null;
             PreparedStatement ps = conn.prepareStatement(stmt);
-            ps.setInt(1,id);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 bill = new Bill();
@@ -206,22 +216,25 @@ public class BillDAO extends DAO {
                 bill.setUserId(rs.getInt("user_id"));
                 bill.setFullName(rs.getString("full_name"));
                 bill.setEmail(rs.getString("email"));
+                bill.setAddress(rs.getString("address"));
                 bill.setPhoneNumber(rs.getString("phone_number"));
                 bill.setTotalAmount(rs.getFloat("total_amount"));
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
+                bill.setCreatedAt(rs.getString("created_at"));
             }
             return bill;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<Bill> getBillByStatus(String st) {
         ArrayList<Bill> bills = new ArrayList<>();
         try (Connection conn = getConnection()) {
             String stmt = "select * from bill where status = ?";
             PreparedStatement ps = conn.prepareStatement(stmt);
-            ps.setString(1,st);
+            ps.setString(1, st);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 Bill bill = new Bill();
@@ -230,13 +243,39 @@ public class BillDAO extends DAO {
                 bill.setUserId(rs.getInt("user_id"));
                 bill.setFullName(rs.getString("full_name"));
                 bill.setEmail(rs.getString("email"));
+                bill.setAddress(rs.getString("address"));
                 bill.setPhoneNumber(rs.getString("phone_number"));
                 bill.setTotalAmount(rs.getFloat("total_amount"));
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
+                bill.setCreatedAt(rs.getString("created_at"));
                 bills.add(bill);
             }
             return bills;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<Chart> getIncomeForChart() {
+        ArrayList<Chart> charts = new ArrayList<>();
+        String time = "STR_TO_DATE(created_at, '%H:%i:%s %d-%m-%Y')";
+        try (Connection con = getConnection()) {
+            String stmt = "SELECT CONCAT(MONTH("+time+"), '/', YEAR("+time+")) AS month_year,\n" +
+                    "SUM(total_amount) AS monthly_income\n" +
+                    "FROM  shoes.bill\n" +
+                    "WHERE "+time+" >= DATE_SUB(NOW(), INTERVAL 6 MONTH)\n" +
+                    "GROUP BY MONTH("+time+"), YEAR("+time+")\n" +
+                    "ORDER BY YEAR("+time+") ASC, MONTH("+time+") ASC;\n";
+            PreparedStatement ps = con.prepareStatement(stmt);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Chart temp = new Chart();
+                temp.setTime(rs.getString(1));
+                temp.setIncome(rs.getFloat(2));
+                charts.add(temp);
+            }
+            return charts;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

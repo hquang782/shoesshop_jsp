@@ -170,4 +170,15 @@ public class BillDetailDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    public boolean deleteBillDetail(int id) {
+        try (Connection conn = getConnection()) {
+            String stmt = "DELETE FROM bill_detail WHERE id = ?";
+            PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            ppStmt.setInt(1, id);
+            ppStmt.executeUpdate();
+            return true;
+        } catch (SQLException err) {
+            throw new RuntimeException();
+        }
+    }
 }

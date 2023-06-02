@@ -5,6 +5,7 @@ import com.dev4fun.dao.BillDAO;
 import com.dev4fun.dao.ProductDAO;
 import com.dev4fun.model.Account;
 import com.dev4fun.model.Bill;
+import com.dev4fun.model.Chart;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ public class DashboardController extends HttpServlet {
         int totalClientAccounts = accountDAO.getTotalClientAccounts();
         int totalProducts = productDAO.getTotalProducts();
         int totalProductExpired = productDAO.getTotalProductExpired();
+        ArrayList<Chart> incomeForChart = billDAO.getIncomeForChart();
+
+        req.setAttribute("incomeForChart",incomeForChart);
         req.setAttribute("totalClientAccounts", totalClientAccounts);
         req.setAttribute("ttBill", totalBills);
         req.setAttribute("ttProd", totalProducts);

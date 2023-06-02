@@ -94,7 +94,7 @@
                                 <td style="width: 10%"><%=listProducts.get(i).getCategory().getName()%>
                                 </td>
                                 <td>
-                                    <a class="btn-edit" href="/admin/product/edit?id=<%=listProducts.get(0).getId()%>">Sửa</a>
+                                    <button class="btn-edit">Sửa</button>
                                     <form action="<c:url value="/admin/product?act=delete"/>" method="post">
                                         <input type="hidden" name="productId" value="<%=listProducts.get(i).getId()%>">
                                         <button class="btn-delete" type="submit">Xóa</button>
@@ -126,14 +126,16 @@
                                 <div class="index">
                                     <% String pageIndex;
                                         if (request.getParameter("pageIndex") != null) pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/" + (int) Math.ceil(listProducts.size() / 5.0);
+                                        else {
+                                            pageIndex = "1/" + (int) Math.ceil(listProducts.size() / 5.0);
+                                        }
                                     %>
                                     <p id="currentPage"><%=pageIndex%>
                                     </p>
                                 </div>
                                 <form action="<c:url value="/admin/product"/>" method="get" style="display: flex">
-                                    <input style="display: none" id="st" name="startIndex">
-                                    <input style="display: none" id="page" name="pageIndex">
+                                    <input type="hidden" style="display: none" id="st" name="startIndex">
+                                    <input type="hidden" style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
                                         <button onclick="previousPages()">&#8592;</button>
                                     </div>
@@ -150,7 +152,7 @@
     </div>
 </div>
 <script>
-    const data =
+    const dataLength =
     <%=listProducts.size()%>
     const rowPerPage = 5;
 </script>
