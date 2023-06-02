@@ -20,9 +20,17 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_USER");
+        String errorLog = (String) SessionUtil.getInstance().getValue(req, "errorMessage");
+        String preRequest = req.getHeader("referer");
+        if (preRequest != null && preRequest.contains("/admin/login") && errorLog != null) {
+            SessionUtil.getInstance().removeValue(req, "errorMessage");
+        }
         if (acc != null) {
             resp.sendRedirect("/user/profile");
         } else {
+            if (errorLog != null) {
+                req.setAttribute("errorLog", errorLog);
+            }
             RequestDispatcher rd = req.getRequestDispatcher("/views/authn/user-login.jsp");
             rd.forward(req, resp);
         }
@@ -45,10 +53,17 @@ public class LoginController extends HttpServlet {
                             SessionUtil.getInstance().putValue(req, "ACCOUNT_USER", account);
                             resp.sendRedirect("/user/profile");
                         } else {
+                            SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản không có quyền truy cập. Vui lòng thử lại.");
                             resp.sendRedirect("/login");
                         }
-                    } else resp.sendRedirect("/login");
-                } else resp.sendRedirect("/login");
+                    } else {
+                        SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
+                        resp.sendRedirect("/login");
+                    }
+                } else {
+                    SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
+                    resp.sendRedirect("/login");
+                }
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }

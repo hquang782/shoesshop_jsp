@@ -119,6 +119,7 @@ public class NewProductController extends HttpServlet {
         } else if (url.contains("/admin/product/edit")) {
             boolean result = productDAO.updateProductById(product);
         }
+        else
         resp.sendRedirect("/admin/product");
     }
 }

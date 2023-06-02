@@ -36,7 +36,7 @@ btnSidebar.addEventListener('click', () => {
 
 // TIMER
 const timer = document.getElementById('timer');
-const DAYOFWEEK = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ5', 'Thứ 6', 'Thứ 7'];
+const DAYOFWEEK = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7'];
 
 const showTimer = () => {
     const time = new Date();
@@ -85,33 +85,7 @@ window.onload = () => {
     indexSize = indexProd = 0;
 }
 
-function addProductInOrder() {
-    const listProduct = document.getElementsByClassName('list-product')[0];
-    listProduct.innerHTML += `
-        <div class="form-group-line">
-            <div class="form-line">
-                <label for="codeProduct${indexProd}">Mã sản phẩm:</label>
-                <input type="text" id="codeProduct${indexProd}" name="codeProduct${indexProd}">
-            </div>
 
-            <div class="form-line">
-                <label for="nameProduct${indexProd}">Tên sản phẩm:</label>
-                <input type="text" id="nameProduct${indexProd}" name="nameProduct${indexProd}">
-            </div>
-
-            <div class="form-line">
-                <label for="priceProduct${indexProd}">Đơn giá:</label>
-                <input type="number" id="priceProduct${indexProd}" name="priceProduct${indexProd}">
-            </div>
-
-            <div class="form-line">
-                <label for="quantityProduct${indexProd}">Số lượng:</label>
-                <input type="number" id="quantityProduct${indexProd}" name="quantityProduct${indexProd}">
-            </div>
-        </div>
-    `;
-    indexProd++;
-}
 
 
 // PRODUCT

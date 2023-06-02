@@ -1,12 +1,12 @@
 package com.dev4fun.model;
 
 public class Statistic {
-    int productId;
-    String productName;
-    String categoryName;
-    float price;
-    int totalSold;
-    int remain;
+    private int productId;
+    private String productName;
+    private String categoryName;
+    private float price;
+    private int totalSold;
+    private int remain;
 
     public Statistic() {
     }

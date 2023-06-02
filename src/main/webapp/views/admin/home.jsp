@@ -1,8 +1,14 @@
 <%@ page import="com.dev4fun.model.Bill" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dev4fun.model.Account" %>
+<%@ page import="com.dev4fun.model.Chart" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    NumberFormat nf = NumberFormat.getNumberInstance();
+    nf.setGroupingUsed(true);
+%>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
@@ -148,7 +154,7 @@
                         </div>
                         <div class="wrap-chart">
 
-                            <!-- TODO -->
+                            <canvas id="myChart"></canvas>
 
                         </div>
                         <div class="link-page">
@@ -161,3 +167,30 @@
     </div>
 </div>
 
+<script>
+    const xValues = [];
+    const yValues = [];
+    <%
+
+        for(Chart chart: (ArrayList<Chart>)request.getAttribute("incomeForChart")){%>
+            xValues.push(<%=chart.getTime()%>;
+            yValues.push(<%=nf.format(chart.getIncome())%>);
+        <%} %>
+    //DATATEST
+    // const xValues = ["12/2022","01/2023","02/2023","03/2023","04/2023","05/2023"];
+    // const yValues = [1500,2000,1800,2300,2500,1900];
+
+    new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [{
+                // backgroundColor:"rgb(0,217,255)",
+                borderColor: "rgba(0,217,255)",
+                data: yValues,
+                label: 'Doanh thu'
+            }]
+        },
+
+    });
+</script>

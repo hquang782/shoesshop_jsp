@@ -2,6 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="com.dev4fun.model.Statistic" %>
+<%@ page import="com.dev4fun.model.Chart" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -167,24 +168,32 @@
             </div>
             <div class="wrap-chart">
                 <canvas id="myChart"></canvas>
-
             </div>
         </div>
     </div>
 </div>
 
 <script>
-    const xValues = [50,60,70,80,90,100,110,120,130,140,150];
-    const yValues = [7,8,8,9,9,9,10,11,14,14,15];
+    const xValues = [];
+    const yValues = [];
+    <%
+        for(Chart chart: (ArrayList<Chart>)request.getAttribute("incomeForChart")){%>
+            xValues.push(<%=chart.getTime()%>;
+            yValues.push(<%=nf.format(chart.getIncome())%>);
+        <%} %>
+    //DATATEST
+    // const xValues = ["12/2022","01/2023","02/2023","03/2023","04/2023","05/2023"];
+    // const yValues = [1500,2000,1800,2300,2500,1900];
 
     new Chart("myChart", {
         type: "line",
         data: {
             labels: xValues,
             datasets: [{
-                backgroundColor:"rgba(0,0,255,1.0)",
-                borderColor: "rgba(0,0,255,0.1)",
-                data: yValues
+                // backgroundColor:"rgb(0,217,255)",
+                borderColor: "rgba(0,217,255)",
+                data: yValues,
+                label: 'Doanh thu'
             }]
         },
 

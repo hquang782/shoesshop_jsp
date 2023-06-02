@@ -1,7 +1,7 @@
 package com.dev4fun.controller.admin;
 
+
 import com.dev4fun.dao.BillDetailDAO;
-import com.dev4fun.model.Bill;
 import com.dev4fun.model.BillDetail;
 
 import javax.servlet.RequestDispatcher;
@@ -11,14 +11,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 @WebServlet(urlPatterns = {"/admin/order"})
 public class OrderController extends HttpServlet {
+    BillDetailDAO billDetailDAO = new BillDetailDAO();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BillDetailDAO billDetailDAO = new BillDetailDAO();
+
         ArrayList<BillDetail> billDetailArrayList = billDetailDAO.getAllBillDetail();
         if (req.getParameter("t") != null && req.getParameter("v") != null) {
             String temp = req.getParameter("t");
@@ -50,17 +51,16 @@ public class OrderController extends HttpServlet {
             String typeSearch = temp.equals("id") ? "ID Đơn hàng" :
                     temp.equals("fn") ? "Khách hàng" :
                             temp.equals("name") ? "Đơn hàng" : "Tình trạng";
-            req.setAttribute("valueSearch",temp);
-            req.setAttribute(temp,none);
-            req.setAttribute("typeSearch",typeSearch);
-            req.setAttribute("listBillDetail",listBillDetail);
-            req.setAttribute("txt_sbilldetail",value);
-        }
-        else{
+            req.setAttribute("valueSearch", temp);
+            req.setAttribute(temp, none);
+            req.setAttribute("typeSearch", typeSearch);
+            req.setAttribute("listBillDetail", listBillDetail);
+            req.setAttribute("txt_sbilldetail", value);
+        } else {
             System.out.println("all");
-            req.setAttribute("valueSearch","");
-            req.setAttribute("typeSearch","Tìm kiếm theo");
-            req.setAttribute("listBillDetail",billDetailArrayList);
+            req.setAttribute("valueSearch", "");
+            req.setAttribute("typeSearch", "Tìm kiếm theo");
+            req.setAttribute("listBillDetail", billDetailArrayList);
         }
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-order.jsp");
         rd.forward(req, resp);
@@ -68,6 +68,11 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        if (req.getParameter("act") != null && req.getParameter("act").equals("delete")) {
+            int id = Integer.parseInt(req.getParameter("billId"));
+            boolean result = billDetailDAO.deleteBillDetail(id);
+            System.out.println(result?"success":"failed");
+            resp.sendRedirect("/admin/order");
+        }
     }
 }

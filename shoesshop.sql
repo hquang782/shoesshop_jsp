@@ -37,7 +37,7 @@ CREATE TABLE `product`
     `created_at`  VARCHAR(128),
     `price`       float(11),
     `cost`        float(11),
-    `description` VARCHAR(128),
+    `description` TEXT,
     `image_link`  TEXT,
     `image_list`  TEXT,
     `status`      VARCHAR(128),
@@ -62,10 +62,12 @@ CREATE TABLE `bill`
     `user_id`      INT(11),
     `full_name`    VARCHAR(128),
     `email`        VARCHAR(128),
+    `address`      VARCHAR(128),
     `phone_number` VARCHAR(128),
-    `total_amount` INT(11),
+    `total_amount` FLOAT(11),
     `pay_method`   VARCHAR(128),
-    `note`         TEXT
+    `note`         TEXT,
+    `created_at`   VARCHAR(128)
 );
 
 CREATE TABLE `bill_detail`
@@ -74,7 +76,7 @@ CREATE TABLE `bill_detail`
     `bill_id`    INT(11),
     `quantity`   INT(11),
     `product_id` INT(11),
-    `amount`     INT(11),
+    `amount`     float(11),
     FOREIGN KEY (`bill_id`)
         REFERENCES `bill` (`id`),
     FOREIGN KEY (`product_id`)
