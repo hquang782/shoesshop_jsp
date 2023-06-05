@@ -6,6 +6,7 @@ public class BillDetail {
     private Product product;
     private Bill bill;
     private float amount;
+    private int size;
 
     public BillDetail() {
 
@@ -49,5 +50,25 @@ public class BillDetail {
 
     public void setAmount(float amount) {
         this.amount = amount;
+    }
+
+    public int getSize() {
+        return size;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    @Override
+    public String toString() {
+        return "BillDetail{" +
+                "id=" + id +
+                ", quantity=" + quantity +
+                ", product=" + product +
+                ", bill=" + bill +
+                ", amount=" + amount +
+                ", size=" + size +
+                '}';
     }
 }

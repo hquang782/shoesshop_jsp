@@ -40,7 +40,9 @@ const DAYOFWEEK = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', '
 
 const showTimer = () => {
     const time = new Date();
-    timer.innerText = `${DAYOFWEEK[time.getDay()]}, ${time.getDate()}/${time.getMonth()}/${time.getFullYear()} - ${time.getHours()} giờ ${time.getMinutes()} phút ${time.getSeconds()} giây`;
+    let month = time.getMonth()+1
+    timer.innerText = `${DAYOFWEEK[time.getDay()]}, ${time.getDate()<10?"0"+time.getDate():time.getDate()}/${month<10?"0"+month:month}/${time.getFullYear()} 
+    - ${time.getHours()<10?"0"+time.getHours():time.getHours()} giờ ${time.getMinutes()<10?"0"+time.getMinutes():time.getMinutes()} phút ${time.getSeconds()<10?"0"+time.getSeconds():time.getSeconds()} giây`;
 };
 
 showTimer()
@@ -85,7 +87,27 @@ window.onload = () => {
     indexSize = indexProd = 0;
 }
 
-
+function addProductInOrder() {
+    console.log(indexProd)
+    const listProduct = document.getElementsByClassName('list-product')[0];
+    listProduct.innerHTML += `
+        <div class="form-group-line">
+            <div class="form-line">
+                <label for="status">Mã Sản phẩm:</label>
+                <input type="text" name="productId${indexProd}">
+            </div>
+            <div class="form-line">
+                <label for="sizeProduct${indexProd}">Kích thước:</label>
+                <input type="number" id="sizeProduct${indexProd}" name="sizeProduct${indexProd}">
+            </div>
+            <div class="form-line">
+                <label for="quantityProduct${indexProd}">Số lượng:</label>
+                <input type="number" id="quantityProduct${indexProd}" name="quantityProduct${indexProd}">
+            </div>
+        </div>
+    `;
+    indexProd++;
+}
 
 
 // PRODUCT

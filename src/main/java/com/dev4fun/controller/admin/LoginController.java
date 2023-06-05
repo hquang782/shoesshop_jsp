@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
                 account = new AccountDAO().getAccountByUsername(username);
                 if (account != null) {
                     if (BCrypt.checkpw(password, account.getPassword())) {
-                        if (account.getRole().equals("ADMIN")) {
+                        if (account.getRole().equals("ADMIN")||account.getRole().equals("STAFF")) {
                             SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
                             resp.sendRedirect("/admin");
                         } else {

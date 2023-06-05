@@ -84,15 +84,11 @@
                                 <td><%=listBillDetails.get(i).getBill().getFullName()%></td>
                                 <td><%=listBillDetails.get(i).getProduct().getName()%></td>
                                 <td><%=listBillDetails.get(i).getQuantity()%></td>
-                                <td><%=listBillDetails.get(i).getAmount()%>></td>
+                                <td><%=listBillDetails.get(i).getAmount()%></td>
                                 <td><%=listBillDetails.get(i).getBill().getStatus()%></td>
                                 <td>
-                                    <button class="btn-edit">Sửa</button>
-                                    <form action="<c:url value="/admin/order?act=delete"/>" method="post">
-                                        <input type="hidden" name="billId" value="<%=listBillDetails.get(i).getId()%>">
-                                        <button type="submit" class="btn-delete">Xóa</button>
-                                    </form>
-
+                                    <% System.out.println(listBillDetails.get(i).getBill().getId());%>
+                                        <a href="/admin/order/edit?id=<%=listBillDetails.get(i).getBill().getId()%>" class="btn-edit">Sửa</a>
                                 </td>
                             </tr>
                             <%

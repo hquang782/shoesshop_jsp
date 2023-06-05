@@ -30,19 +30,19 @@ public class OrderController extends HttpServlet {
             switch (temp) {
                 case "id":
                     //id don hang ID
-                    listBillDetail = billDetailDAO.getBillDetailbyId("bill_id", value);
+                    listBillDetail = billDetailDAO.getBillDetailById("bill_id", Integer.parseInt(value));
                     break;
                 case "fn":
                     //ten khach hang full_name
-                    listBillDetail = billDetailDAO.getBillDetailbyCustomer(value);
+                    listBillDetail = billDetailDAO.getBillDetailByCustomer(value);
                     break;
                 case "name":
                     //ten don hang
-                    listBillDetail = billDetailDAO.getBillDetailbyProduct(value);
+                    listBillDetail = billDetailDAO.getBillDetailByProduct(value);
                     break;
                 case "st":
                     //status
-                    listBillDetail = billDetailDAO.getBillDetailbyStatus(value);
+                    listBillDetail = billDetailDAO.getBillDetailByStatus(value);
                     break;
                 default:
                     listBillDetail = billDetailDAO.getAllBillDetail();
@@ -68,11 +68,5 @@ public class OrderController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (req.getParameter("act") != null && req.getParameter("act").equals("delete")) {
-            int id = Integer.parseInt(req.getParameter("billId"));
-            boolean result = billDetailDAO.deleteBillDetail(id);
-            System.out.println(result?"success":"failed");
-            resp.sendRedirect("/admin/order");
-        }
     }
 }

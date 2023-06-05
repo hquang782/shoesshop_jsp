@@ -32,7 +32,7 @@
                 </li>
                 <li>
                     <a href="<c:url value="/admin/config"/>"><span>
-                        <img src="<c:url value="/assets/img/statistics.png"/>" style="width: 8.5%" alt=""> </span>Cấu hình</a>
+                        <img src="<c:url value="/assets/img/config.png"/>" style="width: 8.5%" alt=""> </span>Cấu hình</a>
                 </li>
             </ul>
         </div>

@@ -29,6 +29,7 @@ public class BillDetailDAO extends DAO {
                 Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
                 token.setBill(bill);
                 token.setProduct(product);
+                token.setSize(rs.getInt("size"));
                 billDetails.add(token);
             }
             return billDetails;
@@ -37,14 +38,37 @@ public class BillDetailDAO extends DAO {
         }
     }
 
-    public ArrayList<BillDetail> getBillDetailbyId(String temp, String value) {
+    public ArrayList<BillDetail> getBillDetailByBillId(int value) {
 
         try (Connection conn = getConnection()) {
-            String stmt = "SELECT * from bill_detail where ? = ?";
+            String stmt = "SELECT * from bill_detail where bill_id = ?";
             ArrayList<BillDetail> bills = new ArrayList<>();
             PreparedStatement ps = conn.prepareStatement(stmt);
-            ps.setString(1, temp);
-            ps.setString(2, value);
+            ps.setInt(1, value);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                BillDetail token = new BillDetail();
+                token.setId(rs.getInt("id"));
+                Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
+                token.setProduct(product);
+                token.setQuantity(rs.getInt("quantity"));
+                token.setAmount(rs.getFloat("amount"));
+                token.setSize(rs.getInt("size"));
+                bills.add(token);
+            }
+            return bills;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public ArrayList<BillDetail> getBillDetailById(String temp, int value) {
+
+        try (Connection conn = getConnection()) {
+            String stmt = "SELECT * from bill_detail where " + temp + " = ?";
+            ArrayList<BillDetail> bills = new ArrayList<>();
+            PreparedStatement ps = conn.prepareStatement(stmt);
+            ps.setInt(1, value);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 BillDetail token = new BillDetail();
@@ -55,6 +79,7 @@ public class BillDetailDAO extends DAO {
                 token.setProduct(product);
                 token.setQuantity(rs.getInt("quantity"));
                 token.setAmount(rs.getFloat("amount"));
+                token.setSize(rs.getInt("size"));
                 bills.add(token);
             }
             return bills;
@@ -63,7 +88,7 @@ public class BillDetailDAO extends DAO {
         }
     }
 
-    public ArrayList<BillDetail> getBillDetailbyProduct(String name) {
+    public ArrayList<BillDetail> getBillDetailByProduct(String name) {
         ArrayList<Product> products = new ProductDAO().getProductByName(name);
         ArrayList<BillDetail> bills = new ArrayList<>();
         for (Product product : products) {
@@ -81,6 +106,7 @@ public class BillDetailDAO extends DAO {
                     token.setProduct(product);
                     token.setQuantity(rs.getInt("quantity"));
                     token.setAmount(rs.getFloat("amount"));
+                    token.setSize(rs.getInt("size"));
                     bills.add(token);
                 }
             } catch (SQLException e) {
@@ -90,8 +116,8 @@ public class BillDetailDAO extends DAO {
         return bills;
     }
 
-    public ArrayList<BillDetail> getBillDetailbyCustomer(String name) {
-        ArrayList<Account> accounts = new AccountDAO().getAccountByElement("full_name",name);
+    public ArrayList<BillDetail> getBillDetailByCustomer(String name) {
+        ArrayList<Account> accounts = new AccountDAO().getAccountByElement("full_name", name);
         ArrayList<BillDetail> bills = new ArrayList<>();
         for (Account account : accounts) {
             Bill bill = new BillDAO().getBillByUserid(account.getId());
@@ -109,6 +135,7 @@ public class BillDetailDAO extends DAO {
                     token.setProduct(product);
                     token.setQuantity(rs.getInt("quantity"));
                     token.setAmount(rs.getFloat("amount"));
+                    token.setSize(rs.getInt("size"));
                     bills.add(token);
                 }
             } catch (SQLException e) {
@@ -118,7 +145,7 @@ public class BillDetailDAO extends DAO {
         return bills;
     }
 
-    public ArrayList<BillDetail> getBillDetailbyStatus(String st) {
+    public ArrayList<BillDetail> getBillDetailByStatus(String st) {
         ArrayList<Bill> bills = new BillDAO().getBillByStatus(st);
         ArrayList<BillDetail> billDetails = new ArrayList<>();
 
@@ -137,6 +164,7 @@ public class BillDetailDAO extends DAO {
                     token.setProduct(product);
                     token.setQuantity(rs.getInt("quantity"));
                     token.setAmount(rs.getFloat("amount"));
+                    token.setSize(rs.getInt("size"));
                     billDetails.add(token);
                 }
             } catch (SQLException e) {
@@ -145,7 +173,8 @@ public class BillDetailDAO extends DAO {
         }
         return billDetails;
     }
-    public ArrayList<BillDetail> getBillDetailbyProductId(int id) {
+
+    public ArrayList<BillDetail> getBillDetailByProductId(int id) {
 
         try (Connection conn = getConnection()) {
             String stmt = "SELECT * from bill_detail where ? = ?";
@@ -163,6 +192,7 @@ public class BillDetailDAO extends DAO {
                 token.setProduct(product);
                 token.setQuantity(rs.getInt("quantity"));
                 token.setAmount(rs.getFloat("amount"));
+                token.setSize(rs.getInt("size"));
                 bills.add(token);
             }
             return bills;
@@ -170,11 +200,55 @@ public class BillDetailDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public boolean deleteBillDetail(int id) {
         try (Connection conn = getConnection()) {
             String stmt = "DELETE FROM bill_detail WHERE id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setInt(1, id);
+            ppStmt.executeUpdate();
+            return true;
+        } catch (SQLException err) {
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean createBillDetail(BillDetail billDetail, int id) {
+        try (Connection conn = getConnection()) {
+            System.out.println(id+" "+billDetail.getAmount()+" "+billDetail.getProduct().getId()+" "+
+                    billDetail.getQuantity()+" "+billDetail.getSize());
+            String stmt = "insert into bill_detail (bill_id, amount , product_id ,quantity, size ) values(?,?,?,?,?) ";
+            System.out.println(1);
+            PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            System.out.println(2);
+            ppStmt.setInt(1, id);
+            System.out.println(3);
+            ppStmt.setFloat(2, billDetail.getAmount());
+            System.out.println(4);
+            ppStmt.setInt(3, billDetail.getProduct().getId());
+            System.out.println(5);
+            ppStmt.setInt(4, billDetail.getQuantity());
+            System.out.println(6);
+            ppStmt.setInt(5, billDetail.getSize());
+            System.out.println(7);
+            ppStmt.executeUpdate();
+            System.out.println(8);
+
+            return true;
+
+        } catch (SQLException err) {
+            throw new RuntimeException();
+        }
+    }
+
+    public boolean updateBillDetail(BillDetail billDetail) {
+        try (Connection conn = getConnection()) {
+            String stmt = "UPDATE bill_detail  SET product_id = ?, quantity = ?, size = ?  WHERE id = ?";
+            PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            ppStmt.setInt(1, billDetail.getProduct().getId());
+            ppStmt.setInt(2, billDetail.getQuantity());
+            ppStmt.setInt(3, billDetail.getSize());
+            ppStmt.setInt(4, billDetail.getId());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

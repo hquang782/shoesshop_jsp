@@ -13,7 +13,9 @@ public class BillDAO extends DAO {
         try (Connection conn = getConnection()) {
             String statement = "select * from bill where id = ?";
             Bill bill = null;
+
             PreparedStatement ppStmt = conn.prepareStatement(statement);
+            ppStmt.setInt(1,id);
             ResultSet rs = ppStmt.executeQuery();
             while (rs.next()) {
                 bill = new Bill();
@@ -28,6 +30,8 @@ public class BillDAO extends DAO {
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
+                bill.setInvoice_creator(rs.getString("invoice_creator"));
+                bill.setBillDetails(new BillDetailDAO().getBillDetailByBillId(bill.getId()));
             }
             return bill;
         } catch (SQLException e) {
@@ -57,6 +61,7 @@ public class BillDAO extends DAO {
                 bill.setPayMethod(rsBill.getString("pay_method"));
                 bill.setNote(rsBill.getString("note"));
                 bill.setCreatedAt(rsBill.getString("created_at"));
+                bill.setInvoice_creator(rsBill.getString("invoice_creator"));
                 ArrayList<BillDetail> listBillDetails = new ArrayList<>();
                 ppStBillDetail.setInt(1, bill.getId());
                 ResultSet rsBillDetail = ppStBillDetail.executeQuery();
@@ -67,6 +72,7 @@ public class BillDAO extends DAO {
                     billDetail.setQuantity(rsBillDetail.getInt("quantity"));
 //                    billDetail.setProductId(rsBillDetail.getInt("product_id"));
                     billDetail.setAmount(rsBillDetail.getInt("amount"));
+                    billDetail.setSize(rsBillDetail.getInt("size"));
                     listBillDetails.add(billDetail);
                 }
 
@@ -97,6 +103,7 @@ public class BillDAO extends DAO {
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
+                bill.setInvoice_creator(rs.getString("invoice_creator"));
                 bills.add(bill);
             }
             return bills;
@@ -119,10 +126,10 @@ public class BillDAO extends DAO {
         }
     }
 
-    public boolean createBill(Bill bill) {
+    public int createBill(Bill bill) {
         try (Connection conn = getConnection()) {
-            String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)";
-            PreparedStatement ppStmt = conn.prepareStatement(stmt);
+            String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at,invoice_creator) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+            PreparedStatement ppStmt = conn.prepareStatement(stmt,Statement.RETURN_GENERATED_KEYS);
             ppStmt.setString(1, bill.getStatus());
             ppStmt.setInt(2, bill.getUserId());
             ppStmt.setString(3, bill.getFullName());
@@ -133,7 +140,11 @@ public class BillDAO extends DAO {
             ppStmt.setString(8, bill.getPayMethod());
             ppStmt.setString(9, bill.getNote());
             ppStmt.setString(10, bill.getCreatedAt());
-            return true;
+            ppStmt.setString(11, bill.getInvoice_creator());
+            ppStmt.executeUpdate();
+            ResultSet rs = ppStmt.getGeneratedKeys();
+            if(rs.next()) return rs.getInt(1);
+            else return -1;
         } catch (SQLException e) {
             throw new RuntimeException();
         }
@@ -141,7 +152,7 @@ public class BillDAO extends DAO {
 
     public boolean updateBill(Bill bill) {
         try (Connection conn = getConnection()) {
-            String stmt = "update bill set status = ?, user_id = ?, full_name = ?, email = ?,address=?, phone_number = ?, total_amount = ?, pay_method = ?, note = ?, created_at = ?)";
+            String stmt = "update bill set status = ?, user_id = ?, full_name = ?, email = ?,address=?, phone_number = ?, total_amount = ?, pay_method = ?, note = ?, invoice_creator = ? where id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, bill.getStatus());
             ppStmt.setInt(2, bill.getUserId());
@@ -152,7 +163,8 @@ public class BillDAO extends DAO {
             ppStmt.setFloat(7, bill.getTotalAmount());
             ppStmt.setString(8, bill.getPayMethod());
             ppStmt.setString(9, bill.getNote());
-            ppStmt.setString(10, bill.getCreatedAt());
+            ppStmt.setString(10, bill.getInvoice_creator());
+            ppStmt.setInt(11,bill.getId());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {
@@ -222,6 +234,7 @@ public class BillDAO extends DAO {
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
+                bill.setInvoice_creator(rs.getString("invoice_creator"));
             }
             return bill;
         } catch (SQLException e) {
@@ -249,6 +262,7 @@ public class BillDAO extends DAO {
                 bill.setPayMethod(rs.getString("pay_method"));
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
+                bill.setInvoice_creator(rs.getString("invoice_creator"));
                 bills.add(bill);
             }
             return bills;

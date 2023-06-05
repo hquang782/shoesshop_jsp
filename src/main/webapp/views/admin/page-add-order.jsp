@@ -1,3 +1,8 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dev4fun.model.BillDetail" %>
+<%@ page import="com.dev4fun.model.Account" %>
+<%@ page import="com.dev4fun.utils.SessionUtil" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
     <div class="content">
@@ -21,73 +26,108 @@
                             <h3>Thêm đơn hàng mới</h3>
                         </div>
                     </div>
-
-                    <form class="form-product">
+                    <%
+                        String url = String.valueOf(request.getAttribute("action"));
+                    %>
+                    <form class="form-product" action="<%=url%>" method="post">
+                        <% if (url.equals("/admin/order/edit")) {%>
+                        <input type="hidden" name="idBill" value="<%=request.getAttribute("id")%>">
+                        <% }%>
                         <div class="form-group-line">
                             <div class="form-line">
                                 <label for="name">Tên khách hàng:</label>
-                                <input type="text" id="name" name="name">
+                                <input type="text" id="name" name="name" value="${name}">
                             </div>
 
                             <div class="form-line">
                                 <label for="tel">Số điện thoại:</label>
-                                <input type="tel" id="tel" name="tel">
+                                <input type="tel" id="tel" name="tel" value="${tel}">
                             </div>
 
                             <div class="form-line">
                                 <label for="address">Địa chỉ:</label>
-                                <input type="text" id="address" name="address">
+                                <input type="text" id="address" name="address" value="${address}">
                             </div>
 
                             <div class="form-line">
                                 <label for="email">Email:</label>
-                                <input type="email" id="email" name="email">
+                                <input type="email" id="email" name="email" value="${email}">
                             </div>
                         </div>
-
                         <div class="form-group-line">
                             <div class="form-line">
-                                <label for="code">Mã đơn hàng:</label>
-                                <input type="text" id="code" name="code">
+                                <label for="code">Hình thức thanh toán:</label>
+                                <input type="text" id="code" name="code" value="${code}">
                             </div>
 
-                            <div class="form-line">
-                                <label for="author">Người tạo:</label>
-                                <input type="text" id="author" name="author">
-                            </div>
+                            <%--                            <div class="form-line">--%>
+                            <%--                                <label for="author">Người tạo:</label>--%>
+                            <%--                                <input type="text" id="author" name="author" value="${author}" >--%>
+                            <%--                            </div>--%>
 
-                            <div class="form-line">
-                                <label for="amount">Tổng tiền:</label>
-                                <input type="text" id="amount" name="amount" value="0">
-                            </div>
 
                             <div class="form-line">
                                 <label for="status">Trạng thái:</label>
                                 <select name="status" id="status">
+
                                     <option value="" selected disabled hidden>-- Chọn trạng thái --</option>
-                                    <option value="done">Đã xử lý</option>
-                                    <option value="waiting">Đang chờ</option>
-                                    <option value="cancel">Đã hủy</option>
+                                    <option value="done" ${done}>Đã xử lý</option>
+                                    <option value="waiting"${waiting}>Đang chờ</option>
+                                    <option value="cancel" ${cancel}>Đã hủy</option>
                                 </select>
                             </div>
 
                         </div>
 
                         <div class="form-line">
+                            <% if (!url.equals("/admin/order/edit")) {%>
                             <div class="title-list">
                                 <%--@declare id="imageinput"--%>
                                 <label for="imageInput">Thêm sản phẩm cho đơn hàng:</label>
                                 <button type="button" class="btn-add-div" onclick="addProductInOrder();">Thêm sản phẩm
                                 </button>
                             </div>
-                            <div class="list-product"></div>
+                            <%}%>
+                            <div class="list-product">
+                                <%
+                                    ArrayList<BillDetail> billDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetails");
+                                    System.out.println(billDetails);
+                                    if (billDetails != null) {
+                                        for (int i = 0; i < billDetails.size(); i++) {
+                                %>
+                                <div class="form-group-line">
+                                    <div class="form-line">
+                                        <label for="status">Mã sản phẩm:</label>
+                                        <input type="text" name="productId<%=i%>"
+                                               value="<%=billDetails.get(i).getProduct().getId()%>">
+                                    </div>
+                                    <input type="hidden" name="id<%=i%>" value="<%=billDetails.get(i).getId()%>">
+                                    <div class="form-line">
+                                        <label for="sizeProduct<%=i%>">Kích thước:</label>
+                                        <input type="number" id="sizeProduct<%=i%>" name="sizeProduct<%=i%>"
+                                               value="<%=billDetails.get(i).getSize()%>">
+                                    </div>
+                                    <div class="form-line">
+                                        <label for="quantityProduct<%=i%>">Số lượng:</label>
+                                        <input type="number" id="quantityProduct<%=i%>" name="quantityProduct<%=i%>"
+                                               value="<%=billDetails.get(i).getQuantity()%>">
+                                    </div>
+                                </div>
+
+                                <%
+
+                                        }
+
+                                    }
+                                %>
+
+                            </div>
                         </div>
 
                         <div class="form-line">
                             <label for="note">Ghi chú:</label>
                             <textarea id="note" name="note" rows="4"></textarea>
                         </div>
-
                         <div class="form-line form-line-btn">
                             <button class="btn-add" type="submit">Lưu lại</button>
                             <button class="btn-cancel" type="reset">Xóa hết</button>
@@ -98,32 +138,3 @@
         </div>
     </div>
 </div>
-<script>
-    let indexProd = 0;
-    window.onload = () => {
-        indexProd = 0;
-    }
-
-    function addProductInOrder() {
-        const listProduct = document.getElementsByClassName('list-product')[0];
-        listProduct.innerHTML += `
-        <div class="form-group-line">
-            <div class="form-line">
-                <label for="status">Sản phẩm:</label>
-                <select name="status" id="status">
-                    <option value="" selected disabled hidden>-- Chọn mã sản phẩm --</option>
-                    <option value="done">Đã xử lý</option>
-                    <option value="waiting">Đang chờ</option>
-                    <option value="cancel">Đã hủy</option>
-                </select>
-            </div>
-
-            <div class="form-line">
-                <label for="quantityProduct${indexProd}">Số lượng:</label>
-                <input type="number" id="quantityProduct${indexProd}" name="quantityProduct${indexProd}">
-            </div>
-        </div>
-    `;
-        indexProd++;
-    }
-</script>

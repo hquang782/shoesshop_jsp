@@ -14,6 +14,8 @@ public class Bill {
     private String payMethod;
     private String note;
     private String createdAt;
+    private String invoice_creator;
+
 
     private ArrayList<BillDetail> billDetails;
 
@@ -116,4 +118,13 @@ public class Bill {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public String getInvoice_creator() {
+        return invoice_creator;
+    }
+
+    public void setInvoice_creator(String invoice_creator) {
+        this.invoice_creator = invoice_creator;
+    }
+
 }

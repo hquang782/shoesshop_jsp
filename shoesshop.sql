@@ -67,7 +67,8 @@ CREATE TABLE `bill`
     `total_amount` FLOAT(11),
     `pay_method`   VARCHAR(128),
     `note`         TEXT,
-    `created_at`   VARCHAR(128)
+    `created_at`   VARCHAR(128),
+    `invoice_creator` VARCHAR(128)
 );
 
 CREATE TABLE `bill_detail`
@@ -77,6 +78,7 @@ CREATE TABLE `bill_detail`
     `quantity`   INT(11),
     `product_id` INT(11),
     `amount`     float(11),
+    `size`       INT(11),
     FOREIGN KEY (`bill_id`)
         REFERENCES `bill` (`id`),
     FOREIGN KEY (`product_id`)
