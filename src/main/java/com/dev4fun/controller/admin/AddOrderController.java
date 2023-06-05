@@ -63,7 +63,7 @@ public class AddOrderController extends HttpServlet {
         Bill bill = new Bill();
         Product product = new Product();
 
-
+        if(url.contains("/admin/order/edit")) bill.setId(Integer.parseInt(req.getParameter("idBill")));
         bill.setFullName(req.getParameter("name"));
         bill.setPhoneNumber(req.getParameter("tel"));
         bill.setAddress(req.getParameter("address"));

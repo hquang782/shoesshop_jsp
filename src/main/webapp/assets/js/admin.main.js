@@ -41,8 +41,7 @@ const DAYOFWEEK = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', '
 const showTimer = () => {
     const time = new Date();
     let month = time.getMonth()+1
-    timer.innerText = `${DAYOFWEEK[time.getDay()]}, ${time.getDate()<10?"0"+time.getDate():time.getDate()}/${month<10?"0"+month:month}/${time.getFullYear()} 
-    - ${time.getHours()<10?"0"+time.getHours():time.getHours()} giờ ${time.getMinutes()<10?"0"+time.getMinutes():time.getMinutes()} phút ${time.getSeconds()<10?"0"+time.getSeconds():time.getSeconds()} giây`;
+    timer.innerText = `${DAYOFWEEK[time.getDay()]}, ${time.getDate()<10?"0"+time.getDate():time.getDate()}/${month<10?"0"+month:month}/${time.getFullYear()} - ${time.getHours()<10?"0"+time.getHours():time.getHours()} giờ ${time.getMinutes()<10?"0"+time.getMinutes():time.getMinutes()} phút ${time.getSeconds()<10?"0"+time.getSeconds():time.getSeconds()} giây`;
 };
 
 showTimer()

@@ -152,7 +152,7 @@
                             </td>
                             <td><%=temp.getCategoryName()%>
                             </td>
-                            <td><%=nf.format(temp.getPrice())%>
+                            <td><%=nf.format(temp.getPrice())%><sup>đ</sup>
                             </td>
                             <td><%=temp.getTotalSold()%>
                             </td>

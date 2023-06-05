@@ -1,8 +1,12 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dev4fun.model.BillDetail" %>
-<%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    NumberFormat nf = NumberFormat.getNumberInstance();
+    nf.setGroupingUsed(true);
+%>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
@@ -22,7 +26,6 @@
                 <div class="action-table">
                     <button id="btnAddProduct" class="btn-add" type="button"><a
                             href="<c:url value="/admin/order/add"/>">Thêm đơn hàng</a></button>
-                    <%--                    <button class="btn-export">Xuất file Excel</button>--%>
                 </div>
 
                 <div class="table-content">
@@ -84,7 +87,7 @@
                                 <td><%=listBillDetails.get(i).getBill().getFullName()%></td>
                                 <td><%=listBillDetails.get(i).getProduct().getName()%></td>
                                 <td><%=listBillDetails.get(i).getQuantity()%></td>
-                                <td><%=listBillDetails.get(i).getAmount()%></td>
+                                <td><%=nf.format(listBillDetails.get(i).getAmount())%><sup>đ</sup></td>
                                 <td><%=listBillDetails.get(i).getBill().getStatus()%></td>
                                 <td>
                                     <% System.out.println(listBillDetails.get(i).getBill().getId());%>

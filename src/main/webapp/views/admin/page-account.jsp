@@ -1,6 +1,9 @@
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.text.SimpleDateFormat" %>
+<%@ page import="com.mysql.cj.Session" %>
+<%@ page import="com.dev4fun.utils.SessionUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -63,7 +66,12 @@
                                 <th>Số điện thoại</th>
                                 <th>Ngày sinh</th>
                                 <th>Loại</th>
+                                <%
+                                    Account acc = (Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_ADMIN");
+                                    if (acc.getRole().equals("ADMIN")) {%>
                                 <th class="action">Action</th>
+                                <% } %>
+
                             </tr>
                             </thead>
 
@@ -91,13 +99,18 @@
                                 </td>
                                 <td><%=listAccounts.get(i).getRole()%>
                                 </td>
+
+                                <%
+                                    if (acc.getRole().equals("ADMIN")) {%>
                                 <td>
-                                    <button class="btn-edit">Sửa</button>
+                                    <a href="/admin/account/edit?id=<%=listAccounts.get(i).getId()%>" class="btn-edit">Sửa</a>
                                     <form method="post" action="<c:url value="/admin/account?act=delete"/>">
                                         <input type="hidden" name="accountId" value="<%=listAccounts.get(i).getId()%>">
                                         <button class="btn-delete" type="submit">Xóa</button>
                                     </form>
                                 </td>
+                                <% } %>
+
                             </tr>
                             <%}%>
 
@@ -123,7 +136,8 @@
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <% String pageIndex;
-                                        if (request.getParameter("pageIndex") != null) pageIndex = request.getParameter("pageIndex");
+                                        if (request.getParameter("pageIndex") != null)
+                                            pageIndex = request.getParameter("pageIndex");
                                         else pageIndex = "1/" + (int) Math.ceil(listAccounts.size() / 5.0);
                                     %>
                                     <p id="currentPage"><%=pageIndex%>

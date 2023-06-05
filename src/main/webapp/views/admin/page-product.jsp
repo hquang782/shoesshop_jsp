@@ -1,7 +1,12 @@
 <%@ page import="com.dev4fun.model.Product" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    NumberFormat nf = NumberFormat.getNumberInstance();
+    nf.setGroupingUsed(true);
+%>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
@@ -89,7 +94,7 @@
                                 </td>
                                 <td style="width: 10%"><%=listProducts.get(i).getStatus()%>
                                 </td>
-                                <td style="width: 15%"><%=listProducts.get(i).getPrice()%>
+                                <td style="width: 15%"><%=nf.format(listProducts.get(i).getPrice())%><sup>đ</sup>
                                 </td>
                                 <td style="width: 10%"><%=listProducts.get(i).getCategory().getName()%>
                                 </td>

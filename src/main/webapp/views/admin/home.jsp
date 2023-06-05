@@ -97,7 +97,7 @@
                                     </td>
                                     <td title="<%=bill.getFullName()%>"><%=bill.getFullName()%>
                                     </td>
-                                    <td title="<%=bill.getTotalAmount()%>"><%=bill.getTotalAmount()%>đ</td>
+                                    <td title="<%=bill.getTotalAmount()%>"><%=nf.format(bill.getTotalAmount())%><sup>đ</sup></td>
                                     <td title="<%=bill.getStatus()%>"><span><%=bill.getStatus()%></span></td>
                                 </tr>
                                 <%}%>

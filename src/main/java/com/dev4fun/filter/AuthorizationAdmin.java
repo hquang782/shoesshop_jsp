@@ -28,7 +28,7 @@ public class AuthorizationAdmin implements Filter {
         }
         if (!url.startsWith("/admin/login") && url.startsWith("/admin")) {
             Account account = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN");
-            if (account != null && account.getRole().equals("ADMIN")) {
+            if (account != null && (account.getRole().equals("ADMIN")||account.getRole().equals("STAFF"))) {
                 chain.doFilter(request, response);
             } else {
                 res.sendRedirect("/admin/login");

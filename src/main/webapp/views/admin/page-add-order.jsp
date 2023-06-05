@@ -80,14 +80,14 @@
                         </div>
 
                         <div class="form-line">
-                            <% if (!url.equals("/admin/order/edit")) {%>
+<%--                            <% if (!url.equals("/admin/order/edit")) {%>--%>
                             <div class="title-list">
                                 <%--@declare id="imageinput"--%>
                                 <label for="imageInput">Thêm sản phẩm cho đơn hàng:</label>
                                 <button type="button" class="btn-add-div" onclick="addProductInOrder();">Thêm sản phẩm
                                 </button>
                             </div>
-                            <%}%>
+<%--                            <%}%>--%>
                             <div class="list-product">
                                 <%
                                     ArrayList<BillDetail> billDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetails");
