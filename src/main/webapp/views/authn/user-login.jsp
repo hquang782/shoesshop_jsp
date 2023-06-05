@@ -38,14 +38,6 @@
                         </div>
 
                         <div class="form-body-line">
-                            <div class="wrapper-form-title">
-                                <div>
-                                    <a href="#">Quên mật khẩu</a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-body-line">
                             <div class="wrapper-form-line">
                                 <div>
                                     <input type="submit" id="submit" value="Đăng Nhập">

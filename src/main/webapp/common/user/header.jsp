@@ -22,8 +22,8 @@
                     <li><a href="<c:url value="/home"/>">Trang chủ</a></li>
                     <li><a href="<c:url value="/about/about-us"/>">Giới thiệu</a></li>
                     <li><a href="<c:url value="/products"/>">Sản phẩm</a></li>
-                    <li><a href="<c:url value="/about/contact"/>">Liên hệ</a></li>
-                    <li><a href="<c:url value="/about/policy-rule"/>">Store</a></li>
+                    <li><a href="<c:url value="/about/policy-rule"/>">Liên hệ</a></li>
+                    <li><a href="<c:url value="/about/store"/>">Store</a></li>
                 </ul>
             </div>
             <div class="wrap-search">

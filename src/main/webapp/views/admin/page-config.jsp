@@ -1,3 +1,6 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.dev4fun.model.Config" %>
+<%@ page import="com.google.gson.Gson" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="../../common/taglib.jsp" %>
 <style>
@@ -18,7 +21,7 @@
         display: none !important;
     }
 
-    .editor-item>button {
+    .editor-item > button {
         margin-top: 8px;
         margin-left: 8px;
         padding-left: 20px;
@@ -27,6 +30,9 @@
     }
 
 </style>
+<%
+    ArrayList<Config> listConfigs = (ArrayList<Config>) request.getAttribute("listConfigs");
+%>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
@@ -43,19 +49,19 @@
         <div class="wrapper-editor">
             <div class="editor-item">
                 <h3>Config page policy</h3>
-                <div class="editor" id="policy"></div>
+                <textarea class="editor" id="policy"></textarea>
                 <button id="submitPolicy">Save</button>
             </div>
 
             <div class="editor-item">
                 <h3>Config page about us</h3>
-                <div class="editor" id="aboutUs"></div>
+                <textarea class="editor" id="aboutUs"></textarea>
                 <button id="submitAboutUs">Save</button>
             </div>
 
             <div class="editor-item">
                 <h3>Config page store</h3>
-                <div class="editor" id="store"></div>
+                <textarea class="editor" id="store"></textarea>
                 <button id="submitStore">Save</button>
             </div>
         </div>
@@ -65,59 +71,93 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/froala-editor/3.2.6/js/froala_editor.pkgd.min.js"></script>
 <script>
-    const editors = new FroalaEditor('.editor', {
+    const policy = new FroalaEditor('#policy', {
         imageUploadURL: 'http://localhost:8080/admin/api/upload',
-        heightMin: 150,
-        events: {
-            'image.uploaded': function (response) {
-                let imageUrl = response.link
-                this.image.insert(imageUrl)
-            }
-        }
+        imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove', '|', 'imageLink', 'linkOpen', 'linkEdit', 'linkRemove', '-', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize'],
+
+    }, () => {
+        policy.html.set(`<%=listConfigs.get(1).getContent()%>`)
     })
-    // editors[0].html.set()
-    // editors[1].html.set()
-    // editors[2].html.set()
+
+    const aboutUs = new FroalaEditor('#aboutUs', {
+        imageUploadURL: 'http://localhost:8080/admin/api/upload',
+        imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove', '|', 'imageLink', 'linkOpen', 'linkEdit', 'linkRemove', '-', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize']
+    }, () => {
+        aboutUs.html.set(`<%=listConfigs.get(0).getContent()%>`)
+    })
+
+    const store = new FroalaEditor('#store', {
+        imageUploadURL: 'http://localhost:8080/admin/api/upload',
+        imageEditButtons: ['imageReplace', 'imageAlign', 'imageRemove', '|', 'imageLink', 'linkOpen', 'linkEdit', 'linkRemove', '-', 'imageDisplay', 'imageStyle', 'imageAlt', 'imageSize']
+    }, () => {
+        store.html.set(`<%=listConfigs.get(2).getContent()%>`)
+    })
 
     const submitPolicy = document.getElementById('submitPolicy')
     submitPolicy.addEventListener('click', async () => {
-        const body = JSON.stringify({ content: editors[0].html.get() })
-        console.log(body);
-        const res = await fetch(
+        const body = JSON.stringify({content: policy.html.get()})
+        await fetch(
             'https://localhost:8000/admin/api/config/policy',
             {
                 method: 'POST',
                 body: body
             }
-        )
-        console.log(res.json());
+        ).then(data => {
+            alert('Sửa trang điều khoản và thỏa thuận thành công!')
+            location.reload()
+            // const res = data.json()
+            // if (res['result']) {
+            //     alert('Sửa trang điều khoản và thỏa thuận thành công!')
+            //     location.reload()
+            // } else {
+            //     alert('Sửa trang điều khoản và thỏa thuận thất bại! Vui lòng kiểm tra lại.')
+            // }
+        })
     })
 
     const submitAboutUs = document.getElementById('submitAboutUs')
     submitAboutUs.addEventListener('click', async () => {
-        const body = JSON.stringify({ content: editors[1].html.get() })
-        console.log(body);
-        const res = await fetch(
+        const body = JSON.stringify({content: aboutUs.html.get()})
+        await fetch(
             'https://localhost:8000/admin/api/config/about-us',
             {
                 method: 'POST',
                 body: body
             }
-        )
-        console.log(res.json());
+        ).then(data => {
+            alert('Sửa trang giới thiệu thành công!')
+            location.reload()
+            // const res = data.json()
+            // console.log(res.then(res => res.result))
+            // if (res['result']) {
+            //     alert('Sửa trang giới thiệu thành công!')
+            //     location.reload()
+            // } else {
+            //     alert('Sửa trang giới thiệu thất bại! Vui lòng kiểm tra lại.')
+            // }
+        })
     })
 
     const submitStore = document.getElementById('submitStore')
     submitStore.addEventListener('click', async () => {
-        const body = JSON.stringify({ content: editors[2].html.get() })
-        console.log(body);
-        const res = await fetch(
+        const body = JSON.stringify({content: store.html.get()})
+        await fetch(
             'https://localhost:8000/admin/api/config/store',
             {
                 method: 'POST',
                 body: body
             }
-        )
-        console.log(res.json());
+        ).then(data => {
+            alert('Sửa trang hệ thống cửa hàng thành công!')
+            location.reload()
+            // const res = data.json()
+            // console.log(res['result'])
+            // if (res['result']) {
+            //     alert('Sửa trang hệ thống cửa hàng thành công!')
+            //     location.reload()
+            // } else {
+            //     alert("Sửa trang hệ thống cửa hàng thất bại! Vui lòng kiểm tra lại.")
+            // }
+        })
     })
 </script>
