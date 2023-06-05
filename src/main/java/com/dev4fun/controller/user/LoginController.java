@@ -20,10 +20,10 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_USER");
-        String errorLog = (String) SessionUtil.getInstance().getValue(req, "errorMessage");
+        String errorLog = (String) SessionUtil.getInstance().getValue(req, "userLoginFail");
         String preRequest = req.getHeader("referer");
-        if (preRequest != null && preRequest.contains("/admin/login") && errorLog != null) {
-            SessionUtil.getInstance().removeValue(req, "errorMessage");
+        if (preRequest != null && preRequest.contains("/login") && errorLog != null) {
+            SessionUtil.getInstance().removeValue(req, "userLoginFail");
         }
         if (acc != null) {
             resp.sendRedirect("/user/profile");
@@ -38,7 +38,6 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        BCrypt bCrypt = new BCrypt();
         String username = req.getParameter("username");
         String password = req.getParameter("password");
 
@@ -53,15 +52,15 @@ public class LoginController extends HttpServlet {
                             SessionUtil.getInstance().putValue(req, "ACCOUNT_USER", account);
                             resp.sendRedirect("/user/profile");
                         } else {
-                            SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản không có quyền truy cập. Vui lòng thử lại.");
+                            SessionUtil.getInstance().putValue(req, "userLoginFail", "Tài khoản không có quyền truy cập. Vui lòng thử lại.");
                             resp.sendRedirect("/login");
                         }
                     } else {
-                        SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
+                        SessionUtil.getInstance().putValue(req, "userLoginFail", "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
                         resp.sendRedirect("/login");
                     }
                 } else {
-                    SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
+                    SessionUtil.getInstance().putValue(req, "userLoginFail", "Tài khoản không tồn tại. Vui lòng thử lại.");
                     resp.sendRedirect("/login");
                 }
             } catch (ParseException e) {

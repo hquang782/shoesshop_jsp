@@ -19,10 +19,10 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN");
-        String errorLog = (String) SessionUtil.getInstance().getValue(req, "errorMessage");
+        String errorLog = (String) SessionUtil.getInstance().getValue(req, "adminLoginFail");
         String preRequest = req.getHeader("referer");
         if ( preRequest != null && preRequest.contains("/admin/login") && errorLog != null) {
-            SessionUtil.getInstance().removeValue(req, "errorMessage");
+            SessionUtil.getInstance().removeValue(req, "adminLoginFail");
         }
         if (acc != null) {
             resp.sendRedirect("/admin");
@@ -51,15 +51,15 @@ public class LoginController extends HttpServlet {
                             SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
                             resp.sendRedirect("/admin");
                         } else {
-                            SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản không có quyền truy cập. Vui lòng thử lại.");
+                            SessionUtil.getInstance().putValue(req, "adminLoginFail", "Tài khoản không có quyền truy cập. Vui lòng thử lại.");
                             resp.sendRedirect("/admin/login");
                         }
                     } else {
-                        SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
+                        SessionUtil.getInstance().putValue(req, "adminLoginFail", "Tài khoản hoặc mật khẩu không chính xác. Vui lòng thử lại.");
                         resp.sendRedirect("/admin/login");
                     }
                 } else {
-                    SessionUtil.getInstance().putValue(req, "errorMessage", "Tài khoản không tồn tại. Vui lòng thử lại.");
+                    SessionUtil.getInstance().putValue(req, "adminLoginFail", "Tài khoản không tồn tại. Vui lòng thử lại.");
                     resp.sendRedirect("/admin/login");
                 }
             } catch (ParseException e) {
