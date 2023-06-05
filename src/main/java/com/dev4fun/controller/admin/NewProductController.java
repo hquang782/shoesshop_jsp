@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,12 +30,7 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/admin/product/*"})
 @MultipartConfig
 public class NewProductController extends HttpServlet {
-    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "dzimy62tk",
-            "api_key", "441111963494553",
-            "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o",
-            "secure", true));
-
+    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "dzimy62tk", "api_key", "441111963494553", "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o", "secure", true));
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CategoryDAO categoryDAO = new CategoryDAO();
@@ -63,24 +59,18 @@ public class NewProductController extends HttpServlet {
             Category category = new Category();
             category.setName(req.getParameter("newCategory"));
             boolean result = categoryDAO.createCategory(category);
-            resp.sendRedirect("/admin/product/add");
+            resp.sendRedirect("/admin/product");
             return;
         }
 
-        LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
-
         ProductDAO productDAO = new ProductDAO();
         Product product = new Product();
-        product.setId(Integer.parseInt(req.getParameter("code")));
         product.setName(req.getParameter("name"));
-        product.setPrice(Float.parseFloat(req.getParameter("price")));
-        product.setCost(Float.parseFloat(req.getParameter("cost")));
+        product.setPrice(Float.parseFloat(req.getParameter("price").replaceAll(",", "")));
+        product.setCost(Float.parseFloat(req.getParameter("cost").replaceAll(",", "")));
         product.setStatus(req.getParameter("status"));
         product.setCategoryId(Integer.parseInt(req.getParameter("category")));
-//        product.setDescription(req.getParameter("description"));
-        product.setDescription("req.getParameter()");
-        product.setCreatedAt(currentDateTime.format(dtf));
+        product.setDescription(req.getParameter("description"));
 
         int numSize = 0;
         ArrayList<ProductDetail> listProductDetails = new ArrayList<>();
@@ -88,6 +78,9 @@ public class NewProductController extends HttpServlet {
             ProductDetail productDetail = new ProductDetail();
             productDetail.setQuantity(Integer.parseInt(req.getParameter("quantity" + numSize)));
             productDetail.setSize(req.getParameter("size" + numSize));
+            if (req.getParameter("productDetailId" + numSize) != null) {
+                productDetail.setId(Integer.parseInt(req.getParameter("productDetailId" + numSize)));
+            }
             numSize++;
             listProductDetails.add(productDetail);
         }
@@ -96,30 +89,37 @@ public class NewProductController extends HttpServlet {
         int numImage = 0;
         StringBuilder listImages = new StringBuilder();
         while (req.getPart("imageInput" + numImage) != null) {
-            System.out.println(req.getPart("imageInput" + numImage).getSubmittedFileName());
-            Part filePart = req.getPart("imageInput" + numImage);
-            String urlImage = "https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg";
-            if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
-                Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
-                urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
+            String urlImage = "";
+            String urlImgParam = req.getParameter("textImageInput" + numImage);
+            if (urlImgParam != null && !urlImgParam.equals("")) {
+                urlImage = urlImgParam;
+            } else {
+                Part filePart = req.getPart("imageInput" + numImage);
+                if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
+                    Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
+                    urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
+                }
             }
             if (numImage == 0) {
                 product.setImageLink(urlImage);
             } else {
                 listImages.append(urlImage).append(",");
             }
-            System.out.println(urlImage);
+            System.out.println("A picture imported: " + urlImage);
             numImage++;
         }
         product.setImageList(listImages.toString());
 
         String url = req.getRequestURI();
         if (url.contains("/admin/product/add")) {
+            LocalDateTime currentDateTime = LocalDateTime.now();
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+            product.setCreatedAt(currentDateTime.format(dtf));
             boolean result = productDAO.createProduct(product);
         } else if (url.contains("/admin/product/edit")) {
+            product.setId(Integer.parseInt(req.getParameter("id")));
             boolean result = productDAO.updateProductById(product);
         }
-        else
         resp.sendRedirect("/admin/product");
     }
 }

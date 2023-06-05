@@ -36,7 +36,8 @@
                                 <span class="quantity">x<%=billDetail.getQuantity()%></span>
                             </div>
                             <div class="product-info">
-                                <p class="product-name"><%=billDetail.getProduct().getName()%></p>
+                                <p class="product-name"><%=billDetail.getProduct().getName()%>
+                                </p>
                                 <div class="store"><span>Shoe Shop</span></div>
                             </div>
                         </div>

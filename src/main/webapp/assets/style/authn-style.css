@@ -168,7 +168,7 @@ label {
     transform: scale(1.01) translateZ(0);
 }
 
-.wrapper-form-line>.wrapper-form-title {
+.wrapper-form-line > .wrapper-form-title {
     width: 100%;
 }
 
@@ -195,7 +195,7 @@ label {
     cursor: pointer;
 }
 
-.wrapper-form-line .gender>div {
-    width: calc(100% /6.5);
+.wrapper-form-line .gender > div {
+    width: calc(100% / 6.5);
     display: flex;
 }

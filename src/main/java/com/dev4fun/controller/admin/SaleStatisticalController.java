@@ -28,19 +28,19 @@ public class SaleStatisticalController extends HttpServlet {
         int totalClientAccounts = accountDAO.getTotalClientAccounts();
         int TotalProductNearExpired = productDAO.getTotalProductNearExpired();
         int totalProductExpired = productDAO.getTotalProductExpired();
-        float totalIncome  = billDAO.getTotalIncome();
+        float totalIncome = billDAO.getTotalIncome();
         int totalBillCancelled = billDAO.getTotalBillCancelled();
         ArrayList<Chart> incomeForChart = billDAO.getIncomeForChart();
 
-        req.setAttribute("incomeForChart",incomeForChart);
-        req.setAttribute("totalBillCancelled",totalBillCancelled);
-        req.setAttribute("totalIncome",totalIncome);
-        req.setAttribute("totalStaffAccounts",totalStaffAccounts);
+        req.setAttribute("incomeForChart", incomeForChart);
+        req.setAttribute("totalBillCancelled", totalBillCancelled);
+        req.setAttribute("totalIncome", totalIncome);
+        req.setAttribute("totalStaffAccounts", totalStaffAccounts);
         req.setAttribute("totalProducts", totalProducts);
-        req.setAttribute("totalBills",totalBills);
-        req.setAttribute("totalClientAccounts",totalClientAccounts);
-        req.setAttribute("TotalProductNearExpired",TotalProductNearExpired);
-        req.setAttribute("totalProductExpired",totalProductExpired);
+        req.setAttribute("totalBills", totalBills);
+        req.setAttribute("totalClientAccounts", totalClientAccounts);
+        req.setAttribute("TotalProductNearExpired", TotalProductNearExpired);
+        req.setAttribute("totalProductExpired", totalProductExpired);
         //table san pham ban chay
         ArrayList<Statistic> topSaleProducts = productDAO.getTopSaleProducts();
         req.setAttribute("topSaleProducts", topSaleProducts);

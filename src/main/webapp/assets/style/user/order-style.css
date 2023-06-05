@@ -15,13 +15,13 @@
     margin: 0 auto;
 }
 
-.content>div {
+.content > div {
     width: 100%;
 }
 
 .navigate {
     margin: auto;
-    width: 1200px  !important;
+    width: 1200px !important;
     padding-left: 14px;
 }
 

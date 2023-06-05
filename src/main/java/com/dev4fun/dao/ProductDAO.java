@@ -133,6 +133,7 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<Product> getProductByStatus(String status) {
         try (Connection conn = getConnection()) {
             String statementProduct = "select * from product where status like ?";
@@ -181,9 +182,9 @@ public class ProductDAO extends DAO {
             PreparedStatement ppStmt = conn.prepareStatement(statement);
             ppStmt.setString(1, name);
             ResultSet rs = ppStmt.executeQuery(statement);
-            int total =0;
+            int total = 0;
             while (rs.next()) {
-                total =  rs.getInt(1);
+                total = rs.getInt(1);
             }
             return total;
         } catch (SQLException e) {
@@ -252,7 +253,7 @@ public class ProductDAO extends DAO {
             ResultSet rs = conn.createStatement().executeQuery(statement);
             int total = 0;
             while (rs.next()) {
-                total =  rs.getInt(1);
+                total = rs.getInt(1);
             }
             return total;
         } catch (SQLException e) {
@@ -298,9 +299,10 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<Product> getProductByElement(String temp) {
         try (Connection conn = getConnection()) {
-            String statementProduct = "select * from product where id like '%"+temp+"%' or name like '%"+temp+"%' or price like '%"+temp+"%'";
+            String statementProduct = "select * from product where id like '%" + temp + "%' or name like '%" + temp + "%' or price like '%" + temp + "%'";
             String statementProductDetail = "select * from product_detail where product_id = ?";
             ArrayList<Product> products = new ArrayList<>();
             ResultSet rsProduct = conn.createStatement().executeQuery(statementProduct);
@@ -336,6 +338,7 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public boolean createProduct(Product product) {
         try (Connection conn = getConnection()) {
             System.out.println(product);
@@ -386,6 +389,22 @@ public class ProductDAO extends DAO {
             ppStmt.setString(8, product.getStatus());
             ppStmt.setInt(9, product.getId());
             ppStmt.executeUpdate();
+            stmt = "update product_detail set size = ?, quantity = ? where id = ?";
+            for (ProductDetail productDetail : product.getProductDetails()) {
+                if (productDetail.getId() == 0) {
+                    PreparedStatement pp = conn.prepareStatement("insert into product_detail (size, product_id, quantity) values (?, ?, ?)");
+                    pp.setString(1, productDetail.getSize());
+                    pp.setInt(2, product.getId());
+                    pp.setInt(3, productDetail.getQuantity());
+                    pp.executeUpdate();
+                    continue;
+                }
+                PreparedStatement pp = conn.prepareStatement(stmt);
+                pp.setString(1, productDetail.getSize());
+                pp.setInt(2, productDetail.getQuantity());
+                pp.setInt(3, productDetail.getId());
+                pp.executeUpdate();
+            }
             return true;
         } catch (SQLException err) {
             throw new RuntimeException();
@@ -448,8 +467,8 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
-    public int getQuantityBySize(int id,int size)
-    {
+
+    public int getQuantityBySize(int id, int size) {
         try (Connection conn = getConnection()) {
             String statement = "SELECT quantity FROM "
                     + "shoes.product as p inner join product_detail as pd on p.id=pd.product_id "

@@ -39,7 +39,6 @@ public class RegisterController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account account = new Account();
-        BCrypt bCrypt=new BCrypt();
         account.setUsername(req.getParameter("username"));
         account.setFullName(req.getParameter("fullName"));
         account.setPhoneNumber(req.getParameter("tel"));

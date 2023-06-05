@@ -5,10 +5,10 @@ public class Cart {
     private int size;
     private int quantity;
 
-    public Cart(Product product,int size, int quantity) {
+    public Cart(Product product, int size, int quantity) {
         this.product = product;
         this.quantity = quantity;
-        this.size=size;
+        this.size = size;
     }
 
     public int getSize() {
@@ -18,7 +18,7 @@ public class Cart {
     public void setSize(int size) {
         this.size = size;
     }
-    
+
     public Product getProduct() {
         return product;
     }

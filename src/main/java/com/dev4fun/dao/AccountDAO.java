@@ -37,6 +37,7 @@ public class AccountDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public Account getAccountById(int id) {
         try (Connection conn = getConnection()) {
             String statement = "select * from account where id = ?";
@@ -64,14 +65,14 @@ public class AccountDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public ArrayList<Account> getAccountByElement(String temp, String value) {
         try (Connection conn = getConnection()) {
-            String statement = "select * from account where "+temp+" like '%"+ value + "%'";
+            String statement = "select * from account where " + temp + " like '%" + value + "%'";
             PreparedStatement ppStmt = conn.prepareStatement(statement);
 //            ppStmt.setString(1,value);
             ResultSet rs = ppStmt.executeQuery();
 
-            SimpleDateFormat formatDate = new SimpleDateFormat("dd/MM/yyyy");
             ArrayList<Account> accounts = new ArrayList<>();
             while (rs.next()) {
                 Account account = new Account();
@@ -136,9 +137,6 @@ public class AccountDAO extends DAO {
 
     public boolean createAccount(Account account) {
         try (Connection conn = getConnection()) {
-//            if (getAccountByUsernamePasswordRole(account.getUsername(), account.getRole()) == null) {
-//                return false;
-//            }
             String stmt = "insert into account (username, password, email, role, full_name, dob, gender, phone_number, image_link,address) VALUES (?, ?, ?, ?, ?, ?, ?,?, ?, ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, account.getUsername());
@@ -161,9 +159,6 @@ public class AccountDAO extends DAO {
 
     public boolean updateAccount(Account account) {
         try (Connection conn = getConnection()) {
-//            if (getAccountByUsernamePasswordRole(account.getUsername(), account.getRole()) == null) {
-//                return false;
-//            }
             String stmt = "update account set username = ?, password = ?, email = ?, role = ?, full_name = ?, dob = ?, gender = ?, phone_number = ?, image_link = ? , address = ?  where id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, account.getUsername());
@@ -196,6 +191,7 @@ public class AccountDAO extends DAO {
             throw new RuntimeException();
         }
     }
+
     public int getTotalStaffAccounts() {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from account where account.role = 'STAFF'";
@@ -209,6 +205,7 @@ public class AccountDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
     public int getTotalClientAccounts() {
         try (Connection conn = getConnection()) {
             String statement = "select count(*) from account where account.role = 'USER'";

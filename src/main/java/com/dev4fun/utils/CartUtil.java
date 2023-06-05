@@ -24,9 +24,7 @@ public class CartUtil {
         }
         int isExist = isExisting(listCarts, product.getId(), size);
         if (isExist != -1) {
-            listCarts.get(isExist).setQuantity(Math.min(
-                    new ProductDAO().getQuantityBySize(listCarts.get(isExist).getProduct().getId(), size),
-                    listCarts.get(isExist).getQuantity() + quantity));
+            listCarts.get(isExist).setQuantity(Math.min(new ProductDAO().getQuantityBySize(listCarts.get(isExist).getProduct().getId(), size), listCarts.get(isExist).getQuantity() + quantity));
         } else {
             listCarts.add(new Cart(product, size, quantity));
         }
@@ -36,9 +34,7 @@ public class CartUtil {
     public static void updateCart(HttpServletRequest request, String[] quantity, String[] size) {
         ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
         for (int i = 0; i < listCarts.size(); i++)
-            listCarts.get(i).setQuantity(Math.min(
-                    new ProductDAO().getQuantityBySize(listCarts.get(i).getProduct().getId(), Integer.parseInt(size[i])),
-                    Integer.parseInt(quantity[i])));
+            listCarts.get(i).setQuantity(Math.min(new ProductDAO().getQuantityBySize(listCarts.get(i).getProduct().getId(), Integer.parseInt(size[i])), Integer.parseInt(quantity[i])));
     }
 
     public static void removeProductInCart(HttpServletRequest request, int id, int size) {

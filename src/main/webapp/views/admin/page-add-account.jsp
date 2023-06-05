@@ -25,7 +25,7 @@
                 <div class="form-content">
                     <div class="wrap-title">
                         <div class="item-title">
-                            <h3><%=title%>> tài khoản</h3>
+                            <h3><%=title%> tài khoản</h3>
                         </div>
                     </div>
                     <div>
@@ -129,12 +129,11 @@
                                 <select name="role" id="role" required>
                                     <option value="" selected disabled hidden>-- Chọn loại tài khoản --</option>
                                     <%
-                                        String display="";
+                                        String display = "";
                                         for (Role role : (ArrayList<Role>) request.getAttribute("listRole")) {
-                                        if(request.getAttribute(role.getName())!=null) {
-                                              display = (String) request.getAttribute(role.getName()) ;
-                                        }
-                                        else display = "";
+                                            if (request.getAttribute(role.getName()) != null) {
+                                                display = (String) request.getAttribute(role.getName());
+                                            } else display = "";
                                     %>
                                     <option value="<%=role.getName()%>" <%=display%> ><%=role.getName()%>
                                     </option>
@@ -152,21 +151,21 @@
                                     <label for="imageInput">
                                         <p>Chọn ảnh</p>
                                         <%
-                                            String imgDisplay="";
-                                            String imgLink = "";
-                                            if(account!=null){
-                                                imgDisplay = "block";
-                                                imgLink =  account.getImageLink();
-                                            }
-                                            else{
-                                                imgLink="";
+                                            String imgDisplay;
+                                            String imgLink;
+                                            if (account != null) {
+                                                imgDisplay = "";
+                                                imgLink = account.getImageLink();
+                                            } else {
+                                                imgLink = "";
                                                 imgDisplay = "none";
                                             }
                                         %>
                                         <img style="display: <%=imgDisplay%>>;" alt="" src="<%=imgLink%>">
                                     </label>
                                     <input class="image-input" id="imageInput" type="file" name="imageInput"
-                                           onchange="handlePutNewImg(this);" enctype="multipart/form-data" value="">
+                                           onchange="handlePutNewImg(this);" enctype="multipart/form-data">
+                                    <input type="hidden" id="textImageInput" name="textImageInput" value="<%=imgLink%>">
                                 </div>
                             </div>
                         </div>

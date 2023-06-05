@@ -31,15 +31,15 @@ public class AccountController extends HttpServlet {
             String typeSearch = temp.equals("username") ? "Tên người dùng" :
                     temp.equals("role") ? "Loại tài khoản" :
                             temp.equals("email") ? "Email" : "Số điện thoại";
-            req.setAttribute("valueSearch",temp);
-            req.setAttribute("typeSearch",typeSearch);
-            req.setAttribute(temp,none);
+            req.setAttribute("valueSearch", temp);
+            req.setAttribute("typeSearch", typeSearch);
+            req.setAttribute(temp, none);
             req.setAttribute("listAccounts", accounts);
             req.setAttribute("txt_sAccount", value);
             System.out.println(accounts.size());
         } else {
-            req.setAttribute("valueSearch","");
-            req.setAttribute("typeSearch","Tìm kiếm theo");
+            req.setAttribute("valueSearch", "");
+            req.setAttribute("typeSearch", "Tìm kiếm theo");
             req.setAttribute("listAccounts", listAccounts);
             System.out.println(listAccounts.size());
         }

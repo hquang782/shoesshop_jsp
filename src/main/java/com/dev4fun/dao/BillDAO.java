@@ -15,7 +15,7 @@ public class BillDAO extends DAO {
             Bill bill = null;
 
             PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ppStmt.setInt(1,id);
+            ppStmt.setInt(1, id);
             ResultSet rs = ppStmt.executeQuery();
             while (rs.next()) {
                 bill = new Bill();
@@ -129,7 +129,7 @@ public class BillDAO extends DAO {
     public int createBill(Bill bill) {
         try (Connection conn = getConnection()) {
             String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at,invoice_creator) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
-            PreparedStatement ppStmt = conn.prepareStatement(stmt,Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ppStmt = conn.prepareStatement(stmt, Statement.RETURN_GENERATED_KEYS);
             ppStmt.setString(1, bill.getStatus());
             ppStmt.setInt(2, bill.getUserId());
             ppStmt.setString(3, bill.getFullName());
@@ -143,7 +143,7 @@ public class BillDAO extends DAO {
             ppStmt.setString(11, bill.getInvoice_creator());
             ppStmt.executeUpdate();
             ResultSet rs = ppStmt.getGeneratedKeys();
-            if(rs.next()) return rs.getInt(1);
+            if (rs.next()) return rs.getInt(1);
             else return -1;
         } catch (SQLException e) {
             throw new RuntimeException();
@@ -164,7 +164,7 @@ public class BillDAO extends DAO {
             ppStmt.setString(8, bill.getPayMethod());
             ppStmt.setString(9, bill.getNote());
             ppStmt.setString(10, bill.getInvoice_creator());
-            ppStmt.setInt(11,bill.getId());
+            ppStmt.setInt(11, bill.getId());
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {
@@ -190,8 +190,7 @@ public class BillDAO extends DAO {
             String stmt = "SELECT sum(bill.total_amount) as total_amount FROM shoes.bill";
             PreparedStatement ps = con.prepareStatement(stmt);
             ResultSet rs = ps.executeQuery();
-            if (rs.next())
-                totalIncome = rs.getInt(1);
+            if (rs.next()) totalIncome = rs.getInt(1);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -275,12 +274,7 @@ public class BillDAO extends DAO {
         ArrayList<Chart> charts = new ArrayList<>();
         String time = "STR_TO_DATE(created_at, '%H:%i:%s %d-%m-%Y')";
         try (Connection con = getConnection()) {
-            String stmt = "SELECT CONCAT(MONTH("+time+"), '/', YEAR("+time+")) AS month_year,\n" +
-                    "SUM(total_amount) AS monthly_income\n" +
-                    "FROM  shoes.bill\n" +
-                    "WHERE "+time+" >= DATE_SUB(NOW(), INTERVAL 6 MONTH)\n" +
-                    "GROUP BY MONTH("+time+"), YEAR("+time+")\n" +
-                    "ORDER BY YEAR("+time+") ASC, MONTH("+time+") ASC;\n";
+            String stmt = "SELECT CONCAT(MONTH(" + time + "), '/', YEAR(" + time + ")) AS month_year,\n" + "SUM(total_amount) AS monthly_income\n" + "FROM  shoes.bill\n" + "WHERE " + time + " >= DATE_SUB(NOW(), INTERVAL 6 MONTH)\n" + "GROUP BY MONTH(" + time + "), YEAR(" + time + ")\n" + "ORDER BY YEAR(" + time + ") ASC, MONTH(" + time + ") ASC;\n";
             PreparedStatement ps = con.prepareStatement(stmt);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {

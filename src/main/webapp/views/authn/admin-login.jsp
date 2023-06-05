@@ -36,21 +36,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-body-line">
-                            <div class="wrapper-form-title">
-<%--                                <label for="remember" class="wrapper-form-title">--%>
-<%--                                    <div class="wrapper-checkbox">--%>
-<%--                                        <input type="checkbox" name="remember" id="remember">--%>
-<%--                                    </div>--%>
-<%--                                    <h6>Nhớ mật khẩu</h6>--%>
-<%--                                </label>--%>
-                                <div>
-                                    <a href="#">Quên mật khẩu</a>
-                                </div>
-                            </div>
-                        </div>
-
                         <div class="form-body-line">
                             <div class="wrapper-form-line">
                                 <div>

@@ -62,13 +62,6 @@ public class BillDetail {
 
     @Override
     public String toString() {
-        return "BillDetail{" +
-                "id=" + id +
-                ", quantity=" + quantity +
-                ", product=" + product +
-                ", bill=" + bill +
-                ", amount=" + amount +
-                ", size=" + size +
-                '}';
+        return "BillDetail{" + "id=" + id + ", quantity=" + quantity + ", product=" + product + ", bill=" + bill + ", amount=" + amount + ", size=" + size + '}';
     }
 }

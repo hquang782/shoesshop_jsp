@@ -47,9 +47,6 @@ public class RoleDAO extends DAO {
 
     public boolean createRole(Role role) {
         try (Connection conn = getConnection()) {
-//            if (getRoleById(role.getName()) != null) {
-//                return false;
-//            }
             String stmt = "insert into role (name) VALUES (?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, role.getName());
@@ -62,10 +59,7 @@ public class RoleDAO extends DAO {
 
     public boolean updateRole(Role role) {
         try (Connection conn = getConnection()) {
-//            if (getRoleById(role.getName()) != null) {
-//                return false;
-//            }
-            String stmt = "update role set name = ?)";
+            String stmt = "update role set name = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, role.getName());
             ppStmt.executeUpdate();
@@ -75,17 +69,4 @@ public class RoleDAO extends DAO {
         }
     }
 
-    public boolean deleteRole(String id) {
-        try (Connection conn = getConnection()) {
-//            if (getRoleById(role.getName()) != null) {
-//                return false;
-//            }
-            String stmt = "DELETE FROM role WHERE id = " + id;
-            PreparedStatement ppStmt = conn.prepareStatement(stmt);
-            ppStmt.executeUpdate();
-            return true;
-        } catch (SQLException err) {
-            throw new RuntimeException();
-        }
-    }
 }

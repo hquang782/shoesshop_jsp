@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet (urlPatterns = {"/admin"})
+@WebServlet(urlPatterns = {"/admin"})
 public class DashboardController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -29,7 +29,7 @@ public class DashboardController extends HttpServlet {
         int totalProductExpired = productDAO.getTotalProductExpired();
         ArrayList<Chart> incomeForChart = billDAO.getIncomeForChart();
 
-        req.setAttribute("incomeForChart",incomeForChart);
+        req.setAttribute("incomeForChart", incomeForChart);
         req.setAttribute("totalClientAccounts", totalClientAccounts);
         req.setAttribute("ttBill", totalBills);
         req.setAttribute("ttProd", totalProducts);
@@ -42,7 +42,7 @@ public class DashboardController extends HttpServlet {
         req.setAttribute("newAcc", listNewAccount);
 
         RequestDispatcher rd = req.getRequestDispatcher("/views/admin/home.jsp");
-        rd.forward(req,resp);
+        rd.forward(req, resp);
     }
 
     @Override

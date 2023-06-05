@@ -13,7 +13,7 @@ public class ProductDetail {
         return id;
     }
 
-    public int getProduct_id() {
+    public int getProductId() {
         return productId;
     }
 
@@ -43,11 +43,6 @@ public class ProductDetail {
 
     @Override
     public String toString() {
-        return "ProductDetail{" +
-                "id=" + id +
-                ", productId=" + productId +
-                ", size='" + size + '\'' +
-                ", quantity=" + quantity +
-                '}';
+        return "ProductDetail{" + "id=" + id + ", productId=" + productId + ", size='" + size + '\'' + ", quantity=" + quantity + '}';
     }
 }

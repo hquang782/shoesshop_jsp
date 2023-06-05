@@ -178,9 +178,9 @@
     const yValues = [];
     <%
         for(Chart chart: (ArrayList<Chart>)request.getAttribute("incomeForChart")){%>
-            xValues.push(<%=chart.getTime()%>;
-            yValues.push(<%=nf.format(chart.getIncome())%>);
-        <%} %>
+    xValues.push(<%=chart.getTime()%>;
+    yValues.push(<%=nf.format(chart.getIncome())%>);
+    <%} %>
     //DATATEST
     // const xValues = ["12/2022","01/2023","02/2023","03/2023","04/2023","05/2023"];
     // const yValues = [1500,2000,1800,2300,2500,1900];

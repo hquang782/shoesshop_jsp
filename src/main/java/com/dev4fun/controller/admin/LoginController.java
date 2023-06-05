@@ -21,7 +21,7 @@ public class LoginController extends HttpServlet {
         Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN");
         String errorLog = (String) SessionUtil.getInstance().getValue(req, "adminLoginFail");
         String preRequest = req.getHeader("referer");
-        if ( preRequest != null && preRequest.contains("/admin/login") && errorLog != null) {
+        if (preRequest != null && preRequest.contains("/admin/login") && errorLog != null) {
             SessionUtil.getInstance().removeValue(req, "adminLoginFail");
         }
         if (acc != null) {
@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
                 account = new AccountDAO().getAccountByUsername(username);
                 if (account != null) {
                     if (BCrypt.checkpw(password, account.getPassword())) {
-                        if (account.getRole().equals("ADMIN")||account.getRole().equals("STAFF")) {
+                        if (account.getRole().equals("ADMIN") || account.getRole().equals("STAFF")) {
                             SessionUtil.getInstance().putValue(req, "ACCOUNT_ADMIN", account);
                             resp.sendRedirect("/admin");
                         } else {

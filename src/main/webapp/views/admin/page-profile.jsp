@@ -1,6 +1,5 @@
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page import="com.dev4fun.utils.SessionUtil" %>
-<%--@elvariable id="ACCOUNT_ADMIN" type="com.dev4fun.model.Account"--%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">

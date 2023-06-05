@@ -215,25 +215,14 @@ public class BillDetailDAO extends DAO {
 
     public boolean createBillDetail(BillDetail billDetail, int id) {
         try (Connection conn = getConnection()) {
-            System.out.println(id+" "+billDetail.getAmount()+" "+billDetail.getProduct().getId()+" "+
-                    billDetail.getQuantity()+" "+billDetail.getSize());
             String stmt = "insert into bill_detail (bill_id, amount , product_id ,quantity, size ) values(?,?,?,?,?) ";
-            System.out.println(1);
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
-            System.out.println(2);
             ppStmt.setInt(1, id);
-            System.out.println(3);
             ppStmt.setFloat(2, billDetail.getAmount());
-            System.out.println(4);
             ppStmt.setInt(3, billDetail.getProduct().getId());
-            System.out.println(5);
             ppStmt.setInt(4, billDetail.getQuantity());
-            System.out.println(6);
             ppStmt.setInt(5, billDetail.getSize());
-            System.out.println(7);
             ppStmt.executeUpdate();
-            System.out.println(8);
-
             return true;
 
         } catch (SQLException err) {

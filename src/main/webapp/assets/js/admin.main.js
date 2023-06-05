@@ -40,8 +40,8 @@ const DAYOFWEEK = ['Chủ nhật', 'Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', '
 
 const showTimer = () => {
     const time = new Date();
-    let month = time.getMonth()+1
-    timer.innerText = `${DAYOFWEEK[time.getDay()]}, ${time.getDate()<10?"0"+time.getDate():time.getDate()}/${month<10?"0"+month:month}/${time.getFullYear()} - ${time.getHours()<10?"0"+time.getHours():time.getHours()} giờ ${time.getMinutes()<10?"0"+time.getMinutes():time.getMinutes()} phút ${time.getSeconds()<10?"0"+time.getSeconds():time.getSeconds()} giây`;
+    let month = time.getMonth() + 1
+    timer.innerText = `${DAYOFWEEK[time.getDay()]}, ${time.getDate() < 10 ? "0" + time.getDate() : time.getDate()}/${month < 10 ? "0" + month : month}/${time.getFullYear()} - ${time.getHours() < 10 ? "0" + time.getHours() : time.getHours()} giờ ${time.getMinutes() < 10 ? "0" + time.getMinutes() : time.getMinutes()} phút ${time.getSeconds() < 10 ? "0" + time.getSeconds() : time.getSeconds()} giây`;
 };
 
 showTimer()
@@ -64,6 +64,11 @@ function handleCloseModal(e) {
 
 // handle image input
 function handlePutNewImg(e) {
+    const imgInput = document.getElementById('textImageInput')
+    if (imgInput !== null) {
+        imgInput.value = ''
+    }
+
     const fileInput = document.getElementById('imageInput');
     const imageLabel = fileInput.previousElementSibling;
     const img = imageLabel.querySelector('img');
@@ -81,9 +86,8 @@ function handlePutNewImg(e) {
 
 // btn add product in order
 let indexProd = 0;
-let indexSize = 0;
 window.onload = () => {
-    indexSize = indexProd = 0;
+    indexProd = 0;
 }
 
 function addProductInOrder() {
@@ -113,6 +117,7 @@ function addProductInOrder() {
 // handle add new size
 function addSizeInProduct() {
     const listSize = document.getElementsByClassName('list-size')[0];
+    const indexSize = listSize.getElementsByClassName('item-size').length
     listSize.innerHTML += `
         <div class="item-size">
             <div>
@@ -125,7 +130,6 @@ function addSizeInProduct() {
             </div>
         </div>
     `;
-    indexSize++;
 }
 
 
@@ -149,12 +153,11 @@ const handleImageInput = () => {
     }
 };
 
-
-// btn add new image
-let indexImg = 0;
+handleImageInput();
 
 function addImgInProduct() {
     const listImage = document.getElementsByClassName('list-image')[0];
+    const indexImg = listImage.getElementsByClassName('item-image').length
     listImage.innerHTML += `
         <div class="item-image">
             <label for="imageInput${indexImg}">
@@ -164,16 +167,5 @@ function addImgInProduct() {
             <input class="image-input" id="imageInput${indexImg}" type="file" name="imageInput${indexImg}" enctype='multipart/form-data' value="">
         </div>
     `;
-    handleImageInput();
-    indexImg++;
+    handleImageInput()
 }
-
-// // btn reset event
-// const btnReset = document.getElementsByClassName('reset')[0];
-// btnReset.addEventListener('click', () => {
-//     for (let i = 0; i < imgs.length; i++) {
-//         imgs[i].setAttribute('src', '');
-//     }
-// });
-
-

@@ -4,10 +4,12 @@
 <%@ page import="com.dev4fun.model.Product" %>
 <%@ page import="com.dev4fun.model.ProductDetail" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
     Product product = (Product) request.getAttribute("product");
     String title = product != null ? "Thay đổi thông tin" : "Thêm";
+    NumberFormat nf = NumberFormat.getNumberInstance();
 %>
 <div id="main">
     <div class="content">
@@ -66,12 +68,10 @@
                     </div>
 
                     <form class="form-product" action="/admin/product/<%=product != null ? "edit" : "add"%>" method="post" enctype='multipart/form-data'>
+                        <%if (product != null) {%>
+                        <input type="hidden" name="id" value="<%=product.getId()%>">
+                        <%}%>
                         <div class="form-group-line">
-                            <div class="form-line">
-                                <label for="code">Mã sản phẩm:</label>
-                                <input type="text" value="<%=product != null ? product.getId() : ""%>" id="code" name="code" required>
-                            </div>
-
                             <div class="form-line">
                                 <label for="name">Tên sản phẩm:</label>
                                 <input type="text" value="<%=product != null ? product.getName() : ""%>" id="name" name="name" required>
@@ -80,10 +80,9 @@
                             <div class="form-line">
                                 <label for="status">Trạng thái:</label>
                                 <select name="status" id="status" required>
-                                    <option value="<%=product != null ? product.getStatus() : ""%>" selected disabled hidden><%=product != null ? product.getId() : "-- Chọn trạng thái --"%>
-                                    </option>
-                                    <option value="Còn hàng">Còn hàng</option>
-                                    <option value="Hết Hàng">Hết hàng</option>
+                                    <option value="" selected disabled hidden>-- Chọn trạng thái --</option>
+                                    <option value="Còn hàng" <%=product != null && product.getStatus().equals("Còn hàng") ? "selected" : ""%>>Còn hàng</option>
+                                    <option value="Hết Hàng" <%=product != null && product.getStatus().equals("Hết hàng") ? "selected" : ""%>>Hết hàng</option>
                                 </select>
                             </div>
                         </div>
@@ -91,18 +90,14 @@
                         <div class="form-group-line">
                             <div class="form-line">
                                 <label for="category">Danh mục:</label>
-                                <select name="category" id="category" required>
-                                    <%if (product == null) {%>
+                                <select name="category" id="category">
                                     <option value="" selected disabled hidden>-- Chọn danh mục --</option>
-                                    <%}%>
-
                                     <%
                                         for (Category category : (ArrayList<Category>) request.getAttribute("listCategories")) {
                                             if (product != null && category.getId() == product.getCategoryId()) {
                                     %>
                                     <option value="<%=category.getId()%>" selected><%=category.getName()%>
                                     </option>
-
                                     <%} else {%>
                                     <option value="<%=category.getId()%>"><%=category.getName()%>
                                     </option>
@@ -115,12 +110,12 @@
 
                             <div class="form-line">
                                 <label for="price">Giá bán:</label>
-                                <input type="text" value="<%=product != null ? product.getPrice() : ""%>" id="price" name="price" required>
+                                <input type="text" id="price" value="<%=product != null ? nf.format(product.getPrice()) : ""%>" name="price" required>
                             </div>
 
                             <div class="form-line">
                                 <label for="cost">Giá gốc:</label>
-                                <input type="text" id="cost" value="<%=product != null ? product.getCost() : ""%>" name="cost" required>
+                                <input type="text" id="cost" value="<%=product != null ? nf.format(product.getCost()) : ""%>" name="cost" required>
                             </div>
                         </div>
 
@@ -136,6 +131,7 @@
                                         for (ProductDetail productDetail : product.getProductDetails()) {
                                 %>
                                 <div class="item-size">
+                                    <input type="hidden" id="productDetailId<%=i%>" value="<%=productDetail.getId()%>" name="productDetailId<%=i%>">
                                     <div>
                                         <label for="size<%=i%>">Size:</label>
                                         <input type="text" id="size<%=i%>" value="<%=productDetail.getSize()%>" name="size<%=i%>">
@@ -173,7 +169,8 @@
                                         <p>Chọn ảnh</p>
                                         <img src="<%=img%>" alt="">
                                     </label>
-                                    <input class="image-input" id="imageInput<%=i%>" type="file" name="imageInput<%=i%>" enctype='multipart/form-data' value="<%=i%>">
+                                    <input onchange="handleChangeImgInput(<%=i%>)" class="image-input" id="imageInput<%=i%>" type="file" name="imageInput<%=i%>" enctype='multipart/form-data'>
+                                    <input type="hidden" id="textImageInput<%=i%>" name="textImageInput<%=i%>" value="<%=img%>">
                                 </div>
                                 <%
                                             i++;
@@ -186,11 +183,7 @@
 
                         <div class="form-line">
                             <label for="description">Mô tả:</label>
-                            <textarea id="description" name="description" rows="4">
-                                <%if (product != null) {%>
-                                <%=product.getDescription()%>
-                                <%}%>
-                            </textarea>
+                            <textarea id="description" name="description" style="width: 100%; height: 200px;"><%=product != null ? product.getDescription() : ""%></textarea>
                         </div>
 
                         <div class="form-line form-line-btn">
@@ -203,3 +196,12 @@
         </div>
     </div>
 </div>
+
+<script>
+    function handleChangeImgInput(index) {
+        const imgInput = document.getElementById('textImageInput' + index)
+        if (imgInput !== null) {
+            imgInput.value = ''
+        }
+    }
+</script>

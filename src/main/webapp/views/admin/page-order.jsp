@@ -31,7 +31,7 @@
                 <div class="table-content">
                     <div class="search-table-content">
                         <div class="wrapper-search">
-                            <form id="formSearch" method="get" action="<c:url value="/admin/order"/>" >
+                            <form id="formSearch" method="get" action="<c:url value="/admin/order"/>">
                                 <div class="search-option">
                                     <select name="t" id="optionSearchTable">
                                         <% if (request.getParameter("t") != null) {%>
@@ -47,7 +47,7 @@
                                 </div>
                                 <div class="search-value">
                                     <input type="text" name="v" placeholder="Gõ ở đây..." value="${txt_sbilldetail}"
-<%--                                           value="<%=request.getParameter("value") != null ? request.getParameter("value") : ""%>"--%>
+                                    <%--                                           value="<%=request.getParameter("value") != null ? request.getParameter("value") : ""%>"--%>
                                     >
                                 </div>
 
@@ -78,20 +78,25 @@
                                 if (request.getParameter("startIndex") != null) {
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
                                 }
-                                if(sIndex+5<listBillDetails.size()) eIndex = sIndex+5;
+                                if (sIndex + 5 < listBillDetails.size()) eIndex = sIndex + 5;
                             %>
                             <tbody>
                             <% for (int i = sIndex; i < eIndex; i++) {%>
                             <tr>
-                                <td><%=listBillDetails.get(i).getBill().getId()%></td>
-                                <td><%=listBillDetails.get(i).getBill().getFullName()%></td>
-                                <td><%=listBillDetails.get(i).getProduct().getName()%></td>
-                                <td><%=listBillDetails.get(i).getQuantity()%></td>
+                                <td><%=listBillDetails.get(i).getBill().getId()%>
+                                </td>
+                                <td><%=listBillDetails.get(i).getBill().getFullName()%>
+                                </td>
+                                <td><%=listBillDetails.get(i).getProduct().getName()%>
+                                </td>
+                                <td><%=listBillDetails.get(i).getQuantity()%>
+                                </td>
                                 <td><%=nf.format(listBillDetails.get(i).getAmount())%><sup>đ</sup></td>
-                                <td><%=listBillDetails.get(i).getBill().getStatus()%></td>
+                                <td><%=listBillDetails.get(i).getBill().getStatus()%>
+                                </td>
                                 <td>
                                     <% System.out.println(listBillDetails.get(i).getBill().getId());%>
-                                        <a href="/admin/order/edit?id=<%=listBillDetails.get(i).getBill().getId()%>" class="btn-edit">Sửa</a>
+                                    <a href="/admin/order/edit?id=<%=listBillDetails.get(i).getBill().getId()%>" class="btn-edit">Sửa</a>
                                 </td>
                             </tr>
                             <%
@@ -104,23 +109,14 @@
 
                     <div class="pagination-table-content">
                         <div class="wrapper-pagination">
-<%--                            <div class="wrapper-qty-row">--%>
-<%--                                <div>--%>
-<%--                                    <select name="qty_row" id="qtyRow">--%>
-<%--                                        <option value="10">10</option>--%>
-<%--                                        <option value="25">25</option>--%>
-<%--                                        <option value="50">50</option>--%>
-<%--                                        <option value="100">100</option>--%>
-<%--                                    </select>--%>
-<%--                                </div>--%>
-<%--                            </div>--%>
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <% String pageIndex;
-                                        if(request.getParameter("pageIndex")!=null) pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/"+(int)Math.ceil(listBillDetails.size()/5.0);
+                                        if (request.getParameter("pageIndex") != null) pageIndex = request.getParameter("pageIndex");
+                                        else pageIndex = "1/" + (int) Math.ceil(listBillDetails.size() / 5.0);
                                     %>
-                                    <p id="currentPage"><%=pageIndex%></p>
+                                    <p id="currentPage"><%=pageIndex%>
+                                    </p>
                                 </div>
                                 <form action="<c:url value="/admin/order"/>" method="get" style="display: flex">
                                     <input style="display: none" id="st" name="startIndex">

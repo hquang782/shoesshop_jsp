@@ -28,16 +28,15 @@ public class AddOrderController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String url = req.getRequestURI();
-//        System.out.println(req.getParameter("id"));
         if (url.contains("/admin/order/add")) {
             String action = "/admin/order/add";
-            req.setAttribute("action",action);
+            req.setAttribute("action", action);
             RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-add-order.jsp");
             rd.forward(req, resp);
         } else if (url.contains("/admin/order/edit") && req.getParameter("id") != null) {
             String action = "/admin/order/edit";
-            req.setAttribute("action",action);
-            req.setAttribute("id",req.getParameter("id"));
+            req.setAttribute("action", action);
+            req.setAttribute("id", req.getParameter("id"));
             Bill bill = new BillDAO().getBillById(Integer.parseInt(req.getParameter("id")));
             req.setAttribute("name", bill.getFullName());
             req.setAttribute("tel", bill.getPhoneNumber());
@@ -46,7 +45,7 @@ public class AddOrderController extends HttpServlet {
             req.setAttribute("code", bill.getPayMethod());
 //            req.setAttribute("author", bill.getInvoice_creator());
             req.setAttribute(bill.getStatus(), "selected");
-            req.setAttribute("listBillDetails",bill.getBillDetails());
+            req.setAttribute("listBillDetails", bill.getBillDetails());
             RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-add-order.jsp");
             rd.forward(req, resp);
         } else {
@@ -61,9 +60,11 @@ public class AddOrderController extends HttpServlet {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
         String url = req.getRequestURI();
         Bill bill = new Bill();
-        Product product = new Product();
+        Product product;
 
-        if(url.contains("/admin/order/edit")) bill.setId(Integer.parseInt(req.getParameter("idBill")));
+        if (url.contains("/admin/order/edit")) {
+            bill.setId(Integer.parseInt(req.getParameter("idBill")));
+        }
         bill.setFullName(req.getParameter("name"));
         bill.setPhoneNumber(req.getParameter("tel"));
         bill.setAddress(req.getParameter("address"));
@@ -74,15 +75,19 @@ public class AddOrderController extends HttpServlet {
         bill.setPayMethod(req.getParameter("code"));
         bill.setNote(req.getParameter("note"));
         bill.setUserId(0);
-        int indexProd = 0;
+
         float totalAmount = 0;
         ArrayList<BillDetail> listBillDetails = new ArrayList<>();
+
+        int indexProd = 0;
         while (req.getParameter("productId" + indexProd) != null) {
             product = new ProductDAO().getProductById(Integer.parseInt(req.getParameter("productId" + indexProd)));
             BillDetail billDetail = new BillDetail();
             billDetail.setProduct(product);
             billDetail.setQuantity(Integer.parseInt(req.getParameter("quantityProduct" + indexProd)));
-            if(url.contains("/admin/order/edit")) billDetail.setId(Integer.parseInt(req.getParameter("id" + indexProd)));
+            if (url.contains("/admin/order/edit")) {
+                billDetail.setId(Integer.parseInt(req.getParameter("id" + indexProd)));
+            }
             billDetail.setAmount(product.getPrice() * Integer.parseInt(req.getParameter("quantityProduct" + indexProd)));
             billDetail.setSize(Integer.parseInt(req.getParameter("sizeProduct" + indexProd)));
             totalAmount += product.getPrice() * Integer.parseInt(req.getParameter("quantityProduct" + indexProd));
@@ -92,28 +97,16 @@ public class AddOrderController extends HttpServlet {
         bill.setTotalAmount(totalAmount);
         bill.setBillDetails(listBillDetails);
 
-
         if (url.contains("/admin/order/add")) {
             int result = new BillDAO().createBill(bill);
-            System.out.println(bill+"create");
-            System.out.println(result);
             for (BillDetail temp : listBillDetails) {
-                System.out.println(temp);
                 boolean setBillDetail = new BillDetailDAO().createBillDetail(temp, result);
-                System.out.println(temp);
-                System.out.println(setBillDetail ? "success0" : "failed");
             }
-            System.out.println(result != -1 ? "success" : "failed");
-        }
-        else {
+        } else {
             boolean result = new BillDAO().updateBill(bill);
-            System.out.println(bill+"update");
             for (BillDetail temp : listBillDetails) {
                 boolean setBillDetail = new BillDetailDAO().updateBillDetail(temp);
-                System.out.println(temp);
-                System.out.println(setBillDetail ? "success0" : "failed");
             }
-            System.out.println(result ? "success" : "failed");
         }
         resp.sendRedirect("/admin/order");
     }

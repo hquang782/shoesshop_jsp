@@ -20,6 +20,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Map;
+
 @WebServlet(urlPatterns = {"/admin/account/*"})
 @MultipartConfig
 public class NewAccountController extends HttpServlet {
@@ -36,35 +37,30 @@ public class NewAccountController extends HttpServlet {
         req.setAttribute("listRole", listRole);
 
         String url = req.getRequestURI();
-        if(url.contains("/admin/account/add")){
-            req.setAttribute("action","/admin/account/add");
+        if (url.contains("/admin/account/add")) {
+            req.setAttribute("action", "/admin/account/add");
             RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-add-account.jsp");
             rd.forward(req, resp);
-        }
-        else if(url.contains("/admin/account/edit")&&req.getParameter("id")!=null){
-
-            req.setAttribute("action","/admin/account/edit");
-            req.setAttribute("id",req.getParameter("id"));
+        } else if (url.contains("/admin/account/edit") && req.getParameter("id") != null) {
+            req.setAttribute("action", "/admin/account/edit");
+            req.setAttribute("id", req.getParameter("id"));
             AccountDAO accountDAO = new AccountDAO();
             Account account = accountDAO.getAccountById(Integer.parseInt(req.getParameter("id")));
-            req.setAttribute("fullName",account.getFullName());
-            req.setAttribute("dob",account.getDob());
-            req.setAttribute(account.getGender(),"selected");
-            req.setAttribute("account",account);
-            req.setAttribute("tel",account.getPhoneNumber());
-            req.setAttribute("address",account.getAddress());
-            req.setAttribute("email",account.getEmail());
-            req.setAttribute("username",account.getUsername());
-            req.setAttribute("password",account.getPassword());
-            req.setAttribute(account.getRole(),"selected");
+            req.setAttribute("fullName", account.getFullName());
+            req.setAttribute("dob", account.getDob());
+            req.setAttribute(account.getGender(), "selected");
+            req.setAttribute("account", account);
+            req.setAttribute("tel", account.getPhoneNumber());
+            req.setAttribute("address", account.getAddress());
+            req.setAttribute("email", account.getEmail());
+            req.setAttribute("username", account.getUsername());
+            req.setAttribute("password", account.getPassword());
+            req.setAttribute(account.getRole(), "selected");
             RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-add-account.jsp");
             rd.forward(req, resp);
-        }
-        else {
+        } else {
             resp.sendRedirect("/admin/account");
         }
-
-
     }
 
     @Override
@@ -78,14 +74,11 @@ public class NewAccountController extends HttpServlet {
             return;
         }
 
-
-
         Account account = new Account();
         String url = req.getRequestURI();
-        if(url.contains("/admin/account/edit")){
+        if (url.contains("/admin/account/edit")) {
             account.setId(Integer.parseInt(req.getParameter("idAccount")));
-        }
-        else account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
+        } else account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
         account.setUsername(req.getParameter("username"));
         account.setFullName(req.getParameter("fullName"));
         account.setPhoneNumber(req.getParameter("tel"));
@@ -93,24 +86,26 @@ public class NewAccountController extends HttpServlet {
         account.setEmail(req.getParameter("email"));
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
-        account.setPassword(BCrypt.hashpw(req.getParameter("password"),BCrypt.gensalt()));
+        account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
         account.setAddress(req.getParameter("address"));
-        Part filePart = req.getPart("imageInput");
-        String urlImage = "https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg";
-        if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
-            Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
-            urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
-        }
 
+        String urlImgParam = req.getParameter("textImageInput");
+        String urlImage = "https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg";
+        if (urlImgParam != null && !urlImgParam.equals("")) {
+            urlImage = urlImgParam;
+        } else {
+            Part filePart = req.getPart("imageInput");
+            if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
+                Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
+                urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
+            }
+        }
         account.setImageLink(urlImage);
         AccountDAO accountDAO = new AccountDAO();
-        if(url.contains("/admin/account/add")){
+        if (url.contains("/admin/account/add")) {
             boolean result = accountDAO.createAccount(account);
-            System.out.println(result?"success":"failed");
-        }
-        else {
+        } else {
             boolean result = accountDAO.updateAccount(account);
-            System.out.println(result?"success":"failed");
         }
         resp.sendRedirect("/admin/account");
     }

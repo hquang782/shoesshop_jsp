@@ -77,7 +77,7 @@ public class Product {
 
     public void updateTotalQuantity() {
         int total = 0;
-        for (ProductDetail productDetail: productDetails) {
+        for (ProductDetail productDetail : productDetails) {
             total += productDetail.getQuantity();
         }
         totalQuantity = total;
@@ -139,4 +139,8 @@ public class Product {
         this.productDetails = productDetails;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", categoryId=" + categoryId + ", category=" + category + ", name='" + name + '\'' + ", description='" + description + '\'' + ", imageLink='" + imageLink + '\'' + ", imageList='" + imageList + '\'' + ", price=" + price + ", cost=" + cost + ", status='" + status + '\'' + ", totalQuantity=" + totalQuantity + ", createdAt='" + createdAt + '\'' + ", sold=" + sold + ", productDetails=" + productDetails + '}';
+    }
 }

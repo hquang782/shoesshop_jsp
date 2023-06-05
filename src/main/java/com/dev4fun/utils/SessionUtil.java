@@ -24,6 +24,7 @@ public class SessionUtil {
     public void removeValue(HttpServletRequest request, String key) {
         request.getSession().removeAttribute(key);
     }
+
     public void removeAllValues(HttpServletRequest request) {
         request.getSession().invalidate();
 

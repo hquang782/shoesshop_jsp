@@ -26,7 +26,6 @@
                 <div class="action-table">
                     <button id="btnAddProduct" class="btn-add"><a href="<c:url value="/admin/product/add"/>">Thêm sản
                         phẩm</a></button>
-                    <%--<button class="btn-export">Xuất file Excel</button>--%>
                 </div>
 
                 <div class="table-content">
@@ -99,7 +98,7 @@
                                 <td style="width: 10%"><%=listProducts.get(i).getCategory().getName()%>
                                 </td>
                                 <td>
-                                    <button class="btn-edit">Sửa</button>
+                                    <a href="/admin/product/edit?id=<%=listProducts.get(i).getId()%>" class="btn-edit">Sửa</a>
                                     <form action="<c:url value="/admin/product?act=delete"/>" method="post">
                                         <input type="hidden" name="productId" value="<%=listProducts.get(i).getId()%>">
                                         <button class="btn-delete" type="submit">Xóa</button>
@@ -113,20 +112,6 @@
 
                     <div class="pagination-table-content">
                         <div class="wrapper-pagination">
-                            <%--                            <div class="wrapper-qty-row">--%>
-                            <%--                                <div>--%>
-                            <%--                                    <p>Cột mỗi bảng</p>--%>
-                            <%--                                </div>--%>
-                            <%--                                <div>--%>
-                            <%--                                    <select name="qty_row" id="qtyRow">--%>
-                            <%--                                        <option value="10">10</option>--%>
-                            <%--                                        <option value="25">25</option>--%>
-                            <%--                                        <option value="50">50</option>--%>
-                            <%--                                        <option value="100">100</option>--%>
-                            <%--                                    </select>--%>
-                            <%--                                </div>--%>
-                            <%--                            </div>--%>
-
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <% String pageIndex;
@@ -161,5 +146,4 @@
     <%=listProducts.size()%>
     const rowPerPage = 5;
 </script>
-<script src="<c:url value="../../assets/js/pagination.js"/>">
-</script>
+<script src="<c:url value="../../assets/js/pagination.js"/>" type="text/javascript"></script>

@@ -40,7 +40,7 @@
                 <div class="box-info">
                     <div class="wrap-info box">
                         <p class="icon-info">
-                        <img src="../../assets/img/total-product.png" width="100%">
+                            <img src="../../assets/img/total-product.png" width="100%">
                         </p>
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
@@ -129,10 +129,14 @@
                                 <%
                                     for (Account account : (ArrayList<Account>) request.getAttribute("newAcc")) { %>
                                 <tr>
-                                    <td title="<%=account.getUsername()%>"><%=account.getUsername()%></td>
-                                    <td title="<%=account.getFullName()%>"><%=account.getFullName()%></td>
-                                    <td title="<%=account.getEmail()%>"><%=account.getEmail()%></td>
-                                    <td title="<%=account.getPhoneNumber()%>"><%=account.getPhoneNumber()%></td>
+                                    <td title="<%=account.getUsername()%>"><%=account.getUsername()%>
+                                    </td>
+                                    <td title="<%=account.getFullName()%>"><%=account.getFullName()%>
+                                    </td>
+                                    <td title="<%=account.getEmail()%>"><%=account.getEmail()%>
+                                    </td>
+                                    <td title="<%=account.getPhoneNumber()%>"><%=account.getPhoneNumber()%>
+                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -173,9 +177,9 @@
     <%
 
         for(Chart chart: (ArrayList<Chart>)request.getAttribute("incomeForChart")){%>
-            xValues.push(<%=chart.getTime()%>;
-            yValues.push(<%=nf.format(chart.getIncome())%>);
-        <%} %>
+    xValues.push(<%=chart.getTime()%>;
+    yValues.push(<%=nf.format(chart.getIncome())%>);
+    <%} %>
     //DATATEST
     // const xValues = ["12/2022","01/2023","02/2023","03/2023","04/2023","05/2023"];
     // const yValues = [1500,2000,1800,2300,2500,1900];

@@ -1,7 +1,5 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dev4fun.model.BillDetail" %>
-<%@ page import="com.dev4fun.model.Account" %>
-<%@ page import="com.dev4fun.utils.SessionUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <div id="main">
@@ -60,12 +58,6 @@
                                 <input type="text" id="code" name="code" value="${code}">
                             </div>
 
-                            <%--                            <div class="form-line">--%>
-                            <%--                                <label for="author">Người tạo:</label>--%>
-                            <%--                                <input type="text" id="author" name="author" value="${author}" >--%>
-                            <%--                            </div>--%>
-
-
                             <div class="form-line">
                                 <label for="status">Trạng thái:</label>
                                 <select name="status" id="status">
@@ -80,18 +72,15 @@
                         </div>
 
                         <div class="form-line">
-<%--                            <% if (!url.equals("/admin/order/edit")) {%>--%>
                             <div class="title-list">
                                 <%--@declare id="imageinput"--%>
                                 <label for="imageInput">Thêm sản phẩm cho đơn hàng:</label>
                                 <button type="button" class="btn-add-div" onclick="addProductInOrder();">Thêm sản phẩm
                                 </button>
                             </div>
-<%--                            <%}%>--%>
                             <div class="list-product">
                                 <%
                                     ArrayList<BillDetail> billDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetails");
-                                    System.out.println(billDetails);
                                     if (billDetails != null) {
                                         for (int i = 0; i < billDetails.size(); i++) {
                                 %>
@@ -113,14 +102,11 @@
                                                value="<%=billDetails.get(i).getQuantity()%>">
                                     </div>
                                 </div>
-
                                 <%
 
                                         }
-
                                     }
                                 %>
-
                             </div>
                         </div>
 

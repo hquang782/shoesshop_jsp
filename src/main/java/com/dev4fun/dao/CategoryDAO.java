@@ -49,9 +49,6 @@ public class CategoryDAO extends DAO {
 
     public boolean createCategory(Category category) {
         try (Connection conn = getConnection()) {
-//            if (getCategoryById(category.getName()) != null) {
-//                return false;
-//            }
             String stmt = "insert into category (name) VALUES (?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, category.getName());
@@ -64,10 +61,7 @@ public class CategoryDAO extends DAO {
 
     public boolean updateCategory(Category category) {
         try (Connection conn = getConnection()) {
-//            if (getCategoryById(category.getName()) != null) {
-//                return false;
-//            }
-            String stmt = "update category set name = ?)";
+            String stmt = "update category set name = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, category.getName());
             ppStmt.executeUpdate();
@@ -77,17 +71,4 @@ public class CategoryDAO extends DAO {
         }
     }
 
-    public boolean deleteCategory(String id) {
-        try (Connection conn = getConnection()) {
-//            if (getCategoryById(category.getName()) != null) {
-//                return false;
-//            }
-            String stmt = "DELETE FROM category WHERE id = " + id;
-            PreparedStatement ppStmt = conn.prepareStatement(stmt);
-            ppStmt.executeUpdate();
-            return true;
-        } catch (SQLException err) {
-            throw new RuntimeException();
-        }
-    }
 }
