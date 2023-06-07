@@ -153,6 +153,8 @@
     color: #313131;
     line-height: 18px;
     display: block;
+    height: 54px;
+    overflow: hidden;
 }
 
 .home-product-item__infor {

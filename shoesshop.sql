@@ -26,14 +26,15 @@ CREATE TABLE `account`
 CREATE TABLE `category`
 (
     `id`   INT(11) PRIMARY KEY AUTO_INCREMENT,
-    `name` VARCHAR(128) unique
+    `name` VARCHAR(128) unique,
+    `icon` VARCHAR(128)
 );
 
 CREATE TABLE `product`
 (
     `id`          INT(11) PRIMARY KEY AUTO_INCREMENT,
     `category_id` INT(11),
-    `name`        VARCHAR(128),
+    `name`        TEXT,
     `created_at`  VARCHAR(128),
     `price`       float(11),
     `cost`        float(11),
@@ -49,7 +50,7 @@ CREATE TABLE `product_detail`
 (
     `id`         INT(11) PRIMARY KEY AUTO_INCREMENT,
     `product_id` INT(11) NOT NULL,
-    `size`       INT(11),
+    `size`       VARCHAR(128),
     `quantity`   INT(11),
     FOREIGN KEY (`product_id`)
         REFERENCES `product` (`id`) ON DELETE CASCADE
@@ -57,17 +58,17 @@ CREATE TABLE `product_detail`
 
 CREATE TABLE `bill`
 (
-    `id`           INT(11) PRIMARY KEY AUTO_INCREMENT,
-    `status`       VARCHAR(128) NOT NULL,
-    `user_id`      INT(11),
-    `full_name`    VARCHAR(128),
-    `email`        VARCHAR(128),
-    `address`      VARCHAR(128),
-    `phone_number` VARCHAR(128),
-    `total_amount` FLOAT(11),
-    `pay_method`   VARCHAR(128),
-    `note`         TEXT,
-    `created_at`   VARCHAR(128),
+    `id`              INT(11) PRIMARY KEY AUTO_INCREMENT,
+    `status`          VARCHAR(128) NOT NULL,
+    `user_id`         INT(11),
+    `full_name`       VARCHAR(128),
+    `email`           VARCHAR(128),
+    `address`         VARCHAR(128),
+    `phone_number`    VARCHAR(128),
+    `total_amount`    FLOAT(11),
+    `pay_method`      VARCHAR(128),
+    `note`            TEXT,
+    `created_at`      VARCHAR(128),
     `invoice_creator` VARCHAR(128)
 );
 

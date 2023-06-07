@@ -34,7 +34,7 @@ public class NewProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CategoryDAO categoryDAO = new CategoryDAO();
-        ArrayList<Category> listCategories = categoryDAO.getAllCategory();
+        ArrayList<Category> listCategories = categoryDAO.getListCategories();
         req.setAttribute("listCategories", listCategories);
 
         String url = req.getRequestURI();

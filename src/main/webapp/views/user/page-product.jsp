@@ -6,15 +6,9 @@
 
 <link href="<c:url value="/assets/style/user/product-style.css"/>" rel="stylesheet" type="text/css"/>
 <div class="wraper">
-    <!-- Banner-header -->
-    <div class=" banner-header">
-        <img src="https://cdn.pixabay.com/photo/2017/04/11/15/55/animals-2222007__340.jpg" alt="ảnh ">
-    </div>
-    <!--  -->
     <div class="bgwhite-heading">
         <h1 class="title">Tất cả sản phẩm</h1>
     </div>
-    <!--  -->
     <div class="container-filter">
         <div class="wrapper-layer-filter">
             <div class="layer-filter-group">
@@ -144,5 +138,4 @@
     const rowPerPage = 12
 </script>
 <script type="text/javascript" src="<c:url value="../../assets/js/pagination.js"/>"></script>
-<script type="text/javascript" src="<c:url value="/assets/js/user.product.js"/>"></script>
 

@@ -1,4 +1,3 @@
-<%@page import="com.dev4fun.dao.ProductDAO" %>
 <%@page import="com.dev4fun.model.Product" %>
 <%@page import="com.dev4fun.model.Category" %>
 <%@ page import="java.util.ArrayList" %>
@@ -10,11 +9,11 @@
 <div class="main">
     <div class="container">
         <%
-            ArrayList<Category> listCategories = (ArrayList<Category>) request.getAttribute("listCategories");
+            ArrayList<Category> listCategoriesWithProducts = (ArrayList<Category>) request.getAttribute("listCategoriesWithProducts");
             NumberFormat nf = NumberFormat.getNumberInstance();
         %>
         <nav>
-            <% for (Category category : listCategories) {%>
+            <% for (Category category : listCategoriesWithProducts) {%>
             <a href="<c:url value="/products?category=<%=category.getName()%>"/>" class="nav-item">
                 <img src="https://tyhisneaker.com/wp-content/uploads/2022/08/eme-2.png" alt="hình ảnh ">
                 <b class="item-text">
@@ -24,18 +23,17 @@
             <%}%>
         </nav>
 
-        <%for (Category category : listCategories) {%>
+        <%for (Category category : listCategoriesWithProducts) {%>
         <div class="list-product">
             <div class="head-product">
                 <div class="brand"><%=category.getName()%>
                 </div>
                 <a href="<c:url value="/products?category=<%=category.getName()%>"/>" class="allProduct">Tất cả sản phẩm</a>
             </div>
-            <%ArrayList<Product> listProducts = new ProductDAO().getProductsByCategoryId(category.getId());%>
             <div class="container-product">
                 <div class="home-product">
                     <div class="grid">
-                        <% for (Product product : listProducts) {%>
+                        <% for (Product product : category.getListProducts()) {%>
                         <div class="grid__column-2-4">
                             <a href="/products/<%=product.getName().replaceAll(" ", "-") + "-" + product.getId()%>">
                                 <div class="home-product-item">

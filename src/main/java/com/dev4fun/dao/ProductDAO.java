@@ -175,23 +175,6 @@ public class ProductDAO extends DAO {
         }
     }
 
-
-    public int getTotalProductByCategoryName(String name) {
-        try (Connection conn = getConnection()) {
-            String statement = "SELECT count(*) FROM product p inner join category c on p.category_id = c.id where c.name = ?";
-            PreparedStatement ppStmt = conn.prepareStatement(statement);
-            ppStmt.setString(1, name);
-            ResultSet rs = ppStmt.executeQuery(statement);
-            int total = 0;
-            while (rs.next()) {
-                total = rs.getInt(1);
-            }
-            return total;
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public ArrayList<Product> getProductsByCategoryId(int categoryId) {
         try (Connection conn = getConnection()) {
             String statementProduct = "select * from product where category_id = ?";

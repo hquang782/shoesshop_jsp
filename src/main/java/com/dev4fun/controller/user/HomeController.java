@@ -17,8 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 public class HomeController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ArrayList<Category> listCategories = new CategoryDAO().getAllCategory();
-        req.setAttribute("listCategories", listCategories);
+        CategoryDAO categoryDAO = new CategoryDAO();
+        ArrayList<Category> listCategoriesWithProducts = categoryDAO.getCategoriesWithProducts();
+        req.setAttribute("listCategoriesWithProducts", listCategoriesWithProducts);
 
         RequestDispatcher rd = req.getRequestDispatcher("/views/user/home.jsp");
         rd.forward(req, resp);

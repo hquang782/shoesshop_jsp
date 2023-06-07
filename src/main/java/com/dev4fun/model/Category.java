@@ -1,8 +1,11 @@
 package com.dev4fun.model;
 
+import java.util.ArrayList;
+
 public class Category {
     private int id;
     private String name;
+    private ArrayList<Product> listProducts = new ArrayList<>();;
 
     public Category() {
     }
@@ -21,5 +24,22 @@ public class Category {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public ArrayList<Product> getListProducts() {
+        return listProducts;
+    }
+
+    public void setListProducts(ArrayList<Product> listProducts) {
+        this.listProducts = listProducts;
+    }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", listProducts=" + listProducts +
+                '}';
     }
 }
