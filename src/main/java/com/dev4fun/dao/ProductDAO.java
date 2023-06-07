@@ -341,7 +341,6 @@ public class ProductDAO extends DAO {
 
     public boolean createProduct(Product product) {
         try (Connection conn = getConnection()) {
-            System.out.println(product);
             String stmt = "insert into product (name, category_id, description, image_link, image_list, price, cost, status, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt, Statement.RETURN_GENERATED_KEYS);
             ppStmt.setString(1, product.getName());
