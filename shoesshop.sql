@@ -97,6 +97,7 @@ CREATE TABLE `comment`
     `id`         INT(11) PRIMARY KEY,
     `content`    TEXT,
     `product_id` INT(11),
+    `user_id` INT(11),
     FOREIGN KEY (`product_id`)
-        REFERENCES `product` (`id`) ON DELETE CASCADE;
+        REFERENCES `product` (`id`) ON DELETE CASCADE
 );
