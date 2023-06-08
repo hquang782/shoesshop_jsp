@@ -1,31 +1,39 @@
+<%@ page import="com.dev4fun.model.Config" %>
+<%@ page import="com.dev4fun.dao.ConfigDAO" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <link href="<c:url value="/assets/style/user/layout-out.css"/>" rel="stylesheet" type="text/css" media="all"/>
+<style>
+
+    .fill-text{
+        text-align: justify;
+    }
+</style>
 <footer>
+
+    <%
+        ArrayList<Config> configs = new ConfigDAO().getAllConfig();
+        Config aboutUs = configs.get(0);
+        String limitConfig = aboutUs.getContent().length()>350? aboutUs.getContent().substring(0,350): aboutUs.getContent();
+    %>
     <div class="footer-container">
         <div class="wrap-info-footer">
             <div>
-                <h2>Store system</h2>
-                <p>hn1</p>
-                <p>hn2</p>
-                <p>hn3</p>
-                <p>hn4</p>
-                <p>hn5</p>
+                <a style="color: white" href="<c:url value="/about/about-us"/>"><h2>Giới thiệu</h2></a>
+                <div class="fill-text"><%=limitConfig%></div>
             </div>
             <div>
-                <h2>Rule & policy</h2>
-                <p>guide1</p>
-                <p>guide2</p>
-                <p>guide3</p>
-                <p>guide4</p>
-                <p>guide5</p>
+                <h2>Liên hệ</h2>
+                <p>Email: d4f@gmail.com</p>
+                <p>Hotline: 0888123456</p>
+
             </div>
             <div>
-                <h2>Address</h2>
-                <p>add1</p>
-                <p>add2</p>
-                <p>add3</p>
-                <p>add4</p>
-                <p>add5</p>
+                <h2>Địa chỉ cửa hàng</h2>
+                <p class="fill-text">245 Cao Lỗ - Đông Anh </p>
+                <p class="fill-text">374 Nguyễn Trãi (Cổng chợ Phùng Khoang) - Phường Trung Văn - Nam Từ Liêm</p>
+                <p class="fill-text">304 Ngọc Lâm - Long Biên</p>
+                <p class="fill-text">111B1 Phạm Ngọc Thạch - Đống Đa</p>
+                <p class="fill-text">165 Chùa Bộc - Đống Đa</p>
             </div>
             <div>
                 <h2>Fanpage</h2>

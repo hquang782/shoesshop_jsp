@@ -3,6 +3,7 @@ package com.dev4fun.model;
 public class Comment {
     int id,product_id;
     String content;
+    Account user ;
 
     public Comment() {
     }
@@ -29,5 +30,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Account getUser() {
+        return user;
+    }
+
+    public void setUser(Account user) {
+        this.user = user;
     }
 }

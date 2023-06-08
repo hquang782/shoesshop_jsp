@@ -5,7 +5,64 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page import="com.dev4fun.model.ProductDetail" %>
+<%@ page import="com.dev4fun.dao.CommentDAO" %>
+<%@ page import="com.dev4fun.model.Comment" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+
+<style>
+
+    .product-comment {
+        margin-bottom: 20px;
+        margin-top: 60px;
+        background-color: white;
+        padding: 30px;
+    }
+
+
+    .product-comment input[type="submit"] {
+        padding: 8px 16px;
+        background-color: #337ab7;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-left: 15px;
+    }
+
+    .product-comment input[type="text"] {
+        width: 800px;
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .comment-list {
+        list-style-type: none;
+        padding: 0;
+        margin-top: 25px;
+    }
+
+    .comment-item {
+        margin-bottom: 10px;
+        padding: 10px;
+        background-color: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+    }
+
+    .comment-user {
+        font-weight: bold;
+        display: flex;
+    }
+    .comment-user p{
+        margin-left: 12px;
+        font-size: 18px;
+    }
+
+    .comment-content {
+        margin-top: 5px;
+    }
+</style>
 
 <link href="<c:url value="/assets/style/user/product-detail.css"/>" rel="stylesheet" type="text/css"/>
 <div class="main">
@@ -53,7 +110,8 @@
                     <p style="font-weight: bold; font-size: 18px;">Size:</p>
                     <div class="size">
                         <%for (ProductDetail pd : product.getProductDetails()) {%>
-                        <span id="choose-size" onclick="getSize(this)" aria-valuenow="<%=pd.getSize()%>"><%=pd.getSize()%></span>
+                        <span id="choose-size" onclick="getSize(this)"
+                              aria-valuenow="<%=pd.getSize()%>"><%=pd.getSize()%></span>
                         <%}%>
                     </div>
                 </div>
@@ -103,6 +161,31 @@
                 </div>
             </div>
         </div>
+
+
+        <div class="product-comment">
+            <form method="post" action="<c:url value="/products/detail"/>"
+                  style="    display: flex; justify-content: center;">
+                <input type="text" name="commentText" placeholder="Nhập bình luận" required><br>
+                <input type="hidden" name="productId" value="<%= product.getId() %>">
+                <input type="submit" value="Bình luận">
+            </form>
+            <ul class="comment-list ">
+                <% List<Comment> comments = new CommentDAO().getCommentByProductId(product.getId());
+                    for (Comment comment : comments) { %>
+                <li class="comment-item">
+                    <div class="comment-user">
+                        <img src="<%=comment.getUser().getImageLink()%>" alt="" width="24">
+                        <p><%=comment.getUser().getFullName()%></p>
+                    </div>
+                    <div class="comment-content"><%= comment.getContent()%>
+                    </div>
+                </li>
+                <% } %>
+            </ul>
+        </div>
+
+
     </div>
 </div>
 

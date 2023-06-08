@@ -27,11 +27,11 @@
                     <button id="btnAddProduct" class="btn-add"><a href="<c:url value="/admin/product/add"/>">Thêm sản
                         phẩm</a></button>
                 </div>
-
-                <div class="table-content">
-                    <div class="search-table-content">
-                        <div class="wrapper-search">
-                            <form method="get" action="<c:url value="/admin/product"/>">
+                <form method="get" action="<c:url value="/admin/product"/>">
+                    <div class="table-content">
+                        <div class="search-table-content">
+                            <div class="wrapper-search">
+                                <%--                            <form method="get" action="<c:url value="/admin/product"/>">--%>
                                 <div class="search-option">
                                     <select name="t" id="optionSearchTable">
                                         <% if (request.getParameter("t") != null) {%>
@@ -51,84 +51,87 @@
                                 <div class="btn-search">
                                     <button type="submit">Tìm kiếm</button>
                                 </div>
-                            </form>
+                                <%--                            </form>--%>
+
+                            </div>
 
                         </div>
+                        <div class="wrapper-table-content">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tên</th>
+                                    <th>Ảnh</th>
+                                    <th>Số lượng</th>
+                                    <th>Trạng thái</th>
+                                    <th>Giá bán</th>
+                                    <th>Danh mục</th>
+                                    <th class="action">Action</th>
+                                </tr>
+                                </thead>
+                                <% ArrayList<Product> listProducts = (ArrayList<Product>) request.getAttribute("listProducts");
+                                    int sIndex = 0, eIndex = listProducts.size();
+                                    if (request.getParameter("startIndex") != null) {
+                                        sIndex = Integer.parseInt(request.getParameter("startIndex"));
+                                    }
+                                    if (sIndex + 5 < listProducts.size()) eIndex = sIndex + 5;
+                                %>
 
-                    </div>
-                    <div class="wrapper-table-content">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Tên</th>
-                                <th>Ảnh</th>
-                                <th>Số lượng</th>
-                                <th>Trạng thái</th>
-                                <th>Giá bán</th>
-                                <th>Danh mục</th>
-                                <th class="action">Action</th>
-                            </tr>
-                            </thead>
-                            <% ArrayList<Product> listProducts = (ArrayList<Product>) request.getAttribute("listProducts");
-                                int sIndex = 0, eIndex = listProducts.size();
-                                if (request.getParameter("startIndex") != null) {
-                                    sIndex = Integer.parseInt(request.getParameter("startIndex"));
-                                }
-                                if (sIndex + 5 < listProducts.size()) eIndex = sIndex + 5;
-                            %>
+                                <tbody>
 
-                            <tbody>
+                                <% for (int i = sIndex; i < eIndex; i++) {%>
+                                <tr>
+                                    <td style="width: 10%"><%=listProducts.get(i).getId()%>
+                                    </td>
+                                    <td style="width: 30%"><%=listProducts.get(i).getName()%>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <div class="img"
+                                             style="background-image: url(<%=listProducts.get(i).getImageLink()%>)"></div>
+                                    </td>
+                                    <td style="width: 10%"><%=listProducts.get(i).getTotalQuantity()%>
+                                    </td>
+                                    <td style="width: 10%"><%=listProducts.get(i).getStatus()%>
+                                    </td>
+                                    <td style="width: 15%"><%=nf.format(listProducts.get(i).getPrice())%><sup>đ</sup>
+                                    </td>
+                                    <td style="width: 10%"><%=listProducts.get(i).getCategory().getName()%>
+                                    </td>
+                                    <td>
+                                        <a href="/admin/product/edit?id=<%=listProducts.get(i).getId()%>"
+                                           class="btn-edit">Sửa</a>
+                                        <form action="<c:url value="/admin/product?act=delete"/>" method="post">
+                                            <input type="hidden" name="productId"
+                                                   value="<%=listProducts.get(i).getId()%>">
+                                            <button class="btn-delete" type="submit">Xóa</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <%}%>
+                                </tbody>
+                            </table>
+                        </div>
 
-                            <% for (int i = sIndex; i < eIndex; i++) {%>
-                            <tr>
-                                <td style="width: 10%"><%=listProducts.get(i).getId()%>
-                                </td>
-                                <td style="width: 30%"><%=listProducts.get(i).getName()%>
-                                </td>
-                                <td style="width: 10%">
-                                    <div class="img" style="background-image: url(<%=listProducts.get(i).getImageLink()%>)"></div>
-                                </td>
-                                <td style="width: 10%"><%=listProducts.get(i).getTotalQuantity()%>
-                                </td>
-                                <td style="width: 10%"><%=listProducts.get(i).getStatus()%>
-                                </td>
-                                <td style="width: 15%"><%=nf.format(listProducts.get(i).getPrice())%><sup>đ</sup>
-                                </td>
-                                <td style="width: 10%"><%=listProducts.get(i).getCategory().getName()%>
-                                </td>
-                                <td>
-                                    <a href="/admin/product/edit?id=<%=listProducts.get(i).getId()%>" class="btn-edit">Sửa</a>
-                                    <form action="<c:url value="/admin/product?act=delete"/>" method="post">
-                                        <input type="hidden" name="productId" value="<%=listProducts.get(i).getId()%>">
-                                        <button class="btn-delete" type="submit">Xóa</button>
-                                    </form>
-                                </td>
-                            </tr>
-                            <%}%>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div class="pagination-table-content">
+                            <div class="wrapper-pagination">
+                                <div class="wrapper-action-table">
+                                    <div class="index">
+                                        <% String pageIndex;
+                                            int currentPage = 1;
+                                            if (request.getParameter("pageIndex") != null) {
+                                                System.out.println("page-null");
+                                                pageIndex = request.getParameter("pageIndex");
+                                                System.out.println(pageIndex);
+                                                currentPage = Integer.parseInt(pageIndex);
+                                            }
 
-                    <div class="pagination-table-content">
-                        <div class="wrapper-pagination">
-                            <div class="wrapper-action-table">
-                                <div class="index">
-                                    <% String pageIndex;
-                                        int currentPage=1;
-                                        if (request.getParameter("pageIndex") != null){
-                                            System.out.println("page-null");
-                                            pageIndex = request.getParameter("pageIndex");
-                                            System.out.println(pageIndex);
-                                            currentPage = Integer.parseInt(pageIndex);
-                                        }
-
-                                        pageIndex = currentPage+"/" + (int) Math.ceil(listProducts.size() / 5.0);
-                                    %>
-                                    <p id="currentPage"><%=pageIndex%>
-                                    </p>
-                                </div>
-                                <form action="<c:url value="/admin/product"/>" method="get" style="display: flex">
+                                            pageIndex = currentPage + "/" + (int) Math.ceil(listProducts.size() / 5.0);
+                                        %>
+                                        <p id="currentPage"><%=pageIndex%>
+                                        </p>
+                                    </div>
+                                    <%--                                <form action="<c:url value="/admin/product"/>" method="get" style="display: flex">--%>
                                     <input type="hidden" style="display: none" id="st" name="startIndex">
                                     <input type="hidden" style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
@@ -137,11 +140,12 @@
                                     <div class="next">
                                         <button onclick="nextPages()">&#8594;</button>
                                     </div>
-                                </form>
+                                    <%--                                </form>--%>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

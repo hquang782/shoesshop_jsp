@@ -27,11 +27,11 @@
                     <button id="btnAddProduct" class="btn-add" type="button"><a
                             href="<c:url value="/admin/order/add"/>">Thêm đơn hàng</a></button>
                 </div>
-
-                <div class="table-content">
-                    <div class="search-table-content">
-                        <div class="wrapper-search">
-                            <form id="formSearch" method="get" action="<c:url value="/admin/order"/>">
+                <form method="get" action="<c:url value="/admin/order"/>">
+                    <div class="table-content">
+                        <div class="search-table-content">
+                            <div class="wrapper-search">
+                                <%--                            <form id="formSearch" method="get" action="<c:url value="/admin/order"/>">--%>
                                 <div class="search-option">
                                     <select name="t" id="optionSearchTable">
                                         <% if (request.getParameter("t") != null) {%>
@@ -54,78 +54,79 @@
                                 <div class="btn-search">
                                     <button type="submit">Tìm kiếm</button>
                                 </div>
-                            </form>
+                                <%--                            </form>--%>
+
+                            </div>
 
                         </div>
+                        <div class="wrapper-table-content">
+                            <table>
+                                <thead>
+                                <tr>
+                                    <th>ID Đơn hàng</th>
+                                    <th>Khách hàng</th>
+                                    <th>Đơn hàng</th>
+                                    <th>Số lượng</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Trạng thái</th>
+                                    <th class="action">Tính năng</th>
+                                </tr>
+                                </thead>
+                                <%
+                                    ArrayList<BillDetail> listBillDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetail");
+                                    int sIndex = 0, eIndex = listBillDetails.size();
+                                    if (request.getParameter("startIndex") != null) {
+                                        sIndex = Integer.parseInt(request.getParameter("startIndex"));
+                                    }
+                                    if (sIndex + 5 < listBillDetails.size()) eIndex = sIndex + 5;
+                                %>
+                                <tbody>
+                                <% for (int i = sIndex; i < eIndex; i++) {%>
+                                <tr>
+                                    <td><%=listBillDetails.get(i).getBill().getId()%>
+                                    </td>
+                                    <td><%=listBillDetails.get(i).getBill().getFullName()%>
+                                    </td>
+                                    <td><%=listBillDetails.get(i).getProduct().getName()%>
+                                    </td>
+                                    <td><%=listBillDetails.get(i).getQuantity()%>
+                                    </td>
+                                    <td><%=nf.format(listBillDetails.get(i).getAmount())%><sup>đ</sup></td>
+                                    <td><%=listBillDetails.get(i).getBill().getStatus()%>
+                                    </td>
+                                    <td>
+                                        <% System.out.println(listBillDetails.get(i).getBill().getId());%>
+                                        <a href="/admin/order/edit?id=<%=listBillDetails.get(i).getBill().getId()%>"
+                                           class="btn-edit">Sửa</a>
+                                    </td>
+                                </tr>
+                                <%
+                                    }
+                                %>
+                                </tbody>
 
-                    </div>
-                    <div class="wrapper-table-content">
-                        <table>
-                            <thead>
-                            <tr>
-                                <th>ID Đơn hàng</th>
-                                <th>Khách hàng</th>
-                                <th>Đơn hàng</th>
-                                <th>Số lượng</th>
-                                <th>Tổng tiền</th>
-                                <th>Trạng thái</th>
-                                <th class="action">Tính năng</th>
-                            </tr>
-                            </thead>
-                            <%
-                                ArrayList<BillDetail> listBillDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetail");
-                                int sIndex = 0, eIndex = listBillDetails.size();
-                                if (request.getParameter("startIndex") != null) {
-                                    sIndex = Integer.parseInt(request.getParameter("startIndex"));
-                                }
-                                if (sIndex + 5 < listBillDetails.size()) eIndex = sIndex + 5;
-                            %>
-                            <tbody>
-                            <% for (int i = sIndex; i < eIndex; i++) {%>
-                            <tr>
-                                <td><%=listBillDetails.get(i).getBill().getId()%>
-                                </td>
-                                <td><%=listBillDetails.get(i).getBill().getFullName()%>
-                                </td>
-                                <td><%=listBillDetails.get(i).getProduct().getName()%>
-                                </td>
-                                <td><%=listBillDetails.get(i).getQuantity()%>
-                                </td>
-                                <td><%=nf.format(listBillDetails.get(i).getAmount())%><sup>đ</sup></td>
-                                <td><%=listBillDetails.get(i).getBill().getStatus()%>
-                                </td>
-                                <td>
-                                    <% System.out.println(listBillDetails.get(i).getBill().getId());%>
-                                    <a href="/admin/order/edit?id=<%=listBillDetails.get(i).getBill().getId()%>" class="btn-edit">Sửa</a>
-                                </td>
-                            </tr>
-                            <%
-                                }
-                            %>
-                            </tbody>
+                            </table>
+                        </div>
 
-                        </table>
-                    </div>
+                        <div class="pagination-table-content">
+                            <div class="wrapper-pagination">
+                                <div class="wrapper-action-table">
+                                    <div class="index">
+                                        <% String pageIndex;
+                                            int currentPage = 1;
+                                            if (request.getParameter("pageIndex") != null) {
+                                                System.out.println("page-null");
+                                                pageIndex = request.getParameter("pageIndex");
+                                                System.out.println(pageIndex);
+                                                currentPage = Integer.parseInt(pageIndex);
+                                            }
 
-                    <div class="pagination-table-content">
-                        <div class="wrapper-pagination">
-                            <div class="wrapper-action-table">
-                                <div class="index">
-                                    <% String pageIndex;
-                                        int currentPage=1;
-                                        if (request.getParameter("pageIndex") != null){
-                                            System.out.println("page-null");
-                                            pageIndex = request.getParameter("pageIndex");
-                                            System.out.println(pageIndex);
-                                            currentPage = Integer.parseInt(pageIndex);
-                                        }
-
-                                        pageIndex = currentPage+"/" + (int) Math.ceil(listBillDetails.size() / 5.0);
-                                    %>
-                                    <p id="currentPage"><%=pageIndex%>
-                                    </p>
-                                </div>
-                                <form action="<c:url value="/admin/order"/>" method="get" style="display: flex">
+                                            pageIndex = currentPage + "/" + (int) Math.ceil(listBillDetails.size() / 5.0);
+                                        %>
+                                        <p id="currentPage"><%=pageIndex%>
+                                        </p>
+                                    </div>
+                                    <%--                                <form action="<c:url value="/admin/order"/>" method="get" style="display: flex">--%>
                                     <input style="display: none" id="st" name="startIndex">
                                     <input style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
@@ -134,11 +135,12 @@
                                     <div class="next">
                                         <button onclick="nextPages()">&#8594;</button>
                                     </div>
-                                </form>
+                                    <%--                                </form>--%>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

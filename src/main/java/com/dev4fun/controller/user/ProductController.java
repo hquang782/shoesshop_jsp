@@ -26,7 +26,11 @@ public class ProductController extends HttpServlet {
                 listProducts = new ProductDAO().getProductByCategoryName(temp);
             }
             request.setAttribute("valueSearch", temp);
-        } else {
+        }
+        else if(request.getParameter("category")!=null){
+            listProducts = new ProductDAO().getProductByCategoryName(request.getParameter("category"));
+        }
+        else {
             listProducts = new ProductDAO().getAllProduct();
         }
         request.setAttribute("listProducts", listProducts);

@@ -21,6 +21,7 @@ public class CommentDAO extends DAO {
                 temp.setId(rs.getInt("id"));
                 temp.setContent(rs.getString("content"));
                 temp.setProduct_id(rs.getInt("product_id"));
+                temp.setUser(new AccountDAO().getAccountById(rs.getInt("user_id")));
                 comments.add(temp);
             }
             return comments;
@@ -29,12 +30,13 @@ public class CommentDAO extends DAO {
         }
     }
 
-    boolean createComment(Comment comment) {
+    public boolean createComment(Comment comment) {
         try (Connection con = getConnection()) {
-            String stmt = "insert into comment ( content, product_id) values( ? , ? )";
+            String stmt = "insert into comment ( content, product_id,user_id) values( ? , ? , ?)";
             PreparedStatement ps = con.prepareStatement(stmt);
             ps.setString(1,comment.getContent());
             ps.setInt(2,comment.getProduct_id());
+            ps.setInt(3,comment.getUser().getId());
             ps.executeUpdate();
             return true;
         } catch (SQLException e) {
