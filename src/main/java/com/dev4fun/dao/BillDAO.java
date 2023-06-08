@@ -126,9 +126,9 @@ public class BillDAO extends DAO {
         }
     }
 
-    public int createBill(Bill bill) {
+    public boolean createBill(Bill bill) {
         try (Connection conn = getConnection()) {
-            String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at,invoice_creator) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+            String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement ppStmt = conn.prepareStatement(stmt, Statement.RETURN_GENERATED_KEYS);
             ppStmt.setString(1, bill.getStatus());
             ppStmt.setInt(2, bill.getUserId());
@@ -140,11 +140,28 @@ public class BillDAO extends DAO {
             ppStmt.setString(8, bill.getPayMethod());
             ppStmt.setString(9, bill.getNote());
             ppStmt.setString(10, bill.getCreatedAt());
-            ppStmt.setString(11, bill.getInvoice_creator());
+//            ppStmt.setString(11, bill.getInvoice_creator());
             ppStmt.executeUpdate();
+            int id;
             ResultSet rs = ppStmt.getGeneratedKeys();
-            if (rs.next()) return rs.getInt(1);
-            else return -1;
+            if (rs.next())
+            {
+                id=rs.getInt(1);
+                String stmt1 = "insert into bill_detail (bill_id, amount , product_id ,quantity, size ) values(?,?,?,?,?) ";
+                for(BillDetail b:bill.getBillDetails())
+                {
+                    PreparedStatement pp = conn.prepareStatement(stmt1);
+                    pp.setInt(1, id);
+                    pp.setFloat(2, b.getAmount());
+                    pp.setInt(3, b.getProduct().getId());
+                    pp.setInt(4, b.getQuantity());
+                    pp.setInt(5, b.getSize());
+                    pp.executeUpdate();
+                }
+                return true;
+            }
+            return false;
+            
         } catch (SQLException e) {
             throw new RuntimeException();
         }

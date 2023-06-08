@@ -1,9 +1,13 @@
+<%@page import="com.dev4fun.utils.SessionUtil"%>
+<%@page import="com.dev4fun.model.Account"%>
 <%@ page import="com.dev4fun.utils.CartUtil" %>
 <%@ page import="com.dev4fun.model.Cart" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-
+<%
+    Account acc = (Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER");
+%>
 <link rel="stylesheet" href="<c:url value="/assets/style/user/checkout-style.css"/>"/>
 <div class="main">
     <div class="content">
@@ -15,32 +19,38 @@
                 <h2>Thông tin giao hàng</h2>
             </div>
             <div class="deliver-main">
+                <%
+                    if(acc==null){
+                %>
                 <p>Bạn đã có tài khoản?
                     <a href="">Đăng nhập</a>
                 </p>
-                <form class="form-add" action="">
+                <%
+                    }
+                %>
+                <form class="form-add" action="/checkout" method="post">
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="fullName">Họ và tên:</label>
-                            <input type="text" id="fullName" name="fullName" required>
+                            <input type="text" id="fullName" name="fullName" value="<%=acc==null? "":acc.getFullName()%>" required>
                         </div>
                     </div>
 
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="email">Địa chỉ email:</label>
-                            <input type="email" id="email" name="email" required>
+                            <input type="email" id="email" name="email" value="<%=acc==null? "":acc.getEmail()%>" required>
                         </div>
                         <div class="form-line">
                             <label for="tel">Số điện thoại:</label>
-                            <input type="tel" id="tel" name="tel" required>
+                            <input type="tel" id="tel" name="tel" value="<%=acc==null? "":acc.getPhoneNumber()%>" required>
                         </div>
                     </div>
 
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="address">Địa chỉ:</label>
-                            <input type="text" id="address" name="address" required>
+                            <input type="text" id="address" name="address" value="<%=acc==null? "":acc.getAddress()%>" required>
                         </div>
                     </div>
 
@@ -50,13 +60,13 @@
                             <div class="radio-wrapper">
                                 <div class="radio-label">
                                     <div class="radio-input">
-                                        <input type="radio" checked="">
+                                        <input type="radio" id="QR" name="payment_method" value="QR" checked="">
                                     </div>
                                     <div class="radio-content-input">
                                         <img class="main-img"
                                              src="https://hstatic.net/0/0/global/design/seller/image/payment/vnpay_new.svg?v=4" alt="">
                                         <div>
-                                            <p>Thẻ ATM/Visa/Master/JCB/QR Pay qua cổng VNPAY</p>
+                                            <label for="QR">Thẻ ATM/Visa/Master/JCB/QR Pay qua cổng VNPAY</label>
                                         </div>
                                     </div>
                                 </div>
@@ -65,20 +75,20 @@
                             <div class="radio-wrapper">
                                 <div class="radio-label">
                                     <div class="radio-input">
-                                        <input type="radio">
+                                        <input type="radio" id="COD" name="payment_method" value="COD">
                                     </div>
                                     <div class="radio-content-input">
                                         <img class="main-img"
                                              src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4" alt="">
                                         <div>
-                                            <p>Thanh toán khi giao hàng (COD)</p>
+                                            <label for="COD">Thanh toán khi giao hàng (COD)</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
+                        
                     <div class="form-line form-line-btn">
                         <button class="btn-confirm" type="submit">Hoàn tất đơn hàng</button>
                         <a class="" href="<c:url value="/cart"/>">Giỏ hàng</a>
@@ -119,7 +129,7 @@
                             </p>
                         </td>
                         <td class="product-price td--right">
-                            <p><%=nf.format(cart.getProduct().getTotalQuantity() * cart.getProduct().getPrice())%><sup>đ</sup>
+                            <p><%=nf.format(cart.getQuantity() * cart.getProduct().getPrice())%><sup>đ</sup>
                             </p>
                         </td>
                     </tr>
