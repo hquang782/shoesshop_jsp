@@ -4,7 +4,7 @@
 <div>
     <div class="header">
         <a href="<c:url value="/home"/>" class="logo">
-            <img src="<c:url value="/assets/img/demo.png"/>" alt="">
+            <img src="<c:url value="/assets/img/demo_den.png"/>" alt="">
         </a>
     </div>
     <div class="content">

@@ -5,7 +5,7 @@
 <div>
     <div class="header">
         <a href="<c:url value="/admin"/>" class="logo">
-            <img src="<c:url value="/assets/img/demo.png"/>" alt="Brand">
+            <img src="<c:url value="/assets/img/demo_den.png"/>" alt="Brand">
         </a>
     </div>
     <div class="content">

@@ -5,7 +5,7 @@
     <div class="header">
         <div class="wrap-left">
             <div class="logo-item">
-                <a href="<c:url value="/admin"/>"><img width="100%" src="<c:url value="/assets/img/demo.png"/>" alt=""></a>
+                <a href="<c:url value="/admin"/>"><img width="100%" src="<c:url value="/assets/img/demo_den.png"/>" alt=""></a>
             </div>
         </div>
 

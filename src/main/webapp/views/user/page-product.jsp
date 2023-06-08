@@ -11,6 +11,7 @@
             <h1 class="title">Tất cả sản phẩm '${valueSearch}'</h1>
         </div>
         <input type="hidden" name="search" value="${valueSearch}">
+        <input type="hidden" name="category" value="${valueCategory}">
         <%--    <div class="container-filter">--%>
         <%--        <div class="wrapper-layer-filter">--%>
         <%--            <div class="layer-filter-group">--%>
