@@ -15,7 +15,7 @@
         <nav>
             <% for (Category category : listCategoriesWithProducts) {%>
             <a href="/products?category=<%=category.getName()%>" class="nav-item">
-                <img src="https://tyhisneaker.com/wp-content/uploads/2022/08/eme-2.png" alt="hình ảnh ">
+                <img src="<%=category.getIcon()%>" alt="hình ảnh ">
                 <b class="item-text">
                     <%=category.getName()%>
                 </b>

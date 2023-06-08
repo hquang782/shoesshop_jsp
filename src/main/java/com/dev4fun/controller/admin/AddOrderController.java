@@ -44,7 +44,15 @@ public class AddOrderController extends HttpServlet {
             req.setAttribute("email", bill.getEmail());
             req.setAttribute("code", bill.getPayMethod());
 //            req.setAttribute("author", bill.getInvoice_creator());
-            req.setAttribute(bill.getStatus(), "selected");
+            String status = bill.getStatus();
+            if (status.equals("Đang giao hàng")) {
+                status = "c";
+            } else if (status.equals("Đã nhận hàng")) {
+                status = "a";
+            } else if (status.equals("Chờ xử lý")) {
+                status = "b";
+            }
+            req.setAttribute(status, "selected");
             req.setAttribute("listBillDetails", bill.getBillDetails());
             RequestDispatcher rd = req.getRequestDispatcher("/views/admin/page-add-order.jsp");
             rd.forward(req, resp);

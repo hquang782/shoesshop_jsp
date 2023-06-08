@@ -63,9 +63,9 @@
                                 <select name="status" id="status">
 
                                     <option value="" selected disabled hidden>-- Chọn trạng thái --</option>
-                                    <option value="done" ${done}>Đã xử lý</option>
-                                    <option value="waiting"${waiting}>Đang chờ</option>
-                                    <option value="cancel" ${cancel}>Đã hủy</option>
+                                    <option value="Đã nhận hàng" ${a}>Đã nhận hàng</option>
+                                    <option value="Chờ xử lý" ${b}>Chờ xử lý</option>
+                                    <option value="Đang giao hàng" ${c}>Đang giao hàng</option>
                                 </select>
                             </div>
 

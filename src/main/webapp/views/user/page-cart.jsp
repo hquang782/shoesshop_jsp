@@ -25,75 +25,78 @@
                 <div class="heading-cart">
                     <h1>Giỏ hàng của bạn</h1>
                 </div>
-                <form action="<c:url value="/cart"/>" method="get">
-                    <input type="hidden" name="act" value="update">
-                    <p class="title-number-cart">Bạn đang có <strong><%=cart.size()%> sản phẩm</strong>
-                        trong giỏ hàng</p>
-                    <div class="table-cart">
-                        <%for (Cart c : cart) {%>
-                        <div class="wrapper-item-cart item-cart">
-                            <div class="wrapper-image">
-                                <div class="item-img">
-                                    <img src="<%=c.getProduct().getImageLink()%>">
-                                </div>
-                                <div class="item-remove">
-                                    <a href="<c:url value="/cart?act=remove&productId=<%=c.getProduct().getId()%>&size=<%=c.getSize()%>"/>">Xóa</a>
-                                </div>
+                <p class="title-number-cart">Bạn đang có <strong><%=cart.size()%> sản phẩm</strong>
+                    trong giỏ hàng</p>
+                <div class="table-cart">
+                    <%for (Cart c : cart) {%>
+                    <div class="wrapper-item-cart item-cart">
+                        <div class="wrapper-image">
+                            <div class="item-img">
+                                <img src="<%=c.getProduct().getImageLink()%>">
                             </div>
-
-                            <div class="wrapper-info">
-                                <div class="item-info">
-                                    <div class="title">
-                                        <a href="/products/<%=c.getProduct().getName().replaceAll(" ", "-") + "-" + c.getProduct().getId()%>">
-                                            <%=c.getProduct().getName()%>
-                                        </a>
-                                    </div>
+                            <div class="item-remove">
+                                <a id="btnDelete" onclick="clickDelete(`<%=c.getSize()%>-<%=c.getProduct().getId()%>`)">Xóa</a>
+                                <form id="deleteForm<%=c.getSize()%>-<%=c.getProduct().getId()%>" action="<c:url value="/cart"/>" method="post">
+                                    <input type="hidden" name="act" value="remove">
                                     <input type="hidden" name="size" value="<%=c.getSize()%>">
-                                    <div class="size">
-                                        <span>Size: <%=c.getSize()%></span>
+                                    <input type="hidden" name="productId" value="<%=c.getProduct().getId()%>">
+                                </form>
+                            </div>
+                        </div>
 
-                                    </div>
+                        <div class="wrapper-info">
+                            <div class="item-info">
+                                <div class="title">
+                                    <a href="/products/<%=c.getProduct().getName().replaceAll(" ", "-") + "-" + c.getProduct().getId()%>">
+                                        <%=c.getProduct().getName()%>
+                                    </a>
                                 </div>
-                                <div class="price">
-                                    <span><%=nf.format(c.getProduct().getPrice())%><sup>đ</sup></span>
+                                <div class="size">
+                                    <span>Size: <%=c.getSize()%></span>
+
                                 </div>
                             </div>
+                            <div class="price">
+                                <span><%=nf.format(c.getProduct().getPrice())%><sup>đ</sup></span>
+                            </div>
+                        </div>
 
-                            <div class="wrapper-total">
-                                <div class="item-total-price">
-                                    <span><%=nf.format(c.getProduct().getPrice() * c.getQuantity())%><sup>đ</sup></span>
-                                </div>
-                                <div class="item-qty">
-                                    <div class="quantity">
-                                        <div class="quantity-set">
-                                            <div class="quantity-reduce">
-                                                <div onclick="Sub(<%=c.getProduct().getId()%> + '-' + <%=c.getSize()%>)">-
-                                                </div>
+                        <div class="wrapper-total">
+                            <div class="item-total-price">
+                                <span><%=nf.format(c.getProduct().getPrice() * c.getQuantity())%><sup>đ</sup></span>
+                            </div>
+                            <div class="item-qty">
+                                <div class="quantity">
+                                    <div class="quantity-set">
+                                        <div class="quantity-reduce">
+                                            <div onclick="Sub(<%=c.getProduct().getId()%> + '-' + <%=c.getSize()%>)">-
                                             </div>
-                                            <div class="quatity-value">
-                                                <input id="quantityValue-<%=c.getProduct().getId()%>-<%=c.getSize()%>" type="text" value="<%=c.getQuantity()%>" name="quantity"
+                                        </div>
+                                        <div class="quatity-value">
+                                            <input id="quantityValue1-<%=c.getProduct().getId()%>-<%=c.getSize()%>" type="text" value="<%=c.getQuantity()%>" name="quantity"
+                                                   max="<%=productDao.getQuantityBySize(c.getProduct().getId(), c.getSize())%>">
+                                            <form id="updateForm<%=c.getProduct().getId()%>-<%=c.getSize()%>" action="<c:url value="/cart"/>" method="post">
+                                                <input type="hidden" name="act" value="update">
+                                                <input type="hidden" name="size" value="<%=c.getSize()%>">
+                                                <input id="quantityValue2-<%=c.getProduct().getId()%>-<%=c.getSize()%>" type="hidden" value="<%=c.getQuantity()%>" name="quantity"
                                                        max="<%=productDao.getQuantityBySize(c.getProduct().getId(), c.getSize())%>">
-                                            </div>
-                                            <div class="quantity-increase">
-                                                <div onclick="Add(<%=c.getProduct().getId()%> + '-' + <%=c.getSize()%>)">+
-                                                </div>
+                                            </form>
+                                        </div>
+                                        <div class="quantity-increase">
+                                            <div onclick="Add(<%=c.getProduct().getId()%> + '-' + <%=c.getSize()%>)">+
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-                        </div>
-                        <%
-                                total += c.getProduct().getPrice() * c.getQuantity();
-                            }
-                        %>
-                    </div>
 
-                    <button type="submit">
-                        Cập nhật
-                    </button>
-                </form>
+                        </div>
+                    </div>
+                    <%
+                            total += c.getProduct().getPrice() * c.getQuantity();
+                        }
+                    %>
+                </div>
             </div>
         </div>
 
@@ -120,14 +123,23 @@
 </div>
 <script>
     function Add(id) {
-        const input = Number(document.getElementById("quantityValue-" + id).value);
-        document.getElementById("quantityValue-" + id).value = input + 1;
+        const input = Number(document.getElementById("quantityValue1-" + id).value);
+        document.getElementById("quantityValue1-" + id).value = input + 1;
+        document.getElementById("quantityValue2-" + id).value = input + 1;
+        document.getElementById("updateForm" + id).submit()
     }
 
     function Sub(id) {
-        const input = Number(document.getElementById("quantityValue-" + id).value);
+        const input = Number(document.getElementById("quantityValue1-" + id).value);
         if (input > 1) {
-            document.getElementById("quantityValue-" + id).value = input - 1;
+            document.getElementById("quantityValue1-" + id).value = input - 1;
+            document.getElementById("quantityValue2-" + id).value = input - 1;
+            document.getElementById("updateForm" + id).submit()
         }
+    }
+
+    function clickDelete(id) {
+        document.getElementById("deleteForm" + id).submit()
+
     }
 </script>

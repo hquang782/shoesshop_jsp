@@ -35,16 +35,18 @@ public class CartController extends HttpServlet {
                 int size = Integer.parseInt(req.getParameter("size"));
                 Product product = new ProductDAO().getProductById(id);
                 CartUtil.addProductToCart(req, product, size, quantity);
+                resp.sendRedirect(referer);
             } else if (act.equalsIgnoreCase("remove")) {
                 int id = Integer.parseInt(req.getParameter("productId"));
                 int size = Integer.parseInt(req.getParameter("size"));
                 CartUtil.removeProductInCart(req, id, size);
+                resp.sendRedirect("/cart");
             } else if (act.equalsIgnoreCase("update")) {
-                String[] quantity = req.getParameterValues("quantity");
-                String[] size = req.getParameterValues("size");
+                String quantity = req.getParameter("quantity");
+                String size = req.getParameter("size");
                 CartUtil.updateCart(req, quantity, size);
+                resp.sendRedirect("/cart");
             }
         }
-        resp.sendRedirect(referer);
     }
 }

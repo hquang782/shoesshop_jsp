@@ -5,6 +5,8 @@ import java.util.ArrayList;
 public class Category {
     private int id;
     private String name;
+    private String icon;
+
     private ArrayList<Product> listProducts = new ArrayList<>();;
 
     public Category() {
@@ -28,6 +30,14 @@ public class Category {
 
     public ArrayList<Product> getListProducts() {
         return listProducts;
+    }
+
+    public String getIcon() {
+        return icon;
+    }
+
+    public void setIcon(String icon) {
+        this.icon = icon;
     }
 
     public void setListProducts(ArrayList<Product> listProducts) {

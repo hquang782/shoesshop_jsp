@@ -24,7 +24,6 @@ public class OrderController extends HttpServlet {
         if (req.getParameter("t") != null && req.getParameter("v") != null) {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
-            System.out.println(temp + " " + value);
             String none = "none";
             ArrayList<BillDetail> listBillDetail;
             switch (temp) {
@@ -57,7 +56,6 @@ public class OrderController extends HttpServlet {
             req.setAttribute("listBillDetail", listBillDetail);
             req.setAttribute("txt_sbilldetail", value);
         } else {
-            System.out.println("all");
             req.setAttribute("valueSearch", "");
             req.setAttribute("typeSearch", "Tìm kiếm theo");
             req.setAttribute("listBillDetail", billDetailArrayList);

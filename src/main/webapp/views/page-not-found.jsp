@@ -2,6 +2,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <style>
+
+
     .container {
         width: 80%;
         max-width: 500px;

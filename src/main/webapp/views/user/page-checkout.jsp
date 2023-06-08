@@ -1,14 +1,15 @@
-<%@page import="com.dev4fun.utils.SessionUtil"%>
-<%@page import="com.dev4fun.model.Account"%>
+<%@page import="com.dev4fun.utils.SessionUtil" %>
+<%@page import="com.dev4fun.model.Account" %>
 <%@ page import="com.dev4fun.utils.CartUtil" %>
 <%@ page import="com.dev4fun.model.Cart" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
+
+<link rel="stylesheet" href="<c:url value="/assets/style/user/checkout-style.css"/>"/>
 <%
     Account acc = (Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER");
 %>
-<link rel="stylesheet" href="<c:url value="/assets/style/user/checkout-style.css"/>"/>
 <div class="main">
     <div class="content">
         <div class="left-side">
@@ -19,38 +20,37 @@
                 <h2>Thông tin giao hàng</h2>
             </div>
             <div class="deliver-main">
-                <%
-                    if(acc==null){
-                %>
+                <%if (acc == null) {%>
                 <p>Bạn đã có tài khoản?
                     <a href="">Đăng nhập</a>
                 </p>
-                <%
-                    }
-                %>
-                <form class="form-add" action="/checkout" method="post">
+                <%}%>
+                <form class="form-add" action="<c:url value="/checkout"/>" method="post">
+                    <%if (acc != null) {%>
+                    <input type="hidden" name="userId" value="<%=acc.getId()%>">
+                    <%}%>
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="fullName">Họ và tên:</label>
-                            <input type="text" id="fullName" name="fullName" value="<%=acc==null? "":acc.getFullName()%>" required>
+                            <input type="text" id="fullName" name="fullName" value="<%=acc == null ? "" : acc.getFullName()%>" required>
                         </div>
                     </div>
 
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="email">Địa chỉ email:</label>
-                            <input type="email" id="email" name="email" value="<%=acc==null? "":acc.getEmail()%>" required>
+                            <input type="email" id="email" name="email" value="<%=acc == null ? "" : acc.getEmail()%>" required>
                         </div>
                         <div class="form-line">
                             <label for="tel">Số điện thoại:</label>
-                            <input type="tel" id="tel" name="tel" value="<%=acc==null? "":acc.getPhoneNumber()%>" required>
+                            <input type="tel" id="tel" name="tel" value="<%=acc == null ? "" : acc.getPhoneNumber()%>" required>
                         </div>
                     </div>
 
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="address">Địa chỉ:</label>
-                            <input type="text" id="address" name="address" value="<%=acc==null? "":acc.getAddress()%>" required>
+                            <input type="text" id="address" name="address" value="<%=acc == null ? "" : acc.getAddress()%>" required>
                         </div>
                     </div>
 
@@ -88,7 +88,7 @@
                             </div>
                         </div>
                     </div>
-                        
+
                     <div class="form-line form-line-btn">
                         <button class="btn-confirm" type="submit">Hoàn tất đơn hàng</button>
                         <a class="" href="<c:url value="/cart"/>">Giỏ hàng</a>

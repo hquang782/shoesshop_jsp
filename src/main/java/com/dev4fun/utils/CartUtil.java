@@ -31,10 +31,12 @@ public class CartUtil {
         SessionUtil.getInstance().putValue(request, "listCarts", listCarts);
     }
 
-    public static void updateCart(HttpServletRequest request, String[] quantity, String[] size) {
+    public static void updateCart(HttpServletRequest request, String quantity, String size) {
         ArrayList<Cart> listCarts = (ArrayList<Cart>) SessionUtil.getInstance().getValue(request, "listCarts");
-        for (int i = 0; i < listCarts.size(); i++)
-            listCarts.get(i).setQuantity(Math.min(new ProductDAO().getQuantityBySize(listCarts.get(i).getProduct().getId(), Integer.parseInt(size[i])), Integer.parseInt(quantity[i])));
+        for (Cart listCart : listCarts)
+            if (listCart.getSize() == Integer.parseInt(size)) {
+                listCart.setQuantity(Math.min(new ProductDAO().getQuantityBySize(listCart.getProduct().getId(), Integer.parseInt(size)), Integer.parseInt(quantity)));
+            }
     }
 
     public static void removeProductInCart(HttpServletRequest request, int id, int size) {

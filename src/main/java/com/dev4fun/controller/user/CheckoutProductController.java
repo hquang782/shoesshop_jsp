@@ -7,6 +7,7 @@ import com.dev4fun.model.BillDetail;
 import com.dev4fun.model.Cart;
 import com.dev4fun.utils.CartUtil;
 import com.dev4fun.utils.SessionUtil;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,17 +26,19 @@ public class CheckoutProductController extends HttpServlet {
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/user/page-checkout.jsp");
         requestDispatcher.forward(req, resp);
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_USER");
         float totalAmount = 0;
         for (Cart cart : CartUtil.getCart(req)) {
             totalAmount += cart.getQuantity() * cart.getProduct().getPrice();
         }
-        Bill bill=new Bill();
-        bill.setStatus("Waiting");
-        bill.setUserId(acc.getId());
+        Bill bill = new Bill();
+        bill.setStatus("Chờ xử lý");
+        if (req.getParameter("userId") != null) {
+            bill.setUserId(Integer.parseInt(req.getParameter("userId")));
+        }
         bill.setFullName(req.getParameter("fullName"));
         bill.setEmail(req.getParameter("email"));
         bill.setAddress(req.getParameter("address"));
@@ -44,20 +47,20 @@ public class CheckoutProductController extends HttpServlet {
         bill.setPayMethod(req.getParameter("payment_method"));
         bill.setNote("");
         bill.setCreatedAt(LocalDateTime.now().format(dtf));
-        ArrayList<BillDetail> listBillDetails=new ArrayList<>();
+        ArrayList<BillDetail> listBillDetails = new ArrayList<>();
         for (Cart cart : CartUtil.getCart(req)) {
-            BillDetail billDetail =new BillDetail();
+            BillDetail billDetail = new BillDetail();
             billDetail.setProduct(cart.getProduct());
             billDetail.setQuantity(cart.getQuantity());
             billDetail.setSize(cart.getSize());
-            billDetail.setAmount(cart.getProduct().getPrice()*cart.getQuantity());
+            billDetail.setAmount(cart.getProduct().getPrice() * cart.getQuantity());
             listBillDetails.add(billDetail);
         }
         bill.setBillDetails(listBillDetails);
-        
-        System.out.println(new BillDAO().createBill(bill));
+
+        new BillDAO().createBill(bill);
         SessionUtil.getInstance().removeValue(req, "listCarts");
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/user/page-checkout.jsp");
-        requestDispatcher.forward(req, resp);
+
+        resp.sendRedirect("/checkout/order-success");
     }
 }

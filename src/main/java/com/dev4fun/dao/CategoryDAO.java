@@ -59,6 +59,7 @@ public class CategoryDAO extends DAO {
                 Category category = new Category();
                 category.setId(rs.getInt("id"));
                 category.setName(rs.getString("name"));
+                category.setIcon(rs.getString("icon"));
 
                 String stmtProduct = "select * from product where category_id = ? limit 5";
                 PreparedStatement ppProduct = conn.prepareStatement(stmtProduct);

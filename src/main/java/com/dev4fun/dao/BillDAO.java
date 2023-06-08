@@ -3,6 +3,7 @@ package com.dev4fun.dao;
 import com.dev4fun.model.Bill;
 import com.dev4fun.model.BillDetail;
 import com.dev4fun.model.Chart;
+import com.dev4fun.model.Product;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -68,11 +69,10 @@ public class BillDAO extends DAO {
                 while (rsBillDetail.next()) {
                     BillDetail billDetail = new BillDetail();
                     billDetail.setId(rsBillDetail.getInt("id"));
-//                    billDetail.setBillId(rsBillDetail.getInt("bill_id"));
                     billDetail.setQuantity(rsBillDetail.getInt("quantity"));
-//                    billDetail.setProductId(rsBillDetail.getInt("product_id"));
                     billDetail.setAmount(rsBillDetail.getInt("amount"));
                     billDetail.setSize(rsBillDetail.getInt("size"));
+                    billDetail.setProduct(new ProductDAO().getProductById(rsBillDetail.getInt("product_id")));
                     listBillDetails.add(billDetail);
                 }
 

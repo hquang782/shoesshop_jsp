@@ -50,23 +50,11 @@
                         <label for="gender">Giới tính:</label>
                         <select name="gender" id="gender" required>
                             <option value="${ACCOUNT_USER.gender}" selected>${ACCOUNT_USER.gender}</option>
-                            <%
-                                String gender = ((Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER")).getGender();
-                                String optionGender1, optionGender2;
-                                if (gender.equals("Nam")) {
-                                    optionGender1 = "Nữ";
-                                    optionGender2 = "Khác";
-                                } else if (gender.equals("Nữ")) {
-                                    optionGender1 = "Nam";
-                                    optionGender2 = "Khác";
-                                } else {
-                                    optionGender1 = "Nam";
-                                    optionGender2 = "Nữ";
-                                }
-                            %>
-                            <option value="<%=optionGender1%>"><%=optionGender1%>
+                            <option value="Nam">Nam
                             </option>
-                            <option value="<%=optionGender2%>"><%=optionGender2%>
+                            <option value="Nữ">Nữ
+                            </option>
+                            <option value="Khác">Khác
                             </option>
                         </select>
                     </div>

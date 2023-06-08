@@ -135,12 +135,12 @@
     border-radius: 8px;
     background: #fff;
     position: relative;
+    background: rgba(0, 0, 0, 0);
 }
 
 .product .product-image img {
-    max-width: 100%;
+    max-width: 99%;
     max-height: 100%;
-    margin: auto;
     position: absolute;
     top: 0;
     left: 0;
@@ -199,4 +199,11 @@
     font-size: 20px !important;
     font-weight: 600;
     color: #4b4b4b !important;
+}
+
+footer {
+    display: none !important;
+}
+header {
+    display: none !important;
 }

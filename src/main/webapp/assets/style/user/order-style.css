@@ -1,6 +1,5 @@
 .main {
     width: 100%;
-    height: 100vh;
 }
 
 .main p,
@@ -70,6 +69,7 @@
     background-size: 90%;
     background-position: center center;
     position: relative;
+    padding-top: 0 !important;
 }
 
 .wrapper-product-item .product .product-info {
@@ -130,6 +130,7 @@
     font-size: 17px;
     display: flex;
     margin-bottom: 12px;
+    align-items: center;
 }
 
 .wrapper-action-item .button-group {
@@ -144,8 +145,9 @@
 }
 
 .wrapper-action-item .total-money .total {
-    font-weight: 400;
     color: rgb(56, 56, 61);
+    font-weight: 600;
+    font-size: 26px;
 }
 
 .wrapper-action-item .button-group div {

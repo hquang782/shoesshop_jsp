@@ -105,13 +105,6 @@
         ).then(data => {
             alert('Sửa trang điều khoản và thỏa thuận thành công!')
             location.reload()
-            // const res = data.json()
-            // if (res['result']) {
-            //     alert('Sửa trang điều khoản và thỏa thuận thành công!')
-            //     location.reload()
-            // } else {
-            //     alert('Sửa trang điều khoản và thỏa thuận thất bại! Vui lòng kiểm tra lại.')
-            // }
         })
     })
 
