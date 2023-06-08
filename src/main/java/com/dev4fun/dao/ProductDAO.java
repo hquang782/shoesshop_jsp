@@ -1,9 +1,6 @@
 package com.dev4fun.dao;
 
-import com.dev4fun.model.Category;
-import com.dev4fun.model.Product;
-import com.dev4fun.model.ProductDetail;
-import com.dev4fun.model.Statistic;
+import com.dev4fun.model.*;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -30,7 +27,7 @@ public class ProductDAO extends DAO {
                 product.setCost(rsProduct.getFloat("cost"));
                 product.setStatus(rsProduct.getString("status"));
                 product.setCreatedAt(rsProduct.getString("created_at"));
-
+                product.setComments(new CommentDAO().getCommentByProductId(rsProduct.getInt("id")));
                 PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
                 ppProductDetail.setInt(1, product.getId());
                 ResultSet rsProductDetail = ppProductDetail.executeQuery();

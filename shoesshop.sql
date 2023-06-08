@@ -92,3 +92,11 @@ CREATE TABLE `config`
     `name`    VARCHAR(255),
     `content` TEXT
 );
+CREATE TABLE `comment`
+(
+    `id`         INT(11) PRIMARY KEY,
+    `content`    TEXT,
+    `product_id` INT(11),
+    FOREIGN KEY (`product_id`)
+        REFERENCES `product` (`id`) ON DELETE CASCADE;
+);

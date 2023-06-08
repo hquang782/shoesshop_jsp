@@ -1,8 +1,5 @@
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="java.text.SimpleDateFormat" %>
-<%@ page import="com.mysql.cj.Session" %>
 <%@ page import="com.dev4fun.utils.SessionUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
@@ -79,7 +76,9 @@
                                 ArrayList<Account> listAccounts = (ArrayList<Account>) request.getAttribute("listAccounts");
                                 int sIndex = 0, eIndex = listAccounts.size();
                                 if (request.getParameter("startIndex") != null) {
+                                    System.out.println("index-null");
                                     sIndex = Integer.parseInt(request.getParameter("startIndex"));
+                                    System.out.println(sIndex);
                                 }
                                 if (sIndex + 5 < listAccounts.size()) eIndex = sIndex + 5;
                             %>
@@ -136,9 +135,15 @@
                             <div class="wrapper-action-table">
                                 <div class="index">
                                     <% String pageIndex;
-                                        if (request.getParameter("pageIndex") != null)
+                                    int currentPage=1;
+                                        if (request.getParameter("pageIndex") != null){
+                                            System.out.println("page-null");
                                             pageIndex = request.getParameter("pageIndex");
-                                        else pageIndex = "1/" + (int) Math.ceil(listAccounts.size() / 5.0);
+                                            System.out.println(pageIndex);
+                                            currentPage = Integer.parseInt(pageIndex);
+                                        }
+
+                                        pageIndex = currentPage+"/" + (int) Math.ceil(listAccounts.size() / 5.0);
                                     %>
                                     <p id="currentPage"><%=pageIndex%>
                                     </p>
@@ -165,5 +170,6 @@
     const dataLength =
     <%=listAccounts.size()%>
     const rowPerPage = 5
+    let currentPage = <%=currentPage%>;
 </script>
 <script type="text/javascript" src="<c:url value="../../assets/js/pagination.js"/>"></script>

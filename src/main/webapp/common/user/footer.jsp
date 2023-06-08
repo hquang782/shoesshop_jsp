@@ -29,11 +29,10 @@
             </div>
             <div>
                 <h2>Fanpage</h2>
-                <p>Fb1</p>
-                <p>Fb2</p>
-                <p>Fb3</p>
-                <p>Fb4</p>
-                <p>Fb5</p>
+                <p><a href="https://www.facebook.com/profile.php" style="color: #00d9ff"><i class="fa-brands fa-facebook" ></i> Facebook</a></p>
+                <p><a href="https://twitter.com" style="color: #00d9ff"><i class="fa-brands fa-twitter" ></i> D4F-Official</a></p>
+                <p><a href="https://www.youtube.com" style="color: #00d9ff"><i class="fa-brands fa-youtube" ></i> D4F-Official</a></p>
+                <p><a href="https://github.com/hquang782/shoesshop_jsp.git" style="color: #00d9ff"><i class="fa-brands fa-github" ></i> D4F-Official</a></p>
             </div>
         </div>
     </div>

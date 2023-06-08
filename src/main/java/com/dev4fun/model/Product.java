@@ -17,9 +17,11 @@ public class Product {
     private String createdAt;
     private int sold;
     private ArrayList<ProductDetail> productDetails;
+    private ArrayList<Comment> comments;
 
     public Product() {
         this.productDetails = new ArrayList<>();
+        this.comments = new ArrayList<>();
     }
 
     public int getSold() {
@@ -137,6 +139,14 @@ public class Product {
 
     public void setProductDetails(ArrayList<ProductDetail> productDetails) {
         this.productDetails = productDetails;
+    }
+
+    public ArrayList<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(ArrayList<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

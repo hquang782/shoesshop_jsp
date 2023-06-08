@@ -22,7 +22,6 @@
                     <li><a href="<c:url value="/home"/>">Trang chủ</a></li>
                     <li><a href="<c:url value="/about/about-us"/>">Giới thiệu</a></li>
                     <li><a href="<c:url value="/products"/>">Sản phẩm</a></li>
-                    <li><a href="<c:url value="/about/policy-rule"/>">Liên hệ</a></li>
                     <li><a href="<c:url value="/about/store"/>">Store</a></li>
                 </ul>
             </div>
@@ -95,6 +94,7 @@
                     <a href="<c:url value="/login"/>">
                         <i class="fa-solid fa-user"></i>
                     </a>
+                    <div class="account-item dropdown-account-link " style="display: none"></div>
                     <%} else {%>
                     <div class="wrap-account">
                         <a class="account-item">

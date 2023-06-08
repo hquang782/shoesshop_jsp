@@ -106,8 +106,15 @@
             <div class="wrapper-action-table" style="display: flex; justify-content: right; align-items: center;">
                 <div class="index">
                     <% String pageIndex;
-                        if (request.getParameter("pageIndex") != null) pageIndex = request.getParameter("pageIndex");
-                        else pageIndex = "1/" + (int) Math.ceil(listProducts.size() / 12.0);
+                        int currentPage=1;
+                        if (request.getParameter("pageIndex") != null){
+                            System.out.println("page-null");
+                            pageIndex = request.getParameter("pageIndex");
+                            System.out.println(pageIndex);
+                            currentPage = Integer.parseInt(pageIndex);
+                        }
+
+                        pageIndex = currentPage+"/" + (int) Math.ceil(listProducts.size() / 5.0);
                     %>
                     <p id="currentPage"><%=pageIndex%>
                     </p>
@@ -135,7 +142,8 @@
 <script>
     const dataLength =
     <%=listProducts.size()%>
-    const rowPerPage = 12
+    const rowPerPage = 25
+    let currentPage = <%=currentPage%>;
 </script>
 <script type="text/javascript" src="<c:url value="../../assets/js/pagination.js"/>"></script>
 
