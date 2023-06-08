@@ -125,6 +125,29 @@ public class BillDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+    public int createBillByAdmin(Bill bill) {
+        try (Connection conn = getConnection()) {
+            String stmt = "insert into bill (status, user_id, full_name, email,address, phone_number, total_amount, pay_method, note,created_at,invoice_creator) VALUES (?, ?, ?, ?, ?, ?, ?, ?,?,?,?)";
+            PreparedStatement ppStmt = conn.prepareStatement(stmt, Statement.RETURN_GENERATED_KEYS);
+            ppStmt.setString(1, bill.getStatus());
+            ppStmt.setInt(2, bill.getUserId());
+            ppStmt.setString(3, bill.getFullName());
+            ppStmt.setString(4, bill.getEmail());
+            ppStmt.setString(5, bill.getAddress());
+            ppStmt.setString(6, bill.getPhoneNumber());
+            ppStmt.setFloat(7, bill.getTotalAmount());
+            ppStmt.setString(8, bill.getPayMethod());
+            ppStmt.setString(9, bill.getNote());
+            ppStmt.setString(10, bill.getCreatedAt());
+            ppStmt.setString(11, bill.getInvoice_creator());
+            ppStmt.executeUpdate();
+            ResultSet rs = ppStmt.getGeneratedKeys();
+            if (rs.next()) return rs.getInt(1);
+            else return -1;
+        } catch (SQLException e) {
+            throw new RuntimeException();
+        }
+    }
 
     public boolean createBill(Bill bill) {
         try (Connection conn = getConnection()) {

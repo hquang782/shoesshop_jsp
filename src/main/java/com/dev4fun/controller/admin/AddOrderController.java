@@ -98,7 +98,7 @@ public class AddOrderController extends HttpServlet {
         bill.setBillDetails(listBillDetails);
 
         if (url.contains("/admin/order/add")) {
-            int result = new BillDAO().createBill(bill);
+            int result = new BillDAO().createBillByAdmin(bill);
             for (BillDetail temp : listBillDetails) {
                 boolean setBillDetail = new BillDetailDAO().createBillDetail(temp, result);
             }
