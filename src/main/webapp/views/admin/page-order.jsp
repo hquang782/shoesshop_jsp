@@ -78,7 +78,7 @@
                                     if (request.getParameter("startIndex") != null) {
                                         sIndex = Integer.parseInt(request.getParameter("startIndex"));
                                     }
-                                    if (sIndex + 5 < listBillDetails.size()) eIndex = sIndex + 5;
+                                    if (sIndex + 10 < listBillDetails.size()) eIndex = sIndex + 10;
                                 %>
                                 <tbody>
                                 <% for (int i = sIndex; i < eIndex; i++) {%>
@@ -114,6 +114,7 @@
                                     <div class="index">
                                         <% String pageIndex;
                                             int currentPage = 1;
+
                                             if (request.getParameter("pageIndex") != null) {
                                                 System.out.println("page-null");
                                                 pageIndex = request.getParameter("pageIndex");
@@ -121,7 +122,7 @@
                                                 currentPage = Integer.parseInt(pageIndex);
                                             }
 
-                                            pageIndex = currentPage + "/" + (int) Math.ceil(listBillDetails.size() / 5.0);
+                                            pageIndex = currentPage + "/" + (int) Math.ceil(listBillDetails.size() / 10.0);
                                         %>
                                         <p id="currentPage"><%=pageIndex%>
                                         </p>
@@ -148,7 +149,7 @@
 <script>
     const dataLength =
     <%=listBillDetails.size()%>
-    const rowPerPage = 5
+    const rowPerPage = 10;
     let currentPage = <%=currentPage%>;
 </script>
 <script src="<c:url value="../../assets/js/pagination.js"/>">

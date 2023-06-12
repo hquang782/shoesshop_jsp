@@ -91,15 +91,19 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                    for (Bill bill : (ArrayList<Bill>) request.getAttribute("newBill")) { %>
+                                    int limitBill = 5;
+                                    ArrayList<Bill> bills = (ArrayList<Bill>) request.getAttribute("newBill");
+                                    if (bills.size() <= 5) limitBill = bills.size();
+                                    for (int i = 0; i <= limitBill; i++) { %>
                                 <tr>
-                                    <td title="<%=bill.getId()%>"><%=bill.getId()%>
+                                    <td title="<%=bills.get(i).getId()%>"><%=bills.get(i).getId()%>
                                     </td>
-                                    <td title="<%=bill.getFullName()%>"><%=bill.getFullName()%>
+                                    <td title="<%=bills.get(i).getFullName()%>"><%=bills.get(i).getFullName()%>
                                     </td>
-                                    <td title="<%=bill.getTotalAmount()%>"><%=nf.format(bill.getTotalAmount())%><sup>đ</sup>
+                                    <td title="<%=bills.get(i).getTotalAmount()%>"><%=nf.format(bills.get(i).getTotalAmount())%><sup>đ</sup>
                                     </td>
-                                    <td title="<%=bill.getStatus()%>"><span><%=bill.getStatus()%></span></td>
+                                    <td title="<%=bills.get(i).getStatus()%>"><span><%=bills.get(i).getStatus()%></span>
+                                    </td>
                                 </tr>
                                 <%}%>
                                 </tbody>
@@ -128,15 +132,18 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                    for (Account account : (ArrayList<Account>) request.getAttribute("newAcc")) { %>
+                                    int limitAccount = 5;
+                                    ArrayList<Account> accounts = (ArrayList<Account>) request.getAttribute("newAcc");
+                                    if(accounts.size()<=5) limitAccount = accounts.size();
+                                    for (int i = 0;i<=limitAccount;i++) { %>
                                 <tr>
-                                    <td title="<%=account.getUsername()%>"><%=account.getUsername()%>
+                                    <td title="<%=accounts.get(i).getUsername()%>"><%=accounts.get(i).getUsername()%>
                                     </td>
-                                    <td title="<%=account.getFullName()%>"><%=account.getFullName()%>
+                                    <td title="<%=accounts.get(i).getFullName()%>"><%=accounts.get(i).getFullName()%>
                                     </td>
-                                    <td title="<%=account.getEmail()%>"><%=account.getEmail()%>
+                                    <td title="<%=accounts.get(i).getEmail()%>"><%=accounts.get(i).getEmail()%>
                                     </td>
-                                    <td title="<%=account.getPhoneNumber()%>"><%=account.getPhoneNumber()%>
+                                    <td title="<%=accounts.get(i).getPhoneNumber()%>"><%=accounts.get(i).getPhoneNumber()%>
                                     </td>
                                 </tr>
                                 <%}%>
@@ -177,8 +184,8 @@
     const yValues = [];
     <%
         for(Chart chart: (ArrayList<Chart>)request.getAttribute("incomeForChart")){%>
-            xValues.push("<%=chart.getTime()%>");
-            yValues.push(<%=(chart.getIncome())%>);
+    xValues.push("<%=chart.getTime()%>");
+    yValues.push(<%=(chart.getIncome())%>);
     <%  } %>
     //DATATEST
     // const xValues = ["12/2022","01/2023","02/2023","03/2023","04/2023","05/2023"];
