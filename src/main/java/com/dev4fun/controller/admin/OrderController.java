@@ -29,7 +29,7 @@ public class OrderController extends HttpServlet {
             switch (temp) {
                 case "id":
                     //id don hang ID
-                    listBillDetail = billDetailDAO.getBillDetailById("bill_id", Integer.parseInt(value));
+                    listBillDetail = billDetailDAO.getBillDetailByBillId(Integer.parseInt(value));
                     break;
                 case "fn":
                     //ten khach hang full_name

@@ -404,16 +404,15 @@ public class ProductDAO extends DAO {
 
     public ArrayList<Statistic> getTopSaleProducts() {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT product.id,product.name,category.name AS category,product.price,\n" +
-                    "SUM(bill_detail.quantity) AS total_sold,\n" +
-                    "(product_detail.quantity- SUM(bill_detail.quantity)) AS remain\n" +
-                    "FROM bill_detail\n" +
-                    "JOIN product ON product.id = bill_detail.product_id\n" +
-                    "JOIN category ON product.category_id = category.id\n" +
-                    "JOIN product_detail ON product.id = product_detail.product_id\n" +
+            String statement = "SELECT product.id, product.name, category.name AS category, product.price,\n" +
+                    "    (bill_detail.quantity) AS total_sold,\n" +
+                    "    (SUM(product_detail.quantity) - (bill_detail.quantity)) AS remain\n" +
+                    "FROM bill_detail JOIN product ON product.id = bill_detail.product_id\n" +
+                    "        JOIN category ON product.category_id = category.id\n" +
+                    "        JOIN product_detail ON product.id = product_detail.product_id\n" +
                     "GROUP BY product.id\n" +
                     "ORDER BY total_sold DESC\n" +
-                    "LIMIT 5";
+                    "LIMIT 5;";
             ArrayList<Statistic> topproducts = new ArrayList<>();
             PreparedStatement ps = conn.prepareStatement(statement);
             ResultSet rs = ps.executeQuery();
@@ -451,7 +450,7 @@ public class ProductDAO extends DAO {
         try (Connection conn = getConnection()) {
             String statement = "SELECT quantity FROM "
                     + "shoes.product as p inner join product_detail as pd on p.id=pd.product_id "
-                    + "where pd.product_id=? and size=? ;";
+                    + "where pd.product_id=? and size=? ";
             PreparedStatement pp = conn.prepareStatement(statement);
             pp.setInt(1, id);
             pp.setInt(2, size);
@@ -465,4 +464,38 @@ public class ProductDAO extends DAO {
             throw new RuntimeException(e);
         }
     }
+
+    //update product_detail
+    public boolean updateProductDetail(int id, int size, int quantity) {
+        try (Connection conn = getConnection()) {
+
+            String selectStmt = "SELECT quantity FROM product_detail WHERE product_id = ? AND size = ?";
+            PreparedStatement selectPp = conn.prepareStatement(selectStmt);
+            selectPp.setInt(1, id);
+            selectPp.setInt(2, size);
+            ResultSet resultSet = selectPp.executeQuery();
+
+            if (resultSet.next()) {
+                int initialQuantity = resultSet.getInt("quantity");
+
+
+                int updatedQuantity = initialQuantity - quantity;
+
+                String updateStmt = "UPDATE product_detail SET quantity = ? WHERE product_id = ? AND size = ?";
+                PreparedStatement updatePp = conn.prepareStatement(updateStmt);
+                updatePp.setInt(1, updatedQuantity);
+                updatePp.setInt(2, id);
+                updatePp.setInt(3, size);
+                updatePp.executeUpdate();
+
+                return true;
+            } else {
+                throw new IllegalArgumentException("Product detail not found for ID: " + id + " and size: " + size);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+
 }

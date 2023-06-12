@@ -54,7 +54,8 @@
         font-weight: bold;
         display: flex;
     }
-    .comment-user p{
+
+    .comment-user p {
         margin-left: 12px;
         font-size: 18px;
     }
@@ -109,7 +110,10 @@
                 <div class="product-content-right-product-size">
                     <p style="font-weight: bold; font-size: 18px;">Size:</p>
                     <div class="size">
-                        <%for (ProductDetail pd : product.getProductDetails()) {%>
+                        <%
+                            for (ProductDetail pd : product.getProductDetails()) {
+                                if (pd.getQuantity() == 0) continue;
+                        %>
                         <span id="choose-size" onclick="getSize(this)"
                               aria-valuenow="<%=pd.getSize()%>"><%=pd.getSize()%></span>
                         <%}%>
@@ -176,7 +180,8 @@
                 <li class="comment-item">
                     <div class="comment-user">
                         <img src="<%=comment.getUser().getImageLink()%>" alt="" width="24">
-                        <p><%=comment.getUser().getFullName()%></p>
+                        <p><%=comment.getUser().getFullName()%>
+                        </p>
                     </div>
                     <div class="comment-content"><%= comment.getContent()%>
                     </div>

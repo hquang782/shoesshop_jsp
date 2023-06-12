@@ -62,16 +62,15 @@ public class BillDetailDAO extends DAO {
         }
     }
 
-    public ArrayList<BillDetail> getBillDetailById(String temp, int value) {
+    public BillDetail getBillDetailById(int value) {
 
         try (Connection conn = getConnection()) {
-            String stmt = "SELECT * from bill_detail where " + temp + " = ?";
-            ArrayList<BillDetail> bills = new ArrayList<>();
+            String stmt = "SELECT * from bill_detail where id = ?";
             PreparedStatement ps = conn.prepareStatement(stmt);
             ps.setInt(1, value);
             ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                BillDetail token = new BillDetail();
+            BillDetail token = new BillDetail();
+            if (rs.next()) {
                 token.setId(rs.getInt("id"));
                 Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
                 Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
@@ -80,9 +79,8 @@ public class BillDetailDAO extends DAO {
                 token.setQuantity(rs.getInt("quantity"));
                 token.setAmount(rs.getFloat("amount"));
                 token.setSize(rs.getInt("size"));
-                bills.add(token);
             }
-            return bills;
+            return token;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -223,6 +221,8 @@ public class BillDetailDAO extends DAO {
             ppStmt.setInt(4, billDetail.getQuantity());
             ppStmt.setInt(5, billDetail.getSize());
             ppStmt.executeUpdate();
+
+//            String stmt2 = ""
             return true;
 
         } catch (SQLException err) {

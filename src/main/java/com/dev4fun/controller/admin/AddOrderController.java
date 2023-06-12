@@ -43,7 +43,7 @@ public class AddOrderController extends HttpServlet {
             req.setAttribute("address", bill.getAddress());
             req.setAttribute("email", bill.getEmail());
             req.setAttribute("code", bill.getPayMethod());
-//            req.setAttribute("author", bill.getInvoice_creator());
+            req.setAttribute("author", bill.getInvoice_creator());
             String status = bill.getStatus();
             if (status.equals("Đang giao hàng")) {
                 status = "c";
@@ -69,7 +69,7 @@ public class AddOrderController extends HttpServlet {
         String url = req.getRequestURI();
         Bill bill = new Bill();
         Product product;
-
+        ProductDAO productDAO = new ProductDAO();
         if (url.contains("/admin/order/edit")) {
             bill.setId(Integer.parseInt(req.getParameter("idBill")));
         }
@@ -89,18 +89,40 @@ public class AddOrderController extends HttpServlet {
 
         int indexProd = 0;
         while (req.getParameter("productId" + indexProd) != null) {
-            product = new ProductDAO().getProductById(Integer.parseInt(req.getParameter("productId" + indexProd)));
+            int quantity = Integer.parseInt(req.getParameter("quantityProduct" + indexProd));
+            int size = Integer.parseInt(req.getParameter("sizeProduct" + indexProd));
+            int productId = Integer.parseInt(req.getParameter("productId" + indexProd));
+
+            if (!checkQuantity(productId, quantity, size)) {
+                indexProd++;
+                continue;
+            }
+            ;
+
+            product = productDAO.getProductById(productId);
             BillDetail billDetail = new BillDetail();
-            billDetail.setProduct(product);
-            billDetail.setQuantity(Integer.parseInt(req.getParameter("quantityProduct" + indexProd)));
+
             if (url.contains("/admin/order/edit")) {
                 billDetail.setId(Integer.parseInt(req.getParameter("id" + indexProd)));
+                billDetail = new BillDetailDAO().getBillDetailById(Integer.parseInt(req.getParameter("id" + indexProd)));
+                if (billDetail.getQuantity() != quantity) {
+                    boolean changeQuantity = productDAO.updateProductDetail(productId, size,-billDetail.getQuantity());
+                }
             }
-            billDetail.setAmount(product.getPrice() * Integer.parseInt(req.getParameter("quantityProduct" + indexProd)));
-            billDetail.setSize(Integer.parseInt(req.getParameter("sizeProduct" + indexProd)));
-            totalAmount += product.getPrice() * Integer.parseInt(req.getParameter("quantityProduct" + indexProd));
+
+            //update quantity
+            boolean updateBillDetail = productDAO.updateProductDetail(productId, size, quantity);
+
+            billDetail.setProduct(product);
+            billDetail.setSize(size);
+            billDetail.setQuantity(quantity);
+            billDetail.setAmount(product.getPrice() * quantity);
+
+            totalAmount += product.getPrice() * quantity;
+
             indexProd++;
             listBillDetails.add(billDetail);
+
         }
         bill.setTotalAmount(totalAmount);
         bill.setBillDetails(listBillDetails);
@@ -117,5 +139,11 @@ public class AddOrderController extends HttpServlet {
             }
         }
         resp.sendRedirect("/admin/order");
+    }
+
+    boolean checkQuantity(int id, int quantity, int size) {
+        ProductDAO productDAO = new ProductDAO();
+        int k = productDAO.getQuantityBySize(id, size);
+        return k >= quantity;
     }
 }
