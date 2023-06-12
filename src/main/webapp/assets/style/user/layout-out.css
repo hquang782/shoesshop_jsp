@@ -543,3 +543,19 @@ select {
 .open-cart {
     display: none;
 }
+
+#infoBox {
+    position: absolute;
+    left: -280px;
+    top: -40px;
+    background: white;
+    width: 285px;
+    padding: 12px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    display: none;
+}
+
+#infoBox h4 {
+    font-weight: 500;
+}

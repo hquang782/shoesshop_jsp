@@ -120,14 +120,6 @@
         ).then(data => {
             alert('Sửa trang giới thiệu thành công!')
             location.reload()
-            // const res = data.json()
-            // console.log(res.then(res => res.result))
-            // if (res['result']) {
-            //     alert('Sửa trang giới thiệu thành công!')
-            //     location.reload()
-            // } else {
-            //     alert('Sửa trang giới thiệu thất bại! Vui lòng kiểm tra lại.')
-            // }
         })
     })
 
@@ -143,14 +135,6 @@
         ).then(data => {
             alert('Sửa trang hệ thống cửa hàng thành công!')
             location.reload()
-            // const res = data.json()
-            // console.log(res['result'])
-            // if (res['result']) {
-            //     alert('Sửa trang hệ thống cửa hàng thành công!')
-            //     location.reload()
-            // } else {
-            //     alert("Sửa trang hệ thống cửa hàng thất bại! Vui lòng kiểm tra lại.")
-            // }
         })
     })
 </script>

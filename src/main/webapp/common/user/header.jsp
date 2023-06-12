@@ -5,7 +5,6 @@
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
-<title>Header</title>
 <link href="<c:url value="/assets/style/user/layout-out.css"/>" rel="stylesheet" type="text/css" media="all"/>
 <header class="header ">
     <%
@@ -22,7 +21,7 @@
                     <li><a href="<c:url value="/home"/>">Trang chủ</a></li>
                     <li><a href="<c:url value="/about/about-us"/>">Giới thiệu</a></li>
                     <li><a href="<c:url value="/products"/>">Sản phẩm</a></li>
-                    <li><a href="<c:url value="/about/store"/>">Store</a></li>
+                    <li><a href="<c:url value="/about/store"/>">Cửa hàng</a></li>
                 </ul>
             </div>
             <div class="wrap-search">

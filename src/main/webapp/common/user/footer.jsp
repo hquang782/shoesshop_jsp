@@ -19,7 +19,7 @@
         <div class="wrap-info-footer">
             <div>
                 <a style="color: white" href="<c:url value="/about/about-us"/>"><h2>Giới thiệu</h2></a>
-                <div class="fill-text"><%=limitConfig%></div>
+                <div class="fill-text">123123123123123</div>
             </div>
             <div>
                 <h2>Liên hệ</h2>
@@ -45,6 +45,6 @@
         </div>
     </div>
     <div class="wrap-copyright">
-        <p>Copyright by Hoyoverse</p>
+        <p>Copyright 2023 © Team D4F</p>
     </div>
 </footer>
