@@ -312,9 +312,13 @@ public class BillDAO extends DAO {
 
     public ArrayList<Chart> getIncomeForChart() {
         ArrayList<Chart> charts = new ArrayList<>();
-        String time = "STR_TO_DATE(created_at, '%H:%i:%s %d-%m-%Y')";
         try (Connection con = getConnection()) {
-            String stmt = "SELECT CONCAT(MONTH(" + time + "), '/', YEAR(" + time + ")) AS month_year,\n" + "SUM(total_amount) AS monthly_income\n" + "FROM  shoes.bill\n" + "WHERE " + time + " >= DATE_SUB(NOW(), INTERVAL 6 MONTH)\n" + "GROUP BY MONTH(" + time + "), YEAR(" + time + ")\n" + "ORDER BY YEAR(" + time + ") ASC, MONTH(" + time + ") ASC;\n";
+            String stmt = "SELECT CONCAT(MONTH(created_at), '/', YEAR(created_at)) AS month_year,\n" +
+                    "SUM(total_amount) AS monthly_income\n" +
+                    "FROM  shoes.bill\n" +
+                    "WHERE created_at >= DATE_SUB(NOW(), INTERVAL 6 MONTH)\n" +
+                    "GROUP BY MONTH(created_at), YEAR(created_at)\n" +
+                    "ORDER BY YEAR(created_at) ASC, MONTH(created_at) ASC";
             PreparedStatement ps = con.prepareStatement(stmt);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
