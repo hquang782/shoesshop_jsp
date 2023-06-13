@@ -442,14 +442,15 @@ public class ProductDAO extends DAO {
 
     public ArrayList<Statistic> getTopSaleProducts() {
         try (Connection conn = getConnection()) {
-            String statement = "SELECT product.id, product.name, category.name AS category, product.price,\n" +
-                    "    (bill_detail.quantity) AS total_sold,\n" +
-                    "    (SUM(product_detail.quantity) - (bill_detail.quantity)) AS remain\n" +
-                    "FROM bill_detail JOIN product ON product.id = bill_detail.product_id\n" +
-                    "        JOIN category ON product.category_id = category.id\n" +
-                    "        JOIN product_detail ON product.id = product_detail.product_id\n" +
-                    "GROUP BY product.id\n" +
-                    "ORDER BY total_sold DESC\n" +
+            String statement = "WITH bill_total AS (SELECT product_id, SUM(quantity) AS total_quantity FROM bill_detail GROUP BY product_id), \n" +
+                    "product_total AS (SELECT product_id, SUM(quantity) AS total_product_quantity FROM product_detail GROUP BY product_id)\n" +
+                    "SELECT  product.id, product.name, category.name AS category, product.price, bill_total.total_quantity,\n" +
+                    "    product_total.total_product_quantity - bill_total.total_quantity  AS remain\n" +
+                    "FROM product\n" +
+                    "LEFT JOIN category ON product.category_id = category.id\n" +
+                    "LEFT JOIN bill_total ON product.id = bill_total.product_id\n" +
+                    "LEFT JOIN product_total ON product.id = product_total.product_id\n" +
+                    "ORDER BY  bill_total.total_quantity DESC\n" +
                     "LIMIT 5;";
             ArrayList<Statistic> topproducts = new ArrayList<>();
             PreparedStatement ps = conn.prepareStatement(statement);

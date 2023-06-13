@@ -65,7 +65,7 @@ public class AddOrderController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN");
         LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("HH:mm:ss dd-MM-yyyy");
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         String url = req.getRequestURI();
         Bill bill = new Bill();
         Product product;
