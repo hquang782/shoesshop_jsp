@@ -34,7 +34,7 @@ public class ProfileController extends HttpServlet {
         account.setPhoneNumber(req.getParameter("tel"));
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
-
+        account.setAddress(req.getParameter("address"));
         AccountDAO accountDAO = new AccountDAO();
         boolean result = accountDAO.updateAccount(account);
         if (result) {

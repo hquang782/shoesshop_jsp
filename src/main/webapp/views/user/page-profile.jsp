@@ -66,7 +66,6 @@
                             <option value="Khác" ${b} >Khác</option>
                         </select>
                     </div>
-
                 </div>
                 <div class="form-group-line">
                     <div class="form-line">

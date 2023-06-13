@@ -125,20 +125,17 @@
                                             }
 
                                             pageIndex = currentPage + "/" + (int) Math.ceil(listProducts.size() / 5.0);
+                                            int next = (int) Math.ceil(listProducts.size() / 5.0);
                                         %>
                                         <p id="currentPage"><%=pageIndex%>
                                         </p>
                                     </div>
-                                    <%--                                <form action="<c:url value="/admin/product"/>" method="get" style="display: flex">--%>
-                                    <input type="hidden" style="display: none" id="st" name="startIndex">
-                                    <input type="hidden" style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
-                                        <button onclick="previousPages()">&#8592;</button>
+                                        <button <%=currentPage - 1 != 0 ? "onclick=\"previousPages()\"" : "type=\"button\""%>>&#8592;</button>
                                     </div>
                                     <div class="next">
-                                        <button onclick="nextPages()">&#8594;</button>
+                                        <button <%=currentPage != next ? "onclick=\"nextPages()\"" : "type=\"button\""%>>&#8594;</button>
                                     </div>
-                                    <%--                                </form>--%>
                                 </div>
                             </div>
                         </div>

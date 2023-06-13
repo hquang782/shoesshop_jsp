@@ -77,8 +77,12 @@ public class NewAccountController extends HttpServlet {
         Account account = new Account();
         String url = req.getRequestURI();
         if (url.contains("/admin/account/edit")) {
-            account.setId(Integer.parseInt(req.getParameter("idAccount")));
+            account = new AccountDAO().getAccountById(Integer.parseInt(req.getParameter("idAccount")));
+            if (!account.getPassword().equals(req.getParameter("password"))) {
+                account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
+            }
         } else account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
+
         account.setUsername(req.getParameter("username"));
         account.setFullName(req.getParameter("fullName"));
         account.setPhoneNumber(req.getParameter("tel"));
@@ -86,7 +90,6 @@ public class NewAccountController extends HttpServlet {
         account.setEmail(req.getParameter("email"));
         account.setDob(req.getParameter("dob"));
         account.setGender(req.getParameter("gender"));
-        account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
         account.setAddress(req.getParameter("address"));
 
         String urlImgParam = req.getParameter("textImageInput");

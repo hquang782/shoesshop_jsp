@@ -109,9 +109,9 @@
                         <p>Tổng tiền: <span class="total-final"><%=nf.format(total)%><sup>đ</sup></span></p>
                     </div>
                     <div class="summary-action">
-                        <div class="summary-alert alert alert-danger">
-                            FreeShip toàn quốc với đơn hàng từ 500.000<sup>đ</sup>
-                        </div>
+<%--                        <div class="summary-alert alert alert-danger">--%>
+<%--                            FreeShip toàn quốc với đơn hàng từ 500.000<sup>đ</sup>--%>
+<%--                        </div>--%>
                         <div class="summary-button">
                             <a <%=CartUtil.getCart(request).size() > 0 ? "href=\"/checkout\"" : ""%> id="btnCart-checkout" class="checkout-btn btnred">THANH TOÁN</a>
                         </div>

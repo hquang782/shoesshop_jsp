@@ -42,7 +42,7 @@
                                 <div class="modal-line">
                                     <h3>Thêm loại tài khoản</h3>
                                 </div>
-                                <form method="post" action="<c:url value="/admin/account/add?act=role"/>">
+                                <form method="post" action="/admin/account/add?act=role">
                                     <div class="modal-line form-line">
                                         <label for="newCategory">Tên loại tài khoản:</label>
                                         <input type="text" name="newCategory" id="newCategory">
