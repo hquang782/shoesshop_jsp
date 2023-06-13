@@ -11,6 +11,7 @@
 <%
     Account acc = (Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER");
 %>
+<title>Thanh toán</title>
 <div class="main">
     <div class="content">
         <div class="left-side">

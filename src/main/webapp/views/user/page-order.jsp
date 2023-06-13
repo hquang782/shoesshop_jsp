@@ -6,6 +6,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <link rel="stylesheet" href="<c:url value="/assets/style/user/order-style.css"/>"/>
+<title>Đơn mua của tôi</title>
 <div class="main">
     <div class="navigate">
         <a href="<c:url value="/home"/>">Trang chủ</a>

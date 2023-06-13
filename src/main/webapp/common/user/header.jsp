@@ -3,6 +3,7 @@
 <%@ page import="com.dev4fun.utils.CartUtil" %>
 <%@ page import="com.dev4fun.utils.SessionUtil" %>
 <%@ page import="com.dev4fun.model.Account" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 
 <link href="<c:url value="/assets/style/user/layout-out.css"/>" rel="stylesheet" type="text/css" media="all"/>
@@ -10,6 +11,7 @@
     <%
         ArrayList<Cart> listCarts = CartUtil.getCart(request);
         Account accountUser = (Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER");
+        NumberFormat nf = NumberFormat.getInstance();
     %>
     <div class="container-header">
         <div class="container-header--flex">
@@ -70,7 +72,7 @@
                                                 </p>
                                             </div>
                                             <div style="text-align: left">
-                                                <p class="header__cart-item-info-price"><%=cart.getProduct().getPrice()%><sup>đ</sup></p>
+                                                <p class="header__cart-item-info-price"><%=nf.format(cart.getProduct().getPrice())%><sup>đ</sup></p>
                                                 <p class="header__cart-item-info-price">X <%=cart.getQuantity()%>
                                                 </p>
                                             </div>

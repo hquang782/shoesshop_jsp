@@ -5,72 +5,22 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <link href="<c:url value="/assets/style/user/product-style.css"/>" rel="stylesheet" type="text/css"/>
+<%
+    String title = "";
+    if (request.getParameter("category") != null) {
+        title = "thuộc loại " + request.getParameter("category");
+    } else if (request.getParameter("search") != null) {
+        title = "có từ khóa '" + request.getParameter("search") +  "'";
+    }
+%>
+<title>Tất cả sản phẩm <%=title%></title>
 <div class="wraper">
     <form action="<c:url value="/products"/>" method="get">
         <div class="bgwhite-heading">
-            <h1 class="title">Tất cả sản phẩm '${valueSearch}'</h1>
+            <h1 class="title">Tất cả sản phẩm <%=title%></h1>
         </div>
         <input type="hidden" name="search" value="${valueSearch}">
         <input type="hidden" name="category" value="${valueCategory}">
-        <%--    <div class="container-filter">--%>
-        <%--        <div class="wrapper-layer-filter">--%>
-        <%--            <div class="layer-filter-group">--%>
-        <%--                <!-- Bộ lọc -->--%>
-        <%--                <div class="layer-filter-title">--%>
-        <%--                    <p class="title-filter">--%>
-        <%--                        <span class="icon-filter"><i class="fa-solid fa-filter"></i></span>--%>
-        <%--                        Bộ lọc--%>
-        <%--                    </p>--%>
-        <%--                </div>--%>
-
-        <%--                <div class="filter-group-block">--%>
-        <%--                    <div class="filter-group-subtitle">--%>
-        <%--                        <span>Giá</span>--%>
-        <%--                        <span class="icon-control"> <i class="fa-solid fa-chevron-down"></i></span>--%>
-        <%--                    </div>--%>
-        <%--                    <div class="filter-group-content filter-type">--%>
-        <%--                        <ul class="checkbox-list">--%>
-        <%--                            <li>--%>
-        <%--                                <input type="checkbox" onchange="" id="price-range-2" value="2" name="price2">--%>
-        <%--                                <label for="price-range-2">Tăng dần</label>--%>
-        <%--                            </li>--%>
-        <%--                            <li>--%>
-        <%--                                <input type="checkbox" onchange="" id="price-range-3" value="3" name="price3">--%>
-        <%--                                <label for="price-range-3">Giảm dần</label>--%>
-        <%--                            </li>--%>
-        <%--                        </ul>--%>
-
-        <%--                    </div>--%>
-        <%--                </div>--%>
-
-        <%--                <div class="filter-group-block">--%>
-        <%--                    <div class="filter-group-subtitle">--%>
-        <%--                        <span>Thể loại</span>--%>
-        <%--                        <span class="icon-control"><i class="fa-solid fa-chevron-down"></i></span>--%>
-        <%--                    </div>--%>
-        <%--                    <div class="filter-group-content filter-type">--%>
-        <%--                        <ul class="checkbox-list">--%>
-        <%--                            <li>--%>
-        <%--                                <input onchange="chonTh()" type="checkbox" id="da" name="chatlieu" value="Da">--%>
-        <%--                                <label for="da">Da</label>--%>
-        <%--                            </li>--%>
-        <%--                            <li>--%>
-        <%--                                <input onchange="chonTh()" type="checkbox" id="vaicanvas" name="chatlieu"--%>
-        <%--                                       value="Kanvas">--%>
-        <%--                                <label for="vaicanvas">Kanvas</label>--%>
-        <%--                            </li>--%>
-        <%--                            <li>--%>
-        <%--                                <input onchange="chonTh()" type="checkbox" id="dalon" name="chatlieu" value="Dalon">--%>
-        <%--                                <label for="dalon">Da lộn</label>--%>
-        <%--                            </li>--%>
-        <%--                        </ul>--%>
-        <%--                    </div>--%>
-        <%--                </div>--%>
-
-        <%--            </div>--%>
-        <%--        </div>--%>
-        <%--    </div>--%>
-        <!-- product  -->
         <%
             ArrayList<Product> listProducts = (ArrayList<Product>) request.getAttribute("listProducts");
             NumberFormat nf = NumberFormat.getNumberInstance();
@@ -105,40 +55,33 @@
                 </div>
                 <div class="wrapper-action-table" style="display: flex; justify-content: right; align-items: center;">
                     <div class="index">
-                        <% String pageIndex;
+                        <%
+                            String pageIndex;
                             int currentPage = 1;
                             if (request.getParameter("pageIndex") != null) {
-                                System.out.println("page-null");
                                 pageIndex = request.getParameter("pageIndex");
-                                System.out.println(pageIndex);
                                 currentPage = Integer.parseInt(pageIndex);
                             }
-
                             pageIndex = currentPage + "/" + (int) Math.ceil(listProducts.size() / 20.0);
+                            int next = (int) Math.ceil(listProducts.size() / 20.0);
                         %>
                         <p id="currentPage"><%=pageIndex%>
                         </p>
                     </div>
-                    <%--                <form action="<c:url value="/products"/>" method="get" style="display: flex">--%>
                     <input style="display: none" id="st" name="startIndex">
                     <input style="display: none" id="page" name="pageIndex">
                     <div class="previous">
-                        <button onclick="previousPages()">&#8592;</button>
+                        <button <%=currentPage - 1 != 0 ? "onclick=\"previousPages()\"" : "type=\"button\""%>>&#8592;</button>
                     </div>
                     <div class="next">
-                        <button onclick="nextPages()">&#8594;</button>
+                        <button <%=currentPage != next ? "onclick=\"nextPages()\"": "type=\"button\""%>>&#8594;</button>
                     </div>
-                    <%--                </form>--%>
                 </div>
             </div>
         </div>
     </form>
 </div>
-<%--<div class="pagination">--%>
-<%--    <c:forEach begin="1" end="${endPage}" var="i">--%>
-<%--        <a href="products?category=${category}&p=${i}">${i}</a>--%>
-<%--    </c:forEach>--%>
-<%--</div>--%>
+
 <script>
     const dataLength =
     <%=listProducts.size()%>

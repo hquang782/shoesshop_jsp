@@ -33,12 +33,13 @@
 <%
     ArrayList<Config> listConfigs = (ArrayList<Config>) request.getAttribute("listConfigs");
 %>
+<title>Cấu hình trang</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
             <div class="wrap-title">
                 <div class="item-title">
-                    <h3>Config</h3>
+                    <h3>Cấu hình trang</h3>
                 </div>
                 <div class="timer">
                     <p id="timer"></p>
@@ -48,21 +49,21 @@
 
         <div class="wrapper-editor">
             <div class="editor-item">
-                <h3>Config page policy</h3>
+                <h3>Cấu hình trang điều khoản, chính sách</h3>
                 <textarea class="editor" id="policy"></textarea>
-                <button id="submitPolicy">Save</button>
+                <button id="submitPolicy">Lưu lại</button>
             </div>
 
             <div class="editor-item">
-                <h3>Config page about us</h3>
+                <h3>Cấu hình trang về chúng tôi</h3>
                 <textarea class="editor" id="aboutUs"></textarea>
-                <button id="submitAboutUs">Save</button>
+                <button id="submitAboutUs">Lưu lại</button>
             </div>
 
             <div class="editor-item">
-                <h3>Config page store</h3>
+                <h3>Cấu hình trang hệ thống cửa hàng</h3>
                 <textarea class="editor" id="store"></textarea>
-                <button id="submitStore">Save</button>
+                <button id="submitStore">Lưu lại</button>
             </div>
         </div>
     </div>

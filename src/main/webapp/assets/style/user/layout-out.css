@@ -205,7 +205,7 @@ footer {
 
 .footer-container {
     border-bottom: 1px solid #e7e7e7;
-    padding: 32px 0;
+    padding: 10px 0;
 }
 
 .wrap-info-footer {
@@ -242,6 +242,7 @@ profile
 
 .content-profile {
     width: 1200px !important;
+    min-height: 100vh;
 }
 
 .profile-section {
@@ -546,8 +547,8 @@ select {
 
 #infoBox {
     position: absolute;
-    left: -280px;
-    top: -40px;
+    left: -330px;
+    top: -135px;
     background: white;
     width: 285px;
     padding: 12px;

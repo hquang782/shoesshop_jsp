@@ -6,6 +6,7 @@
 <%@include file="/common/taglib.jsp" %>
 
 <link href="<c:url value="/assets/style/user/home-style.css"/>" rel="stylesheet" type="text/css"/>
+<title>Miracle - Giày Việt Nam chất lượng cao</title>
 <div class="main">
     <div class="container">
         <%

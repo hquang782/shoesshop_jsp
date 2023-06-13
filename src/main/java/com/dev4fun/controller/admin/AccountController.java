@@ -25,7 +25,6 @@ public class AccountController extends HttpServlet {
             String temp = req.getParameter("t");
             String value = req.getParameter("v");
             String none = "none";
-            System.out.println(temp + " " + value);
             ArrayList<Account> accounts;
             accounts = accountDAO.getAccountByElement(temp, value);
             String typeSearch = temp.equals("username") ? "Tên người dùng" :
@@ -36,7 +35,6 @@ public class AccountController extends HttpServlet {
             req.setAttribute(temp, none);
             req.setAttribute("listAccounts", accounts);
             req.setAttribute("txt_sAccount", value);
-            System.out.println(accounts.size());
         } else {
             req.setAttribute("valueSearch", "");
             req.setAttribute("typeSearch", "Tìm kiếm theo");

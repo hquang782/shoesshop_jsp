@@ -2,6 +2,7 @@ package com.dev4fun.controller.user;
 
 import com.dev4fun.dao.AccountDAO;
 import com.dev4fun.model.Account;
+import com.dev4fun.utils.BCrypt;
 import com.dev4fun.utils.SessionUtil;
 
 import javax.servlet.RequestDispatcher;
@@ -26,6 +27,9 @@ public class ProfileController extends HttpServlet {
         account.setFullName(req.getParameter("fullName"));
         account.setUsername(req.getParameter("username"));
         account.setPassword(req.getParameter("password"));
+        if (!req.getParameter("password").equals(account.getPassword())) {
+            account.setPassword(BCrypt.hashpw(req.getParameter("password"), BCrypt.gensalt()));
+        }
         account.setEmail(req.getParameter("email"));
         account.setPhoneNumber(req.getParameter("tel"));
         account.setDob(req.getParameter("dob"));
@@ -33,6 +37,9 @@ public class ProfileController extends HttpServlet {
 
         AccountDAO accountDAO = new AccountDAO();
         boolean result = accountDAO.updateAccount(account);
+        if (result) {
+            SessionUtil.getInstance().putValue(req, "ACCOUNT_USER", accountDAO.getAccountById(account.getId()));
+        }
         resp.sendRedirect("/user/profile");
     }
 }

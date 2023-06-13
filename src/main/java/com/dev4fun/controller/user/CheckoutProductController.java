@@ -21,17 +21,19 @@ import java.util.ArrayList;
 public class CheckoutProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String referer = req.getHeader("referer");
-        if (req.getParameter("productId")!=null) {
+        if (req.getParameter("productId") == null && CartUtil.getCart(req).size() == 0) {
+            resp.sendRedirect("/404");
+            return;
+        }
+        if (req.getParameter("productId") != null) {
             int id = Integer.parseInt(req.getParameter("productId"));
             int quantity = Integer.parseInt(req.getParameter("quantity"));
             int size = Integer.parseInt(req.getParameter("size"));
-            if(size == -1) resp.sendRedirect(referer);
-            Product product = new ProductDAO().getProductForBuyNow(id,size);
+            Product product = new ProductDAO().getProductForBuyNow(id, size);
 
-            req.setAttribute("product",product);
-            req.setAttribute("quantity",quantity);
-            req.setAttribute("size",size);
+            req.setAttribute("product", product);
+            req.setAttribute("quantity", quantity);
+            req.setAttribute("size", size);
         }
         RequestDispatcher requestDispatcher = req.getRequestDispatcher("views/user/page-checkout.jsp");
         requestDispatcher.forward(req, resp);
@@ -42,12 +44,11 @@ public class CheckoutProductController extends HttpServlet {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         ProductDAO productDAO = new ProductDAO();
         float totalAmount = 0;
-        if(req.getParameter("productId")!=null){
-            System.out.println("mua ngay");
+        if (req.getParameter("productId") != null) {
             int id = Integer.parseInt(req.getParameter("productId"));
             int quantity = Integer.parseInt(req.getParameter("quantity"));
             int size = Integer.parseInt(req.getParameter("size"));
-            Product product = productDAO.getProductForBuyNow(id,size);
+            Product product = productDAO.getProductForBuyNow(id, size);
             totalAmount += product.getPrice() * quantity;
             Bill bill = new Bill();
             bill.setStatus("Chờ xử lý");
@@ -74,13 +75,10 @@ public class CheckoutProductController extends HttpServlet {
             listBillDetails.add(billDetail);
             bill.setBillDetails(listBillDetails);
             new BillDAO().createBill(bill);
-        }
-        else{
+        } else {
             for (Cart cart : CartUtil.getCart(req)) {
                 totalAmount += cart.getQuantity() * cart.getProduct().getPrice();
             }
-            System.out.println("giỏ hàng");
-
             Bill bill = new Bill();
             bill.setStatus("Chờ xử lý");
             if (req.getParameter("userId") != null) {
@@ -110,6 +108,7 @@ public class CheckoutProductController extends HttpServlet {
             SessionUtil.getInstance().removeValue(req, "listCarts");
 
         }
+        SessionUtil.getInstance().putValue(req, "ORDER_SUCCESS", "DONE");
         resp.sendRedirect("/checkout/order-success");
     }
 }

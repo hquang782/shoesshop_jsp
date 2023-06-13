@@ -1,13 +1,18 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dev4fun.model.BillDetail" %>
+<%@ page import="com.dev4fun.model.Bill" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    String title = request.getAttribute("id") != null ? "Thay đổi thông tin" : "Thêm";
+%>
+<title><%=title%> đơn hàng</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
             <div class="wrap-title">
                 <div class="item-title">
-                    <h3>Đơn hàng / Thêm đơn hàng</h3>
+                    <h3>Đơn hàng / <%=title%> đơn hàng</h3>
                 </div>
                 <div class="timer">
                     <p id="timer"></p>

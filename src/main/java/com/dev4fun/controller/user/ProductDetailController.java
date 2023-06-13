@@ -43,7 +43,7 @@ public class ProductDetailController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Account acc = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_USER");
-        if(acc!=null){
+        if (acc != null) {
             int productId = Integer.parseInt(req.getParameter("productId"));
             String content = req.getParameter("commentText");
             Comment comment = new Comment();
@@ -53,15 +53,13 @@ public class ProductDetailController extends HttpServlet {
 
             boolean result = new CommentDAO().createComment(comment);
 
-
             ProductDAO productDAO = new ProductDAO();
             Product product = productDAO.getProductById(productId);
             req.setAttribute("product", product);
 
             RequestDispatcher requestDispatcher = req.getRequestDispatcher("/views/user/page-product-detail.jsp");
             requestDispatcher.forward(req, resp);
-        }
-        else{
+        } else {
             resp.sendRedirect("/login");
         }
     }

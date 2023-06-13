@@ -7,6 +7,7 @@
     NumberFormat nf = NumberFormat.getNumberInstance();
     nf.setGroupingUsed(true);
 %>
+<title>Quản lý sản phẩm</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
@@ -51,10 +52,7 @@
                                 <div class="btn-search">
                                     <button type="submit">Tìm kiếm</button>
                                 </div>
-                                <%--                            </form>--%>
-
                             </div>
-
                         </div>
                         <div class="wrapper-table-content">
                             <table>

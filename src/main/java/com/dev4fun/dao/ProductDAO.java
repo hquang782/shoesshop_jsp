@@ -28,6 +28,7 @@ public class ProductDAO extends DAO {
                 product.setStatus(rsProduct.getString("status"));
                 product.setCreatedAt(rsProduct.getString("created_at"));
                 product.setComments(new CommentDAO().getCommentByProductId(rsProduct.getInt("id")));
+
                 PreparedStatement ppProductDetail = conn.prepareStatement(statementProductDetail);
                 ppProductDetail.setInt(1, product.getId());
                 ResultSet rsProductDetail = ppProductDetail.executeQuery();
@@ -39,6 +40,8 @@ public class ProductDAO extends DAO {
                     productDetail.setSize(rsProductDetail.getString("size"));
                     product.getProductDetails().add(productDetail);
                 }
+
+                product.setCategory(new CategoryDAO().getCategoryById(product.getCategoryId()));
             }
             return product;
         } catch (SQLException e) {

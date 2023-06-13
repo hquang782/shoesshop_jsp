@@ -169,11 +169,11 @@ select:-webkit-autofill {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    letter-spacing: 1px;
 }
 
 .account-item {
-    margin: 0 12px;
+    margin-left: 6px;
+    margin-right: 12px;
     height: 100%;
 }
 
@@ -192,7 +192,7 @@ select:-webkit-autofill {
     position: absolute;
     right: 0;
     top: 100%;
-    width: 170px;
+    width: 180px;
     padding: 10px;
     box-shadow: 0 0 5px rgb(0 0 0 / 10%);
     background: #fff;

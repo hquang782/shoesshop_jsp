@@ -11,6 +11,7 @@
     String title = product != null ? "Thay đổi thông tin" : "Thêm";
     NumberFormat nf = NumberFormat.getNumberInstance();
 %>
+<title><%=title%> sản phẩm</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">

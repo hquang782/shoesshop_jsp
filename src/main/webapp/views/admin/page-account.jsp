@@ -3,6 +3,7 @@
 <%@ page import="com.dev4fun.utils.SessionUtil" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<title>Quản lý tài khoản</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">

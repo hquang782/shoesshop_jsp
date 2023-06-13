@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-
+<title>Đăng nhập tài khoản</title>
 <div>
     <div class="header">
         <a href="<c:url value="/home"/>" class="logo">
@@ -21,7 +21,7 @@
                     <div>
                         <div class="form-body-line">
                             <div class="wrapper-form-line">
-                                <label for="username">Tên đăng nhập</label>
+                                <label for="username">Tên đăng nhập (*)</label>
                                 <div>
                                     <input type="text" placeholder="Tên đăng nhập" name="username" id="username">
                                 </div>
@@ -30,7 +30,7 @@
 
                         <div class="form-body-line">
                             <div class="wrapper-form-line">
-                                <label for="password">Mật khẩu</label>
+                                <label for="password">Mật khẩu (*)</label>
                                 <div>
                                     <input type="password" placeholder="Mật khẩu" name="password" id="password">
                                 </div>

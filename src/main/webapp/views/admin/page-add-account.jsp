@@ -3,22 +3,24 @@
 <%@ page import="com.dev4fun.model.Role" %>
 <%@ page import="com.dev4fun.model.Account" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%
+    Account account = (Account) request.getAttribute("account");
+    String title = account != null ? "Thay đổi thông tin" : "Thêm";
+%>
+<title><%=title%> tài khoản</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
             <div class="wrap-title">
                 <div class="item-title">
-                    <h3>Tài khoản</h3>
+                    <h3>Tài khoản / <%=title%> tài khoản</h3>
                 </div>
                 <div class="timer">
                     <p id="timer"></p>
                 </div>
             </div>
         </div>
-        <%
-            Account account = (Account) request.getAttribute("account");
-            String title = account != null ? "Thay đổi thông tin" : "Thêm";
-        %>
+
         <div class="main-container">
             <div class="wrapper-main-container">
 

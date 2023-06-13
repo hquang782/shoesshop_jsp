@@ -48,20 +48,34 @@
                     </div>
                     <div class="form-line">
                         <label for="gender">Giới tính:</label>
+                        <%
+                            String gender = ((Account) SessionUtil.getInstance().getValue(request, "ACCOUNT_USER")).getGender();
+                            if (gender.equals("Nam")) {
+                                gender = "c";
+                            } else if (gender.equals("Nữ")) {
+                                gender = "a";
+                            } else if (gender.equals("Khác")) {
+                                gender = "b";
+                            }
+                            request.setAttribute(gender, "selected");
+                        %>
                         <select name="gender" id="gender" required>
-                            <option value="${ACCOUNT_USER.gender}" selected>${ACCOUNT_USER.gender}</option>
-                            <option value="Nam">Nam
-                            </option>
-                            <option value="Nữ">Nữ
-                            </option>
-                            <option value="Khác">Khác
-                            </option>
+                            <option value="${ACCOUNT_USER.gender}" selected>-- Chọn giới tính --</option>
+                            <option value="Nam" ${c} >Nam</option>
+                            <option value="Nữ" ${a} >Nữ</option>
+                            <option value="Khác" ${b} >Khác</option>
                         </select>
                     </div>
 
                 </div>
+                <div class="form-group-line">
+                    <div class="form-line">
+                        <label for="address">Địa chỉ:</label>
+                        <input type="text" id="address" name="address" value="${ACCOUNT_USER.address}" required>
+                    </div>
+                </div>
                 <div class="form-line form-line-btn">
-                    <button class="btn-add" type="submit">Lưu lại</button>
+                    <button class="btn-add" style="background-color: #333333;color: white;" type="submit">Lưu lại</button>
                 </div>
             </form>
         </div>

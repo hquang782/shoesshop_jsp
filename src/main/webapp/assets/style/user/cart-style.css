@@ -3,6 +3,10 @@
     width: 1200px !important;
 }
 
+.main {
+    min-height: 100vh !important;
+}
+
 .content > div {
     padding: 14px;
 }

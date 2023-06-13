@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
 <link rel="stylesheet" href="<c:url value="/assets/style/user/cart-style.css"/>"/>
+<title>Giỏ hàng</title>
 <div class="main">
     <%
         NumberFormat nf = NumberFormat.getNumberInstance();
@@ -112,7 +113,7 @@
                             FreeShip toàn quốc với đơn hàng từ 500.000<sup>đ</sup>
                         </div>
                         <div class="summary-button">
-                            <a href="<c:url value="/checkout"/>" id="btnCart-checkout" class="checkout-btn btnred">THANH TOÁN</a>
+                            <a <%=CartUtil.getCart(request).size() > 0 ? "href=\"/checkout\"" : ""%> id="btnCart-checkout" class="checkout-btn btnred">THANH TOÁN</a>
                         </div>
                         <br>
                     </div>

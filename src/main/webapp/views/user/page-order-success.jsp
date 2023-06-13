@@ -54,7 +54,7 @@
         display: none !important;
     }
 </style>
-
+<title>Đặt đơn hàng thành công</title>
 <div class="main-container">
     <div class="card">
         <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">

@@ -17,13 +17,13 @@
             </div>
 
             <div class="wrap-account">
-                <p class="username">Welcome, ${ACCOUNT_ADMIN.fullName}</p>
+                <p class="username">${ACCOUNT_ADMIN.fullName}</p>
                 <a href="#" class="account-item">
                     <img src="${ACCOUNT_ADMIN.imageLink}"
                          alt="logo">
                 </a>
                 <ul class="dropdown-account-link">
-                    <li><a href="<c:url value="/admin/profile"/>">Profile</a></li>
+                    <li><a href="<c:url value="/admin/profile"/>">Thông tin tài khoản</a></li>
                     <li>
                         <form method="post" action="<c:url value="/admin/logout"/>">
                             <button type="submit">Logout</button>

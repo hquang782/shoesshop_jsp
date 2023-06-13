@@ -8,6 +8,7 @@
     NumberFormat nf = NumberFormat.getNumberInstance();
     nf.setGroupingUsed(true);
 %>
+<title>Quản lý đơn hàng</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">

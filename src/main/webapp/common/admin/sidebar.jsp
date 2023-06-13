@@ -4,16 +4,10 @@
     <div class="sidebar">
         <div class="wrap-link-sidebar">
             <ul class="link-page">
-                <div class="link-title">
-                    <h6>Controller</h6>
-                </div>
                 <li>
                     <a href="<c:url value="/admin"/>"><span>
-                        <img src="<c:url value="/assets/img/dashboard.png"/>" style="width: 8.5%" alt=""></span>Dashboard</a>
+                        <img src="<c:url value="/assets/img/dashboard.png"/>" style="width: 8.5%" alt=""></span>Trang chủ</a>
                 </li>
-                <div class="link-title">
-                    <h6>Configure</h6>
-                </div>
                 <li>
                     <a href="<c:url value="/admin/account"/>"><span>
                         <img src="<c:url value="/assets/img/account.png"/>" style="width: 8.5%" alt=""> </span>Tài khoản</a>

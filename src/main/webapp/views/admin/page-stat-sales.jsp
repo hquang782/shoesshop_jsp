@@ -4,6 +4,7 @@
 <%@ page import="com.dev4fun.model.Statistic" %>
 <%@ page import="com.dev4fun.model.Chart" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<title>Thống kê</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
@@ -16,7 +17,10 @@
                 </div>
             </div>
         </div>
-
+        <%
+            NumberFormat nf = NumberFormat.getNumberInstance();
+            nf.setGroupingUsed(true);
+        %>
         <!-- Show total -->
         <div class="main-content">
 
@@ -76,11 +80,8 @@
                         </p>
                         <div class="info-recap">
                             <h4>Tổng doanh thu</h4>
-                            <%
-                                NumberFormat nf = NumberFormat.getNumberInstance();
-                                nf.setGroupingUsed(true);
-                            %>
-                            <p><b><%=nf.format(request.getAttribute("totalIncome"))%> doanh thu</b></p>
+
+                            <p><b><%=nf.format(request.getAttribute("totalIncome"))%><sup>đ</sup></b></p>
                         </div>
                     </div>
                 </div>

@@ -32,7 +32,7 @@
         background-color: #555;
     }
 </style>
-
+<title>Không tìm thấy trang</title>
 <div class="container">
     <h1>404</h1>
     <h2>Không tìm thấy trang</h2>

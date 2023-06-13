@@ -159,20 +159,19 @@ public class AccountDAO extends DAO {
 
     public boolean updateAccount(Account account) {
         try (Connection conn = getConnection()) {
-            String stmt = "update account set username = ?, password = ?, email = ?, role = ?, full_name = ?, dob = ?, gender = ?, phone_number = ?, image_link = ? , address = ?  where id = ?";
+            String stmt = "update account set username = ?, email = ?, role = ?, full_name = ?, dob = ?, gender = ?, phone_number = ?, image_link = ? , address = ?, password = ?  where id = ?";
             PreparedStatement ppStmt = conn.prepareStatement(stmt);
             ppStmt.setString(1, account.getUsername());
-            ppStmt.setString(2, account.getPassword());
-            ppStmt.setString(3, account.getEmail());
-            ppStmt.setString(4, account.getRole());
-            ppStmt.setString(5, account.getFullName());
-            ppStmt.setString(6, account.getDob());
-            ppStmt.setString(7, account.getGender());
-            ppStmt.setString(8, account.getPhoneNumber());
-            ppStmt.setString(9, account.getImageLink());
-            ppStmt.setString(10, account.getAddress());
+            ppStmt.setString(2, account.getEmail());
+            ppStmt.setString(3, account.getRole());
+            ppStmt.setString(4, account.getFullName());
+            ppStmt.setString(5, account.getDob());
+            ppStmt.setString(6, account.getGender());
+            ppStmt.setString(7, account.getPhoneNumber());
+            ppStmt.setString(8, account.getImageLink());
+            ppStmt.setString(9, account.getAddress());
+            ppStmt.setString(10, account.getPassword());
             ppStmt.setInt(11, account.getId());
-
             ppStmt.executeUpdate();
             return true;
         } catch (SQLException err) {

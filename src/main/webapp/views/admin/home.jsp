@@ -9,12 +9,13 @@
     NumberFormat nf = NumberFormat.getNumberInstance();
     nf.setGroupingUsed(true);
 %>
+<title>Trang chủ</title>
 <div id="main">
     <div class="content">
         <div class="box title-decorator--left">
             <div class="wrap-title">
                 <div class="item-title">
-                    <h3>Dashboard</h3>
+                    <h3>Trang chủ</h3>
                 </div>
                 <div class="timer">
                     <p id="timer"></p>
@@ -33,7 +34,7 @@
                         <div class="info-recap">
                             <h4>Tổng khách hàng</h4>
                             <p><b><%=request.getAttribute("totalClientAccounts")%> khách hàng</b></p>
-                            <p class="total-info">This is list khách hàng.</p>
+                            <p class="total-info">Tổng số khách hàng</p>
                         </div>
                     </div>
                 </div>
@@ -45,7 +46,7 @@
                         <div class="info-recap">
                             <h4>Tổng sản phẩm</h4>
                             <p><b><%=request.getAttribute("ttProd")%> sản phẩm</b></p>
-                            <p class="total-info">Tổng số sản phẩm được quản lý.</p>
+                            <p class="total-info">Tổng số sản phẩm</p>
                         </div>
                     </div>
                 </div>
@@ -57,7 +58,7 @@
                         <div class="info-recap">
                             <h4>Tổng đơn hàng</h4>
                             <p><b><%=request.getAttribute("ttBill")%> đơn hàng</b></p>
-                            <p class="total-info">Tổng số hóa đơn bán hàng.</p>
+                            <p class="total-info">Tổng số hóa đơn</p>
                         </div>
                     </div>
                 </div>
@@ -69,7 +70,7 @@
                         <div class="info-recap">
                             <h4>Hết hàng</h4>
                             <p><b><%=request.getAttribute("ttExpired")%> sản phẩm</b></p>
-                            <p class="total-info">Số sản phẩm đã hết hàng.</p>
+                            <p class="total-info">Tổng số sản phẩm đã hết hàng</p>
                         </div>
                     </div>
                 </div>

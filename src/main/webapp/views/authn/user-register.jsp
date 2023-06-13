@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@include file="/common/taglib.jsp" %>
-
+<title>Đăng ký tài khoản</title>
 <div>
     <div class="header">
         <a href="<c:url value="/home"/>" class="logo">
@@ -82,7 +82,7 @@
 
                             <div class="form-body-line">
                                 <div class="wrapper-form-line">
-                                    <label for="dob">Sinh nhật (?)</label>
+                                    <label for="dob">Ngày sinh (?)</label>
                                     <div>
                                         <input type="date" placeholder="Sinh nhật" name="dob" id="dob">
                                     </div>
@@ -109,13 +109,21 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
 
+                    <div class="form-body-line">
+                        <div class="wrapper-form-line">
+                            <label for="address">Địa chỉ (?)</label>
+                            <div>
+                                <input style="background: #ffffff" type="text" placeholder="Địa chỉ" name="address" id="address">
+                            </div>
+                        </div>
                     </div>
 
                     <div class="form-body-line">
                         <div class="wrapper-form-line">
                             <div>
-                                <input type="submit" id="submit" value="Đăng Nhập">
+                                <input type="submit" id="submit" value="Đăng ký">
                             </div>
                         </div>
                     </div>

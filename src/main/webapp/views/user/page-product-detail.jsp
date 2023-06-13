@@ -66,20 +66,18 @@
 </style>
 
 <link href="<c:url value="/assets/style/user/product-detail.css"/>" rel="stylesheet" type="text/css"/>
+<%
+    Product product = (Product) request.getAttribute("product");
+    ArrayList<String> listImages = new ArrayList<>(List.of(product.getImageList().split(",")));
+    NumberFormat nf = NumberFormat.getNumberInstance();
+%>
+<title><%=product.getName()%></title>
 <div class="main">
-    <%
-        Product product = (Product) request.getAttribute("product");
-        ArrayList<ProductDetail> pds = product.getProductDetails();
-        ArrayList<String> listImages = new ArrayList<>(List.of(product.getImageList().split(",")));
-        NumberFormat nf = NumberFormat.getNumberInstance();
-        ProductDAO pdao = new ProductDAO();
-        int quantity = 1;
-    %>
     <div class="product">
         <div class="product-top">
             <a href="<c:url value="/home"/>">Trang chủ</a>
             <span>/</span>
-            <a href="<c:url value="/products?category=<%=product.getCategoryId()%>"/>"><%=product.getCategoryId()%>
+            <a href="/products?category=<%=product.getCategory().getName()%>"><%=product.getCategory().getName()%>
             </a>
             <span>/</span>
             <a href="/products/<%=product.getName().replaceAll(" ", "-") + "-" + product.getId()%>"><%=product.getName()%>
@@ -135,7 +133,7 @@
                 </div>
                 <div class="product-content-right-product-button">
                     <div class="product-content-right-product-button-cart">
-                        <form action="<c:url value="/cart"/>" method="post">
+                        <form id="addToCart" action="<c:url value="/cart"/>" method="post">
                             <button type="submit" onclick="getValue()">
                                 THÊM VÀO GIỎ HÀNG
                             </button>
@@ -146,7 +144,7 @@
                         </form>
                     </div>
                     <div class="product-content-right-product-button-mua">
-                        <form action="<c:url value="/checkout"/>" method="get">
+                        <form id="buyNow" action="<c:url value="/checkout"/>" method="get">
                             <button type="submit" onclick="getValue()">
                                 MUA NGAY
                             </button>
@@ -154,7 +152,6 @@
                             <input id="qtt1" type="hidden" name="quantity" value="-1">
                             <input id="size1" type="hidden" name="size" value="-1">
                         </form>
-
                     </div>
                 </div>
                 <div class="product-content-right-bottom">
@@ -226,9 +223,21 @@
         previousElement = e;
     }
 
-    function getValue(e) {
+    const addToCart = document.getElementById("addToCart")
+    const buyNow = document.getElementById("buyNow")
+
+    function getValue() {
         if (sizeSelected.value === '-1' && sizeSelected1.value === '-1') {
             alert('Hãy chọn size cho sản phẩm!')
+            addToCart.onsubmit = (e) => {
+                e.preventDefault()
+            }
+            buyNow.onsubmit = (e) => {
+                e.preventDefault()
+            }
+        } else {
+            addToCart.onsubmit = () => { }
+            buyNow.onsubmit = () => { }
         }
         qttSelected.value = inputQtt.value
         qttSelected1.value= inputQtt.value
