@@ -130,6 +130,8 @@
                                         <p id="currentPage"><%=pageIndex%>
                                         </p>
                                     </div>
+                                    <input style="display: none" id="st" name="startIndex">
+                                    <input style="display: none" id="page" name="pageIndex">
                                     <div class="previous">
                                         <button <%=currentPage - 1 != 0 ? "onclick=\"previousPages()\"" : "type=\"button\""%>>&#8592;</button>
                                     </div>
