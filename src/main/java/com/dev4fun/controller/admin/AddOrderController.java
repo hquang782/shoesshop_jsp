@@ -97,7 +97,6 @@ public class AddOrderController extends HttpServlet {
                 indexProd++;
                 continue;
             }
-            ;
 
             product = productDAO.getProductById(productId);
             BillDetail billDetail = new BillDetail();
@@ -111,7 +110,7 @@ public class AddOrderController extends HttpServlet {
             }
 
             //update quantity
-            boolean updateBillDetail = productDAO.updateProductDetail(productId, size, quantity);
+            boolean updateProductDetail = productDAO.updateProductDetail(productId, size, quantity);
 
             billDetail.setProduct(product);
             billDetail.setSize(size);

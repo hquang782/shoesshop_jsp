@@ -1,6 +1,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="com.dev4fun.model.BillDetail" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="com.dev4fun.model.Bill" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%
@@ -41,7 +42,7 @@
                                         <%}%>
                                         <option value="id" style="display: ${id}">ID Đơn hàng</option>
                                         <option value="fn" style="display: ${fn}">Khách hàng</option>
-                                        <option value="name" style="display: ${name}">Đơn hàng</option>
+<%--                                        <option value="name" style="display: ${name}">Đơn hàng</option>--%>
                                         <option value="st" style="display: ${st}">Tình trạng</option>
                                     </select>
                                 </div>
@@ -65,38 +66,38 @@
                                 <tr>
                                     <th>ID Đơn hàng</th>
                                     <th>Khách hàng</th>
-                                    <th>Đơn hàng</th>
-                                    <th>Số lượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Hình Thức</th>
                                     <th>Tổng tiền</th>
                                     <th>Trạng thái</th>
                                     <th class="action">Tính năng</th>
                                 </tr>
                                 </thead>
                                 <%
-                                    ArrayList<BillDetail> listBillDetails = (ArrayList<BillDetail>) request.getAttribute("listBillDetail");
-                                    int sIndex = 0, eIndex = listBillDetails.size();
+                                    ArrayList<Bill> listBills = (ArrayList<Bill>) request.getAttribute("listBill");
+                                    int sIndex = 0, eIndex = listBills.size();
                                     if (request.getParameter("startIndex") != null) {
                                         sIndex = Integer.parseInt(request.getParameter("startIndex"));
                                     }
-                                    if (sIndex + 10 < listBillDetails.size()) eIndex = sIndex + 10;
+                                    if (sIndex + 10 < listBills.size()) eIndex = sIndex + 10;
                                 %>
                                 <tbody>
                                 <% for (int i = sIndex; i < eIndex; i++) {%>
                                 <tr>
-                                    <td><%=listBillDetails.get(i).getBill().getId()%>
+                                    <td><%=listBills.get(i).getId()%>
                                     </td>
-                                    <td><%=listBillDetails.get(i).getBill().getFullName()%>
+                                    <td><%=listBills.get(i).getFullName()%>
                                     </td>
-                                    <td><%=listBillDetails.get(i).getProduct().getName()%>
+                                    <td><%=listBills.get(i).getAddress()%>
                                     </td>
-                                    <td><%=listBillDetails.get(i).getQuantity()%>
+                                    <td><%=listBills.get(i).getPayMethod()%>
                                     </td>
-                                    <td><%=nf.format(listBillDetails.get(i).getAmount())%><sup>đ</sup></td>
-                                    <td><%=listBillDetails.get(i).getBill().getStatus()%>
+                                    <td><%=nf.format(listBills.get(i).getTotalAmount())%><sup>đ</sup></td>
+                                    <td><%=listBills.get(i).getStatus()%>
                                     </td>
                                     <td>
-                                        <% System.out.println(listBillDetails.get(i).getBill().getId());%>
-                                        <a href="/admin/order/edit?id=<%=listBillDetails.get(i).getBill().getId()%>"
+                                        <% System.out.println(listBills.get(i).getId());%>
+                                        <a href="/admin/order/edit?id=<%=listBills.get(i).getId()%>"
                                            class="btn-edit">Sửa</a>
                                     </td>
                                 </tr>
@@ -122,7 +123,7 @@
                                                 currentPage = Integer.parseInt(pageIndex);
                                             }
 
-                                            pageIndex = currentPage + "/" + (int) Math.ceil(listBillDetails.size() / 10.0);
+                                            pageIndex = currentPage + "/" + (int) Math.ceil(listBills.size() / 10.0);
                                         %>
                                         <p id="currentPage"><%=pageIndex%>
                                         </p>
@@ -148,7 +149,7 @@
 </div>
 <script>
     const dataLength =
-    <%=listBillDetails.size()%>
+    <%=listBills.size()%>
     const rowPerPage = 10;
     let currentPage = <%=currentPage%>;
 </script>

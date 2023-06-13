@@ -32,7 +32,7 @@ public class BillDAO extends DAO {
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
                 bill.setInvoice_creator(rs.getString("invoice_creator"));
-                bill.setBillDetails(new BillDetailDAO().getBillDetailByBillId(bill.getId()));
+                bill.setBillDetails(new BillDetailDAO().getBillDetailByBillId(rs.getInt("id")));
             }
             return bill;
         } catch (SQLException e) {
@@ -75,7 +75,6 @@ public class BillDAO extends DAO {
                     billDetail.setProduct(new ProductDAO().getProductById(rsBillDetail.getInt("product_id")));
                     listBillDetails.add(billDetail);
                 }
-
                 bill.setBillDetails(listBillDetails);
                 bills.add(bill);
             }
@@ -104,6 +103,7 @@ public class BillDAO extends DAO {
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
                 bill.setInvoice_creator(rs.getString("invoice_creator"));
+                bill.setBillDetails(new BillDetailDAO().getBillDetailByBillId(rs.getInt("id")));
                 bills.add(bill);
             }
             return bills;
@@ -253,12 +253,12 @@ public class BillDAO extends DAO {
         return totalBillCancelled;
     }
 
-    public Bill getBillByUserid(int id) {
+    public Bill getBillByUserName(String name) {
         try (Connection conn = getConnection()) {
-            String stmt = "select * from bill where user_id = ?";
+            String stmt = "select * from bill where full_name = ?";
             Bill bill = null;
             PreparedStatement ps = conn.prepareStatement(stmt);
-            ps.setInt(1, id);
+            ps.setString(1, name);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 bill = new Bill();
@@ -274,6 +274,7 @@ public class BillDAO extends DAO {
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
                 bill.setInvoice_creator(rs.getString("invoice_creator"));
+                bill.setBillDetails(new BillDetailDAO().getBillDetailByBillId(rs.getInt("id")));
             }
             return bill;
         } catch (SQLException e) {
@@ -302,6 +303,7 @@ public class BillDAO extends DAO {
                 bill.setNote(rs.getString("note"));
                 bill.setCreatedAt(rs.getString("created_at"));
                 bill.setInvoice_creator(rs.getString("invoice_creator"));
+                bill.setBillDetails(new BillDetailDAO().getBillDetailByBillId(rs.getInt("id")));
                 bills.add(bill);
             }
             return bills;

@@ -19,7 +19,7 @@
         <div class="wrap-info-footer">
             <div>
                 <a style="color: white" href="<c:url value="/about/about-us"/>"><h2>Giới thiệu</h2></a>
-                <div class="fill-text">123123123123123</div>
+                <div class="fill-text"><%=limitConfig%></div>
             </div>
             <div>
                 <h2>Liên hệ</h2>

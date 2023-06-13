@@ -146,9 +146,15 @@
                         </form>
                     </div>
                     <div class="product-content-right-product-button-mua">
-                        <button>
-                            <a href="/delivery">MUA NGAY</a>
-                        </button>
+                        <form action="<c:url value="/checkout"/>" method="get">
+                            <button type="submit" onclick="getValue()">
+                                MUA NGAY
+                            </button>
+                            <input type="hidden" name="productId" value="<%=product.getId()%>">
+                            <input id="qtt1" type="hidden" name="quantity" value="-1">
+                            <input id="size1" type="hidden" name="size" value="-1">
+                        </form>
+
                     </div>
                 </div>
                 <div class="product-content-right-bottom">
@@ -202,20 +208,30 @@
             bigImg.src = imgItem.src
         })
     })
-
+    const sizeSelected1 = document.getElementById("size1")
+    const qttSelected1 = document.getElementById("qtt1")
     const sizeSelected = document.getElementById("size")
     const qttSelected = document.getElementById("qtt")
     const inputQtt = document.getElementById('quantityValue')
+    let previousElement = null;
 
     function getSize(e) {
         sizeSelected.value = e.ariaValueNow
+        sizeSelected1.value = e.ariaValueNow
+        if (previousElement !== null) {
+            previousElement.style.fontWeight = "normal";
+        }
+        e.style.fontWeight = "bold";
+        e.style.color = "black";
+        previousElement = e;
     }
 
     function getValue(e) {
-        if (sizeSelected.value === '-1') {
+        if (sizeSelected.value === '-1' && sizeSelected1.value === '-1') {
             alert('Hãy chọn size cho sản phẩm!')
         }
         qttSelected.value = inputQtt.value
+        qttSelected1.value= inputQtt.value
     }
 
 

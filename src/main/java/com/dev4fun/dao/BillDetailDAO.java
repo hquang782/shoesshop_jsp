@@ -25,9 +25,9 @@ public class BillDetailDAO extends DAO {
                 token.setId(rs.getInt("id"));
                 token.setAmount(rs.getFloat("amount"));
                 token.setQuantity(rs.getInt("quantity"));
-                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
+//                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
                 Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
-                token.setBill(bill);
+//                token.setBill(bill);
                 token.setProduct(product);
                 token.setSize(rs.getInt("size"));
                 billDetails.add(token);
@@ -72,9 +72,9 @@ public class BillDetailDAO extends DAO {
             BillDetail token = new BillDetail();
             if (rs.next()) {
                 token.setId(rs.getInt("id"));
-                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
+//                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
                 Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
-                token.setBill(bill);
+//                token.setBill(bill);
                 token.setProduct(product);
                 token.setQuantity(rs.getInt("quantity"));
                 token.setAmount(rs.getFloat("amount"));
@@ -99,8 +99,8 @@ public class BillDetailDAO extends DAO {
                 while (rs.next()) {
                     BillDetail token = new BillDetail();
                     token.setId(rs.getInt("id"));
-                    Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
-                    token.setBill(bill);
+//                    Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
+//                    token.setBill(bill);
                     token.setProduct(product);
                     token.setQuantity(rs.getInt("quantity"));
                     token.setAmount(rs.getFloat("amount"));
@@ -114,34 +114,33 @@ public class BillDetailDAO extends DAO {
         return bills;
     }
 
-    public ArrayList<BillDetail> getBillDetailByCustomer(String name) {
-        ArrayList<Account> accounts = new AccountDAO().getAccountByElement("full_name", name);
-        ArrayList<BillDetail> bills = new ArrayList<>();
-        for (Account account : accounts) {
-            Bill bill = new BillDAO().getBillByUserid(account.getId());
-            try (Connection con = getConnection()) {
-                String stmt = "SELECT * FROM bill_detail where ? = ?";
-                PreparedStatement ps = con.prepareStatement(stmt);
-                ps.setString(1, "bill_id");
-                ps.setInt(2, bill.getId());
-                ResultSet rs = ps.executeQuery();
-                while (rs.next()) {
-                    BillDetail token = new BillDetail();
-                    token.setId(rs.getInt("id"));
-                    Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
-                    token.setBill(bill);
-                    token.setProduct(product);
-                    token.setQuantity(rs.getInt("quantity"));
-                    token.setAmount(rs.getFloat("amount"));
-                    token.setSize(rs.getInt("size"));
-                    bills.add(token);
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
-        return bills;
-    }
+//    public ArrayList<BillDetail> getBillDetailByCustomer(String name) {
+//        ArrayList<Account> accounts = new AccountDAO().getAccountByElement("full_name", name);
+//        ArrayList<BillDetail> bills = new ArrayList<>();
+//        for (Account account : accounts) {
+//            Bill bill = new BillDAO().getBillByUserid(account.getId());
+//            try (Connection con = getConnection()) {
+//                String stmt = "SELECT * FROM bill_detail where bill_id = ?";
+//                PreparedStatement ps = con.prepareStatement(stmt);
+//                ps.setInt(1, bill.getId());
+//                ResultSet rs = ps.executeQuery();
+//                while (rs.next()) {
+//                    BillDetail token = new BillDetail();
+//                    token.setId(rs.getInt("id"));
+//                    Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
+////                    token.setBill(bill);
+//                    token.setProduct(product);
+//                    token.setQuantity(rs.getInt("quantity"));
+//                    token.setAmount(rs.getFloat("amount"));
+//                    token.setSize(rs.getInt("size"));
+//                    bills.add(token);
+//                }
+//            } catch (SQLException e) {
+//                throw new RuntimeException(e);
+//            }
+//        }
+//        return bills;
+//    }
 
     public ArrayList<BillDetail> getBillDetailByStatus(String st) {
         ArrayList<Bill> bills = new BillDAO().getBillByStatus(st);
@@ -149,16 +148,15 @@ public class BillDetailDAO extends DAO {
 
         for (Bill bill : bills) {
             try (Connection con = getConnection()) {
-                String stmt = "SELECT * FROM bill_detail where ? = ?";
+                String stmt = "SELECT * FROM bill_detail where bill_id = ?";
                 PreparedStatement ps = con.prepareStatement(stmt);
-                ps.setString(1, "bill_id");
-                ps.setInt(2, bill.getId());
+                ps.setInt(1, bill.getId());
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
                     BillDetail token = new BillDetail();
                     token.setId(rs.getInt("id"));
                     Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
-                    token.setBill(bill);
+//                    token.setBill(bill);
                     token.setProduct(product);
                     token.setQuantity(rs.getInt("quantity"));
                     token.setAmount(rs.getFloat("amount"));
@@ -184,9 +182,9 @@ public class BillDetailDAO extends DAO {
             while (rs.next()) {
                 BillDetail token = new BillDetail();
                 token.setId(rs.getInt("id"));
-                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
+//                Bill bill = new BillDAO().getBillById(rs.getInt("bill_id"));
                 Product product = new ProductDAO().getProductById(rs.getInt("product_id"));
-                token.setBill(bill);
+//                token.setBill(bill);
                 token.setProduct(product);
                 token.setQuantity(rs.getInt("quantity"));
                 token.setAmount(rs.getFloat("amount"));

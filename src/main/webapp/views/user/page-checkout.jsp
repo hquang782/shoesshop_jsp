@@ -3,6 +3,7 @@
 <%@ page import="com.dev4fun.utils.CartUtil" %>
 <%@ page import="com.dev4fun.model.Cart" %>
 <%@ page import="java.text.NumberFormat" %>
+<%@ page import="com.dev4fun.model.Product" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
 
@@ -15,7 +16,7 @@
         <div class="left-side">
             <div class="deliver-top">
                 <a href="<c:url value="/home"/>" class="logo">
-                    <img src="<c:url value="/assets/img/demo.png"/>" alt="Logo">
+                    <img src="<c:url value="/assets/img/demo_den.png"/>" alt="Logo">
                 </a>
                 <h2>Thông tin giao hàng</h2>
             </div>
@@ -29,28 +30,40 @@
                     <%if (acc != null) {%>
                     <input type="hidden" name="userId" value="<%=acc.getId()%>">
                     <%}%>
+                    <% if (request.getAttribute("product") != null) {
+                        Product product = (Product) request.getAttribute("product");
+                    %>
+                    <input type="hidden" name="productId" value="<%=product.getId()%>">
+                    <input type="hidden" name="size" value="<%=product.getProductDetails().get(0).getSize()%>">
+                    <input type="hidden" name="quantity" value="<%=request.getAttribute("quantity")%>">
+
+                    <%}%>
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="fullName">Họ và tên:</label>
-                            <input type="text" id="fullName" name="fullName" value="<%=acc == null ? "" : acc.getFullName()%>" required>
+                            <input type="text" id="fullName" name="fullName"
+                                   value="<%=acc == null ? "" : acc.getFullName()%>" required>
                         </div>
                     </div>
 
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="email">Địa chỉ email:</label>
-                            <input type="email" id="email" name="email" value="<%=acc == null ? "" : acc.getEmail()%>" required>
+                            <input type="email" id="email" name="email" value="<%=acc == null ? "" : acc.getEmail()%>"
+                                   required>
                         </div>
                         <div class="form-line">
                             <label for="tel">Số điện thoại:</label>
-                            <input type="tel" id="tel" name="tel" value="<%=acc == null ? "" : acc.getPhoneNumber()%>" required>
+                            <input type="tel" id="tel" name="tel" value="<%=acc == null ? "" : acc.getPhoneNumber()%>"
+                                   required>
                         </div>
                     </div>
 
                     <div class="form-group-line">
                         <div class="form-line">
                             <label for="address">Địa chỉ:</label>
-                            <input type="text" id="address" name="address" value="<%=acc == null ? "" : acc.getAddress()%>" required>
+                            <input type="text" id="address" name="address"
+                                   value="<%=acc == null ? "" : acc.getAddress()%>" required>
                         </div>
                     </div>
 
@@ -64,7 +77,8 @@
                                     </div>
                                     <div class="radio-content-input">
                                         <img class="main-img"
-                                             src="https://hstatic.net/0/0/global/design/seller/image/payment/vnpay_new.svg?v=4" alt="">
+                                             src="https://hstatic.net/0/0/global/design/seller/image/payment/vnpay_new.svg?v=4"
+                                             alt="">
                                         <div>
                                             <label for="QR">Thẻ ATM/Visa/Master/JCB/QR Pay qua cổng VNPAY</label>
                                         </div>
@@ -79,7 +93,8 @@
                                     </div>
                                     <div class="radio-content-input">
                                         <img class="main-img"
-                                             src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4" alt="">
+                                             src="https://hstatic.net/0/0/global/design/seller/image/payment/cod.svg?v=4"
+                                             alt="">
                                         <div>
                                             <label for="COD">Thanh toán khi giao hàng (COD)</label>
                                         </div>
@@ -112,6 +127,31 @@
                     <%
                         NumberFormat nf = NumberFormat.getNumberInstance();
                         float totalAmount = 0;
+                        if (request.getAttribute("product") != null) {
+                            int quantity = (int) request.getAttribute("quantity");
+                            Product product = (Product) request.getAttribute("product");
+                            totalAmount = quantity * product.getPrice();
+                    %>
+                    <tr class="product">
+                        <td class="product-image">
+                            <img src="<%=product.getImageLink()%>"
+                                 alt="<%=product.getName()%>">
+                        </td>
+                        <td class="product-description">
+                            <p class="description"><%=product.getName()%>
+                            </p>
+                            <p><%=product.getProductDetails().get(0).getSize()%>
+                            </p>
+                            <p>X <%=quantity%>
+                            </p>
+                        </td>
+                        <td class="product-price td--right">
+                            <p><%=nf.format(quantity * product.getPrice())%><sup>đ</sup>
+                            </p>
+                        </td>
+                    </tr>
+                    <% } else {
+
                         for (Cart cart : CartUtil.getCart(request)) {
                             totalAmount += cart.getQuantity() * cart.getProduct().getPrice();
                     %>
@@ -133,7 +173,10 @@
                             </p>
                         </td>
                     </tr>
-                    <%}%>
+                    <%
+                            }
+                        }
+                    %>
                     </tbody>
                 </table>
             </div>

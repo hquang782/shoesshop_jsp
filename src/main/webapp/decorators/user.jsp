@@ -17,9 +17,10 @@
 <dec:body/>
 
 <div style="position: fixed;bottom: 32px;right: 20px;cursor: pointer;">
-    <a href="https://www.facebook.com/messages/t/100009485747337">
+    <a href="https://www.facebook.com/messages/t/100009485747337" style="  position: absolute; bottom: 30px; right: 0px;">
         <img onmouseover="showInfoBox(this)" onmouseout="hideInfoBox()" alt=""
-             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Messenger_logo_2018.svg/2048px-Facebook_Messenger_logo_2018.svg.png" width="56px" height="56px">
+             src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Facebook_Messenger_logo_2018.svg/2048px-Facebook_Messenger_logo_2018.svg.png"
+             width="56px" height="56px">
     </a>
     <div id="infoBox" class="info-box">
         <h4>Liên hệ với chúng tôi qua Facebook</h4>
