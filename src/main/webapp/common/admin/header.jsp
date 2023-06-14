@@ -25,12 +25,28 @@
                 <ul class="dropdown-account-link">
                     <li><a href="<c:url value="/admin/profile"/>">Thông tin tài khoản</a></li>
                     <li>
-                        <form method="post" action="<c:url value="/admin/logout"/>">
-                            <button type="submit">Logout</button>
-                        </form>
+                        <button id="btnLogout" type="submit">Logout</button>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
 </header>
+
+<script>
+    const btnLogout = document.getElementById("btnLogout")
+    btnLogout.addEventListener("click", async () => {
+        await fetch(
+            '/api/admin/logout',
+            {
+                method: "POST"
+            }
+        ).then(data => data.json())
+            .then(msg => {
+                if (msg['msg'] === 'true') {
+                    alert("Đăng xuất thành công! Click Ok để tiếp tục.")
+                }
+                window.location.href = '/admin/login'
+            })
+    })
+</script>

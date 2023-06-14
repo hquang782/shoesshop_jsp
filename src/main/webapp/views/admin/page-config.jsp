@@ -98,13 +98,13 @@
     submitPolicy.addEventListener('click', async () => {
         const body = JSON.stringify({content: policy.html.get()})
         await fetch(
-            'https://localhost:8000/admin/api/config/policy',
+            '/admin/api/config/policy',
             {
                 method: 'POST',
                 body: body
             }
         ).then(data => {
-            alert('Sửa trang điều khoản và thỏa thuận thành công!')
+            alert('Sửa trang điều khoản và thỏa thuận thành công! Click Ok để tiếp tục.')
             location.reload()
         })
     })
@@ -113,13 +113,13 @@
     submitAboutUs.addEventListener('click', async () => {
         const body = JSON.stringify({content: aboutUs.html.get()})
         await fetch(
-            'https://localhost:8000/admin/api/config/about-us',
+            '/admin/api/config/about-us',
             {
                 method: 'POST',
                 body: body
             }
         ).then(data => {
-            alert('Sửa trang giới thiệu thành công!')
+            alert('Sửa trang giới thiệu thành công! Click Ok để tiếp tục.')
             location.reload()
         })
     })
@@ -128,13 +128,13 @@
     submitStore.addEventListener('click', async () => {
         const body = JSON.stringify({content: store.html.get()})
         await fetch(
-            'https://localhost:8000/admin/api/config/store',
+            '/admin/api/config/store',
             {
                 method: 'POST',
                 body: body
             }
         ).then(data => {
-            alert('Sửa trang hệ thống cửa hàng thành công!')
+            alert('Sửa trang hệ thống cửa hàng thành công! Click Ok để tiếp tục.')
             location.reload()
         })
     })

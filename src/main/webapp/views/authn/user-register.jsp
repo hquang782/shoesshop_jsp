@@ -10,8 +10,7 @@
     <div class="content">
         <div class="container-register">
             <div class="wrapper">
-                <form action="<c:url value="/register"/>" method="post" class="form">
-
+                <div class="form">
                     <div class="form-title">
                         <div class="wrapper-form-title">
                             <h3>Đăng ký</h3>
@@ -94,7 +93,7 @@
                                     <label>Giới tính (?)</label>
                                     <div class="gender">
                                         <div>
-                                            <input type="radio" name="gender" value="Nam">
+                                            <input type="radio" name="gender" value="Nam" checked>
                                             <p>Nam</p>
                                         </div>
                                         <div>
@@ -123,12 +122,56 @@
                     <div class="form-body-line">
                         <div class="wrapper-form-line">
                             <div>
-                                <input type="submit" id="submit" value="Đăng ký">
+                                <input type="submit" id="onRegister" value="Đăng ký">
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const btnRegister = document.getElementById("onRegister")
+
+    const inputUsername = document.getElementById("username")
+    const inputPassword1 = document.getElementById("password")
+    const inputPassword2 = document.getElementById("password2")
+    const inputFullName = document.getElementById("fullName")
+    const inputEmail = document.getElementById("email")
+    const inputTel = document.getElementById("tel")
+    const inputDob = document.getElementById("dob")
+    const inputGender = document.querySelector('input[name=gender]:checked')
+    const inputAddress = document.getElementById("address")
+
+    btnRegister.addEventListener("click", async () => {
+        const body = JSON.stringify({
+            username: inputUsername.value,
+            password: inputPassword1.value,
+            fullName: inputFullName.value,
+            email: inputEmail.value,
+            tel: inputTel.value,
+            dob: inputDob.value,
+            gender: inputGender.value,
+            address: inputAddress.value,
+        })
+
+        await fetch(
+            '/api/user/register',
+            {
+                method: "POST",
+                headers: {
+                    'Content-type': 'Application/json'
+                },
+                body: body
+            }
+        ).then(data => data.json())
+            .then(msg => {
+                if (msg['msg'] === 'true') {
+                    alert("Đăng ký thành công! Click Ok để tiếp tục.")
+                    window.location.href = '/login'
+                }
+            })
+    })
+</script>

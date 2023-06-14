@@ -22,10 +22,7 @@ public class AuthorizationAdmin implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
         String url = req.getRequestURI();
-        if (url.startsWith("/admin/api")) {
-            chain.doFilter(request, response);
-            return;
-        }
+
         if (!url.startsWith("/admin/login") && url.startsWith("/admin")) {
             Account account = (Account) SessionUtil.getInstance().getValue(req, "ACCOUNT_ADMIN");
             if (account != null && (account.getRole().equals("ADMIN") || account.getRole().equals("STAFF"))) {

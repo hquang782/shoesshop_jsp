@@ -10,7 +10,7 @@
     <div class="content">
         <div class="container-login">
             <div class="wrapper">
-                <form action="<c:url value="/login"/>" method="post" class="form">
+                <div class="form">
                     <div class="form-title">
                         <div class="wrapper-form-title">
                             <h3>Đăng nhập</h3>
@@ -23,7 +23,7 @@
                             <div class="wrapper-form-line">
                                 <label for="username">Tên đăng nhập (*)</label>
                                 <div>
-                                    <input type="text" placeholder="Tên đăng nhập" name="username" id="username">
+                                    <input type="text" placeholder="Tên đăng nhập" name="username" id="username" required>
                                 </div>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                             <div class="wrapper-form-line">
                                 <label for="password">Mật khẩu (*)</label>
                                 <div>
-                                    <input type="password" placeholder="Mật khẩu" name="password" id="password">
+                                    <input type="password" placeholder="Mật khẩu" name="password" id="password" required>
                                 </div>
                             </div>
                         </div>
@@ -40,13 +40,42 @@
                         <div class="form-body-line">
                             <div class="wrapper-form-line">
                                 <div>
-                                    <input type="submit" id="submit" value="Đăng Nhập">
+                                    <input type="submit" id="onLogin" value="Đăng Nhập">
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
         </div>
     </div>
 </div>
+
+<script>
+    const btnLogin = document.getElementById("onLogin")
+    const inputUsername = document.getElementById("username")
+    const inputPassword = document.getElementById("password")
+    btnLogin.addEventListener("click", async () => {
+        const body = JSON.stringify({
+            username: inputUsername.value,
+            password: inputPassword.value
+        })
+
+        await fetch(
+            '/api/user/login',
+            {
+                method: "POST",
+                headers: {
+                    'Content-type': 'Application/json'
+                },
+                body: body
+            }
+        ).then(data => data.json())
+            .then(msg => {
+                if (msg['msg'] === 'true') {
+                    alert("Đăng nhập thành công! Click Ok để tiếp tục.")
+                    window.location.href = '/user/profile'
+                }
+            })
+    })
+</script>

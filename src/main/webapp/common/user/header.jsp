@@ -106,9 +106,7 @@
                             <li><a href="<c:url value="/user/profile"/>">Tài khoản của tôi</a></li>
                             <li><a href="<c:url value="/user/orders"/>">Đơn mua</a></li>
                             <li>
-                                <form method="post" action="<c:url value="/logout"/>">
-                                    <button type="submit">Đăng xuất</button>
-                                </form>
+                                <button id="btnLogout">Đăng xuất</button>
                             </li>
                         </ul>
                     </div>
@@ -118,5 +116,24 @@
         </div>
     </div>
 </header>
+
+<script>
+    const btnLogout = document.getElementById("btnLogout")
+    btnLogout.addEventListener("click", async () => {
+        await fetch(
+            '/api/logout',
+            {
+                method: "POST"
+            }
+        ).then(data => data.json())
+            .then(msg => {
+                if (msg['msg'] === 'true') {
+                    alert("Đăng xuất thành công! Click Ok để tiếp tục.")
+                }
+                // location.reload()
+                window.location.href = '/login'
+            })
+    })
+</script>
 
 <script src="<c:url value="/assets/js/user.layout.js"/>" type="text/javascript"></script>

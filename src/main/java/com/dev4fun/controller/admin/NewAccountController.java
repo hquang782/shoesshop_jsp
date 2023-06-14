@@ -93,7 +93,7 @@ public class NewAccountController extends HttpServlet {
         account.setAddress(req.getParameter("address"));
 
         String urlImgParam = req.getParameter("textImageInput");
-        String urlImage = "https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg";
+        String urlImage = "https://res.cloudinary.com/dzimy62tk/image/upload/v1686676248/352803545_986271059215241_2936290390407327784_n.jpg_ssmw3x.jpg";
         if (urlImgParam != null && !urlImgParam.equals("")) {
             urlImage = urlImgParam;
         } else {
