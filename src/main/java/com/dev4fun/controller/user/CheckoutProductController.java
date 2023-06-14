@@ -75,6 +75,8 @@ public class CheckoutProductController extends HttpServlet {
             listBillDetails.add(billDetail);
             bill.setBillDetails(listBillDetails);
             new BillDAO().createBill(bill);
+            SessionUtil.getInstance().putValue(req, "ORDER_SUCCESS", bill.getPayMethod());
+
         } else {
             for (Cart cart : CartUtil.getCart(req)) {
                 totalAmount += cart.getQuantity() * cart.getProduct().getPrice();
@@ -106,9 +108,9 @@ public class CheckoutProductController extends HttpServlet {
 
             new BillDAO().createBill(bill);
             SessionUtil.getInstance().removeValue(req, "listCarts");
-
+            SessionUtil.getInstance().putValue(req, "ORDER_SUCCESS", bill.getPayMethod());
         }
-        SessionUtil.getInstance().putValue(req, "ORDER_SUCCESS", "DONE");
+
         resp.sendRedirect("/checkout/order-success");
     }
 }

@@ -21,7 +21,7 @@
     }
 
     .main-container {
-        margin-top: 200px;
+        margin-top: 30px;
         text-align: center;
     }
 
@@ -32,6 +32,13 @@
         box-shadow: 0 2px 3px #C8D0D8;
         display: inline-block;
         margin: 0 auto;
+        width: 700px;
+    }
+
+    .card img {
+        height: 380px;
+        width: 95%;
+        min-width: 360px;
     }
 
     .btn-back {
@@ -47,21 +54,32 @@
     .btn-back:hover {
         background-color: #555;
     }
+
     footer {
         display: none !important;
     }
+
     header {
         display: none !important;
     }
 </style>
 <title>Đặt đơn hàng thành công</title>
+<%
+    boolean isQr = request.getAttribute("qrCode") != null;
+%>
 <div class="main-container">
     <div class="card">
         <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
             <i class="checkmark">✓</i>
         </div>
         <h1>Đặt hàng thành công</h1>
-        <p>Chúng tôi đã nhận được yêu cầu về đơn hàng của bạn</p>
+        <p>Chúng tôi đã nhận được yêu cầu về đơn hàng của bạn. <%=isQr ? "Hãy thanh toán để chúng tôi xác nhận đơn hàng!" : "Hãy để ý điện thoại, chúng tôi sẽ liên hệ đến bạn để xác nhận đơn hàng!"%>
+        </p>
+        <%
+            if (isQr) {
+        %>
+        <img src="https://res.cloudinary.com/dzimy62tk/image/upload/v1686702771/qr_lkfqw7.jpg">
+        <%}%>
         <a href="<c:url value="/home"/>" class="btn-back">Trở về trang chủ</a>
     </div>
 </div>

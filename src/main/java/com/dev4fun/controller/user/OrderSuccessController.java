@@ -18,6 +18,9 @@ public class OrderSuccessController extends HttpServlet {
             resp.sendRedirect("/404");
             return;
         }
+        if (SessionUtil.getInstance().getValue(req, "ORDER_SUCCESS").equals("QR")) {
+            req.setAttribute("qrCode", SessionUtil.getInstance().getValue(req, "ORDER_SUCCESS"));
+        }
         RequestDispatcher rd = req.getRequestDispatcher("/views/user/page-order-success.jsp");
         rd.forward(req, resp);
 
