@@ -97,7 +97,6 @@
                                     <td><%=listBills.get(i).getStatus()%>
                                     </td>
                                     <td>
-                                        <% System.out.println(listBills.get(i).getId());%>
                                         <a href="/admin/order/edit?id=<%=listBills.get(i).getId()%>"
                                            class="btn-edit">Sửa</a>
                                     </td>
@@ -118,9 +117,7 @@
                                             int currentPage = 1;
 
                                             if (request.getParameter("pageIndex") != null) {
-                                                System.out.println("page-null");
                                                 pageIndex = request.getParameter("pageIndex");
-                                                System.out.println(pageIndex);
                                                 currentPage = Integer.parseInt(pageIndex);
                                             }
 

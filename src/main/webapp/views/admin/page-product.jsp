@@ -118,9 +118,7 @@
                                         <% String pageIndex;
                                             int currentPage = 1;
                                             if (request.getParameter("pageIndex") != null) {
-                                                System.out.println("page-null");
                                                 pageIndex = request.getParameter("pageIndex");
-                                                System.out.println(pageIndex);
                                                 currentPage = Integer.parseInt(pageIndex);
                                             }
 

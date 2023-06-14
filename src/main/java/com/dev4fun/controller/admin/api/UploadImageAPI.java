@@ -17,9 +17,9 @@ import java.util.Map;
 @MultipartConfig
 public class UploadImageAPI extends HttpServlet {
     Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "dzimy62tk",
-            "api_key", "441111963494553",
-            "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o",
+            "cloud_name", "",
+            "api_key", "",
+            "api_secret", "",
             "secure", true));
 
     @Override
@@ -31,10 +31,10 @@ public class UploadImageAPI extends HttpServlet {
         try {
             Part filePart = req.getPart("file");
             String urlImage = "https://cdn5.vectorstock.com/i/1000x1000/27/89/user-account-flat-icon-vector-14992789.jpg";
-            if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
-                Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
-                urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
-            }
+//            if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
+//                Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
+//                urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
+//            }
             resp.setContentType("application/json");
             req.setCharacterEncoding("UTF-8");
             resp.setCharacterEncoding("UTF-8");

@@ -25,9 +25,9 @@ import java.util.Map;
 @MultipartConfig
 public class NewAccountController extends HttpServlet {
     Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
-            "cloud_name", "dzimy62tk",
-            "api_key", "441111963494553",
-            "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o",
+            "cloud_name", "",
+            "api_key", "",
+            "api_secret", "",
             "secure", true));
 
     @Override
@@ -94,15 +94,15 @@ public class NewAccountController extends HttpServlet {
 
         String urlImgParam = req.getParameter("textImageInput");
         String urlImage = "https://res.cloudinary.com/dzimy62tk/image/upload/v1686676248/352803545_986271059215241_2936290390407327784_n.jpg_ssmw3x.jpg";
-        if (urlImgParam != null && !urlImgParam.equals("")) {
-            urlImage = urlImgParam;
-        } else {
-            Part filePart = req.getPart("imageInput");
-            if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
-                Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
-                urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
-            }
-        }
+//        if (urlImgParam != null && !urlImgParam.equals("")) {
+//            urlImage = urlImgParam;
+//        } else {
+//            Part filePart = req.getPart("imageInput");
+//            if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
+//                Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
+//                urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
+//            }
+//        }
         account.setImageLink(urlImage);
         AccountDAO accountDAO = new AccountDAO();
         if (url.contains("/admin/account/add")) {

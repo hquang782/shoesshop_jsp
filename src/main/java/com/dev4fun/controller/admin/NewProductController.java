@@ -30,7 +30,8 @@ import java.util.Map;
 @WebServlet(urlPatterns = {"/admin/product/*"})
 @MultipartConfig
 public class NewProductController extends HttpServlet {
-    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "dzimy62tk", "api_key", "441111963494553", "api_secret", "_0tPnlpLUxu2cKnR2Gelso_Jd7o", "secure", true));
+    Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap("cloud_name", "", "api_key", "", "api_secret", "", "secure", true));
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         CategoryDAO categoryDAO = new CategoryDAO();
@@ -91,15 +92,15 @@ public class NewProductController extends HttpServlet {
         while (req.getPart("imageInput" + numImage) != null) {
             String urlImage = "";
             String urlImgParam = req.getParameter("textImageInput" + numImage);
-            if (urlImgParam != null && !urlImgParam.equals("")) {
-                urlImage = urlImgParam;
-            } else {
-                Part filePart = req.getPart("imageInput" + numImage);
-                if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
-                    Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
-                    urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
-                }
-            }
+//            if (urlImgParam != null && !urlImgParam.equals("")) {
+//                urlImage = urlImgParam;
+//            } else {
+//                Part filePart = req.getPart("imageInput" + numImage);
+//                if (!filePart.getSubmittedFileName().equals("") && cloudinary != null) {
+//                    Map uploadResult = cloudinary.uploader().upload(filePart.getInputStream().readAllBytes(), ObjectUtils.asMap("folder", "my_images"));
+//                    urlImage = cloudinary.url().generate((String) uploadResult.get("public_id"));
+//                }
+//            }
             if (numImage == 0) {
                 product.setImageLink(urlImage);
             } else {
