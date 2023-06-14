@@ -89,9 +89,9 @@
                                 <label for="gender">Giới tính:</label>
                                 <select name="gender" id="gender">
                                     <option value="" selected disabled hidden>-- Chọn giới tính --</option>
-                                    <option value="male" ${male}>Nam</option>
-                                    <option value="female" ${female}>Nữ</option>
-                                    <option value="other" ${other}>Khác</option>
+                                    <option value="Nam" ${Nam}>Nam</option>
+                                    <option value="Nữ" ${Nữ}>Nữ</option>
+                                    <option value="Khác" ${Khác}>Khác</option>
                                 </select>
                             </div>
 
